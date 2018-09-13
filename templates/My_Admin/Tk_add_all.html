@@ -1,0 +1,82 @@
+{% extends "My_Admin/index.html" %} {% load staticfiles %} {% block title %}批量添加{% endblock %} {% block css %}
+<link rel="stylesheet" href="{% static 'My_Admin/Tk_add_all.css' %}"> {% endblock %} {% block body %}
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">信息</h3>
+    </div>
+    <div class="panel-body">
+        <h2>
+            <span style="color:#e74c3c">
+                <strong>
+                    <span style="font-size:22px">1.下载文档 按要求填写</span>
+                </strong>
+            </span>
+        </h2>
+        <p>
+            <span style="color:#e74c3c">
+                <strong>
+                    <span style="font-size:22px">2.直接上传</span>
+                </strong>
+            </span>
+        </p>
+        <p>&nbsp;</p>
+        <button type="button" class="btn btn-primary btn-lg">
+            <a href="/static/Other/录入信息.xls" style="color:#ffffff;">下载文档</a>
+        </button>
+
+        <input type="file" id="excel-file" style="margin-top: 56px;">
+
+    </div>
+</div>
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">录入信息</h3>
+        <div class="right">
+            <button type="button" class="btn-toggle-collapse">
+                <i class="lnr lnr-chevron-up"></i>
+            </button>
+            <button type="button" class="btn-remove">
+                <i class="lnr lnr-cross"></i>
+            </button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="exceltable table table-bordered">
+            <thead class="tablehead"></thead>
+            <tbody class="tablebody"></tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">录入情况</h3>
+        <div class="right">
+            <button type="button" class="btn-toggle-collapse">
+                <i class="lnr lnr-chevron-up"></i>
+            </button>
+            <button type="button" class="btn-remove">
+                <i class="lnr lnr-cross"></i>
+            </button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class=" table table-bordered">
+            <thead class="">
+                <tr>
+                    <th>题目</th>
+                    <th>失败情况</th>
+                </tr>
+            </thead>
+            <tbody class="get_back">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %} {% block JS %}
+<script type="text/javascript" src="{% static 'My_Admin/Tk_add_all.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,422 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>{% block title %}Home{% endblock %}</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/vendor/font-awesome/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/vendor/linearicons/style.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/vendor/chartist/css/chartist-custom.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/demo.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'Other/toast/css/toast.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/Admin_css.css' %}">
+
+	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
+	<link rel="icon" type="image/png" sizes="96x96" href="{% static 'assets/img/favicon.png' %}"> {% block css %}
+	<link rel="stylesheet" href="{% static 'My_Admin/index.css' %}"> {% endblock %}
+	<link rel="stylesheet" href="{% static 'Public/Public.css' %}">
+
+	<style type="text/css">
+		.exceltable {
+			margin-top: 20px;
+			border-collapse: collapse;
+		}
+
+		.exceltable th,
+		td {
+			border: 1px solid #bdbdbd;
+		}
+	</style>
+</head>
+
+<body style="margin: 0;width: 100%;min-height: 100%">
+	<div class="test" style="width: 300px;height: auto;margin-top: 30px">
+	</div>
+	<div id="wrapper">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="brand">
+				<a>
+					<img src="{% static 'assets/img/logo-dark.png' %}" alt="Klorofil Logo" class="img-responsive logo">
+				</a>
+			</div>
+			<div class="container-fluid">
+				<div class="navbar-btn">
+					<button type="button" class="btn-toggle-fullwidth">
+						<i class="lnr lnr-arrow-left-circle"></i>
+					</button>
+				</div>
+				<form class="navbar-form navbar-left">
+					<div class="input-group">
+						<input type="text" value="" class="form-control" placeholder="Search dashboard...">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-primary">Go</button>
+						</span>
+					</div>
+				</form>
+				<div class="navbar-btn navbar-btn-right">
+					<a class="btn btn-success update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro"
+					    title="Upgrade to Pro" target="_blank">
+						<i class="fa fa-rocket"></i>
+						<span>UPGRADE TO PRO</span>
+					</a>
+				</div>
+				<div id="navbar-menu">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+								<i class="lnr lnr-alarm"></i>
+								<span class="badge bg-danger">5</span>
+							</a>
+							<ul class="dropdown-menu notifications">
+								<li>
+									<a href="#" class="notification-item">
+										<span class="dot bg-warning"></span>System space is almost full</a>
+								</li>
+								<li>
+									<a href="#" class="notification-item">
+										<span class="dot bg-danger"></span>You have 9 unfinished tasks</a>
+								</li>
+								<li>
+									<a href="#" class="notification-item">
+										<span class="dot bg-success"></span>Monthly report is available</a>
+								</li>
+								<li>
+									<a href="#" class="notification-item">
+										<span class="dot bg-warning"></span>Weekly meeting in 1 hour</a>
+								</li>
+								<li>
+									<a href="#" class="notification-item">
+										<span class="dot bg-success"></span>Your request has been approved</a>
+								</li>
+								<li>
+									<a href="#" class="more">See all notifications</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="lnr lnr-question-circle"></i>
+								<span>Help</span>
+								<i class="icon-submenu lnr lnr-chevron-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#">Basic Use</a>
+								</li>
+								<li>
+									<a href="#">Working With Data</a>
+								</li>
+								<li>
+									<a href="#">Security</a>
+								</li>
+								<li>
+									<a href="#">Troubleshooting</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img src="{% static 'assets/img/user.png' %}" class="img-circle" alt="Avatar">
+								<span>Samuel</span>
+								<i class="icon-submenu lnr lnr-chevron-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#">
+										<i class="lnr lnr-user"></i>
+										<span>My Profile</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="lnr lnr-envelope"></i>
+										<span>Message</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="lnr lnr-cog"></i>
+										<span>Settings</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="lnr lnr-exit"></i>
+										<span>Logout</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<!-- <li>
+							<a class="update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
+						</li> -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div id="sidebar-nav" class="sidebar">
+			<div class="sidebar-scroll">
+				<nav>
+					<ul class="nav">
+						<li>
+							<a href="{% url 'index' %}" class="{{  index_active }}">
+								<i class="lnr lnr-home"></i>
+								<span>首页</span>
+							</a>
+						</li>
+						<li>
+							<a href="#subPages1" data-toggle="collapse" class="{{  Tkadd_active }}">
+								<i class="lnr lnr-file-empty"></i>
+								<span>题库</span>
+								<i class="icon-submenu lnr lnr-chevron-left"></i>
+							</a>
+							<div id="subPages1" class="collapse ">
+								<ul class="nav">
+									<li>
+										<a href="{% url 'Tk_add' %}" class="">添加</a>
+									</li>
+									<li>
+										<a href="{% url 'Tk_add_all' %}" class="">批量添加</a>
+									</li>
+									<li>
+										<a href="{% url 'query' %}" class="">查询</a>
+									</li>
+									<!-- <li><a href="page-lockscreen.html" class=""></a></li> -->
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="#subPages2" data-toggle="collapse" class="">
+								<i class="lnr lnr-file-empty"></i>
+								<span>学生</span>
+								<i class="icon-submenu lnr lnr-chevron-left"></i>
+							</a>
+							<div id="subPages2" class="collapse ">
+								<ul class="nav">
+									<li>
+										<a href="{% url 'add_user' %}" class="">添加</a>
+									</li>
+									<!-- <li><a href="page-lockscreen.html" class=""></a></li> -->
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="#subPages3" data-toggle="collapse" class="collapsed">
+								<i class="lnr lnr-file-empty"></i>
+								<span>数据分析</span>
+								<i class="icon-submenu lnr lnr-chevron-left"></i>
+							</a>
+							<div id="subPages3" class="collapse ">
+								<ul class="nav">
+									<li>
+										<a href="{% url 'Section_completion' %}" class="">小节完成情况</a>
+									</li>
+									<li>
+										<a href="{% url 'Error_rate_ranking' %}" class="">排行榜</a>
+									</li>
+									<!-- <li><a href="page-lockscreen.html" class=""></a></li> -->
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</nav>
+
+			</div>
+
+		</div>
+		<div class="main">
+			<div class="main-content">
+				<div class="container-fluid">
+					{% block body %}
+					<div class="panel panel-headline">
+						<div class="panel-heading">
+							<h3 class="panel-title">Weekly LEAP</h3>
+							<p class="panel-subtitle">Period: Oct 14, 2016 - Oct 21, 2016</p>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3">
+									<div class="metric">
+										<span class="icon">
+											<i class="fa fa-database"></i>
+										</span>
+										<p>
+											<span class="number">{{ obj_num }}</span>
+											<span class="title">题量</span>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="metric">
+										<span class="icon">
+											<i class="fa fa-user"></i>
+										</span>
+										<p>
+											<span class="number">{{ user_num }}</span>
+											<span class="title">用户</span>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="metric">
+										<span class="icon">
+											<i class="fa fa-eye"></i>
+										</span>
+										<p>
+											<span class="number">{{ now_day_Finished }}</span>
+											<span class="title">今日对题</span>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="metric">
+										<span class="icon">
+											<i class="fa fa-bar-chart"></i>
+										</span>
+										<p>
+											<span class="number">{{ now_day_obj }}</span>
+											<span class="title">增加题目</span>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-9">
+									<div id="headline-chart" class="ct-chart">
+										<svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="300" class="ct-chart-line" style="width: 100%; height: 300;">
+											<g class="ct-grids">
+												<line y1="265" y2="265" x1="50" x2="745.5" class="ct-grid ct-vertical"></line>
+												<line y1="229.28571428571428" y2="229.28571428571428" x1="50" x2="745.5" class="ct-grid ct-vertical"></line>
+												<line y1="193.57142857142856" y2="193.57142857142856" x1="50" x2="745.5" class="ct-grid ct-vertical"></line>
+												<line y1="157.85714285714286" y2="157.85714285714286" x1="50" x2="745.5" class="ct-grid ct-vertical"></line>
+												<line y1="122.14285714285714" y2="122.14285714285714" x1="50" x2="745.5" class="ct-grid ct-vertical"></line>
+												<line y1="86.42857142857142" y2="86.42857142857142" x1="50" x2="745.5" class="ct-grid ct-vertical"></line>
+												<line y1="50.71428571428572" y2="50.71428571428572" x1="50" x2="745.5" class="ct-grid ct-vertical"></line>
+												<line y1="15" y2="15" x1="50" x2="745.5" class="ct-grid ct-vertical"></line>
+											</g>
+											<g>
+												<g class="ct-series ct-series-a">
+													<path d="M50,265L50,172.143L165.917,129.286L281.833,165L397.75,50.714L513.667,157.857L629.583,165L745.5,86.429L745.5,265Z"
+													    class="ct-area"></path>
+												</g>
+												<g class="ct-series ct-series-b">
+													<path d="M50,265L50,236.429L165.917,157.857L281.833,207.857L397.75,93.571L513.667,129.286L629.583,65L745.5,22.143L745.5,265Z"
+													    class="ct-area"></path>
+												</g>
+											</g>
+											<g class="ct-labels">
+												<foreignObject style="overflow: visible;" x="50" y="270" width="115.91666666666667" height="20">
+													<span class="ct-label ct-horizontal ct-end" style="width: 116px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">Mon</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" x="165.91666666666669" y="270" width="115.91666666666667" height="20">
+													<span class="ct-label ct-horizontal ct-end" style="width: 116px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">Tue</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" x="281.83333333333337" y="270" width="115.91666666666666" height="20">
+													<span class="ct-label ct-horizontal ct-end" style="width: 116px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">Wed</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" x="397.75" y="270" width="115.91666666666669" height="20">
+													<span class="ct-label ct-horizontal ct-end" style="width: 116px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">Thu</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" x="513.6666666666667" y="270" width="115.91666666666669" height="20">
+													<span class="ct-label ct-horizontal ct-end" style="width: 116px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">Fri</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" x="629.5833333333334" y="270" width="115.91666666666663" height="20">
+													<span class="ct-label ct-horizontal ct-end" style="width: 116px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">Sat</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" x="745.5" y="270" width="30" height="20">
+													<span class="ct-label ct-horizontal ct-end" style="width: 30px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">Sun</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" y="229.28571428571428" x="10" height="35.714285714285715" width="30">
+													<span class="ct-label ct-vertical ct-start" style="height: 36px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">10</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" y="193.57142857142856" x="10" height="35.714285714285715" width="30">
+													<span class="ct-label ct-vertical ct-start" style="height: 36px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">15</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" y="157.85714285714283" x="10" height="35.71428571428571" width="30">
+													<span class="ct-label ct-vertical ct-start" style="height: 36px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">20</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" y="122.14285714285714" x="10" height="35.71428571428572" width="30">
+													<span class="ct-label ct-vertical ct-start" style="height: 36px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">25</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" y="86.42857142857142" x="10" height="35.71428571428572" width="30">
+													<span class="ct-label ct-vertical ct-start" style="height: 36px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">30</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" y="50.71428571428572" x="10" height="35.714285714285694" width="30">
+													<span class="ct-label ct-vertical ct-start" style="height: 36px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">35</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" y="15" x="10" height="35.71428571428572" width="30">
+													<span class="ct-label ct-vertical ct-start" style="height: 36px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">40</span>
+												</foreignObject>
+												<foreignObject style="overflow: visible;" y="-15" x="10" height="30" width="30">
+													<span class="ct-label ct-vertical ct-start" style="height: 30px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">45</span>
+												</foreignObject>
+											</g>
+										</svg>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="weekly-summary text-right">
+										<span class="number">2,315</span>
+										<span class="percentage">
+											<i class="fa fa-caret-up text-success"></i> 12%</span>
+										<span class="info-label">Total Sales</span>
+									</div>
+									<div class="weekly-summary text-right">
+										<span class="number">$5,758</span>
+										<span class="percentage">
+											<i class="fa fa-caret-up text-success"></i> 23%</span>
+										<span class="info-label">Monthly Income</span>
+									</div>
+									<div class="weekly-summary text-right">
+										<span class="number">$65,938</span>
+										<span class="percentage">
+											<i class="fa fa-caret-down text-danger"></i> 8%</span>
+										<span class="info-label">Total Income</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- <div class="col-md-12">
+		<span class="copyright">Part of the template belongs to the original author. If there is any infringement, please contact me.Copyright &copy; The author's QQ contact number is 2810201146.</span>
+	</div> -->
+
+	<!-- Javascript -->
+	<script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/chartist/js/chartist.min.js' %}"></script>
+	<script src="{% static 'assets/scripts/klorofil-common.js' %}"></script>
+	<script src="{% static 'Other/json2.js' %}"></script>
+	<script src="{% static 'Other/toast/js/toast.js' %}"></script>
+	<script src="{% static 'Other/xlsx.core.min.js' %}"></script>
+
+
+
+	<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}" data-ckeditor-basepath="/static/ckeditor/ckeditor/"
+	    id="ckeditor-init-script"></script>
+	<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+	<script src="{% static 'Public/Public.js' %}"></script>
+
+	{% block JS %}
+	<script type="text/javascript" src="{% static 'My_Admin/index.js' %}"></script>
+	{% endblock %}
+	<script type="text/javascript">
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="css/animsition.min.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/xgzb.css" />
+	</head>
+	<body>
+		
+		<div class="data_wrap" style="background: #efeff5; width: 1020px; padding: 10px; overflow: hidden;">
+		    <div class="animsition">
+				<div class="xsfx_tips" style="margin-bottom: 10px;">
+					1.CRM效果指标分析用于......................的分析；<br />
+					2..........................；
+					<i class="fa fa-close"></i>
+				</div>
+				<div class="xhzb_wrap">
+					<div id="main1" class="my_main1"></div>
+					<div id="main2" class="my_main2"></div>
+				</div>
+				<div class="xhzb_wrap">
+					<div id="main3" class="my_main1"></div>
+					<div id="main4" class="my_main2"></div>
+				</div>
+				<div class="xhzb_wrap">
+					<div id="main5" class="my_main1"></div>
+					<div id="main6" class="my_main2"></div>
+				</div>
+				<div class="xhzb_wrap">
+					<div id="main7" class="my_main1"></div>
+					<div id="main8" class="my_main2"></div>
+				</div>
+				<div class="xhzb_wrap" style="height: 250px">
+					<div id="main9" class="my_main3"></div>
+				</div>
+				<div class="xhzb_wrap" style="height: 250px">
+					<div id="main10" class="my_main3"></div>
+				</div>
+				<div class="xhzb_wrap" style="margin-bottom: 0px; height: 250px;">
+					<div id="main11" class="my_main3"></div>
+				</div>
+		    </div>
+		</div>
+		
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+		<script src="js/select-widget-min.js"></script>
+		<script src="js/jquery.animsition.min.js"></script>
+		<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		
+		<script>
+			$(document).ready(function() {
+  			  //初始化切换
+			  $(".animsition").animsition({
+			  
+			    inClass               :   'fade-in-right',
+			    outClass              :   'fade-out',
+			    inDuration            :    1500,
+			    outDuration           :    800,
+			    linkElement           :   '.animsition-link',
+			    // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+			    loading               :    true,
+			    loadingParentElement  :   'body', //animsition wrapper element
+			    loadingClass          :   'animsition-loading',
+			    unSupportCss          : [ 'animation-duration',
+			                              '-webkit-animation-duration',
+			                              '-o-animation-duration'
+			                            ],
+			    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+			    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+			    
+			    overlay               :   false,
+			    
+			    overlayClass          :   'animsition-overlay-slide',
+			    overlayParentElement  :   'body'
+			  });
+
+			   
+			     // 路径配置
+		        require.config({
+		            paths: {
+		                echarts: 'http://echarts.baidu.com/build/dist'
+		            }
+		        });
+		        
+		        // 使用
+		        require(
+		            [
+		                'echarts',
+		                'echarts/chart/bar',
+		                'echarts/chart/line',
+						'echarts/chart/k',
+		                'echarts/chart/pie'// 使用柱状图就加载bar模块，按需加载
+		            ],
+		            function (ec) {
+		                // 基于准备好的dom，初始化echarts图表
+		                var myChart = ec.init(document.getElementById('main1'),'macarons');
+						var myChart2 = ec.init(document.getElementById('main2'),'macarons');
+						var myChart3 = ec.init(document.getElementById('main3'),'macarons');
+						var myChart4 = ec.init(document.getElementById('main4'),'macarons');
+						var myChart5 = ec.init(document.getElementById('main5'),'macarons');
+						var myChart6 = ec.init(document.getElementById('main6'),'macarons');
+						var myChart7 = ec.init(document.getElementById('main7'),'macarons');
+						var myChart8 = ec.init(document.getElementById('main8'),'macarons');
+						var myChart9 = ec.init(document.getElementById('main9'),'macarons');
+						var myChart10 = ec.init(document.getElementById('main10'),'macarons');
+						var myChart11 = ec.init(document.getElementById('main11'),'macarons');
+
+
+						var axisData = [
+							"2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30",
+							"2013/1/31", "2013/2/1", "2013/2/4", "2013/2/5", "2013/2/6",
+							"2013/2/7", "2013/2/8", "2013/2/18", "2013/2/19", "2013/2/20",
+							"2013/2/21", "2013/2/22", "2013/2/25", "2013/2/26", "2013/2/27",
+							"2013/2/28", "2013/3/1", "2013/3/4", "2013/3/5", "2013/3/6",
+							"2013/3/7", "2013/3/8", "2013/3/11", "2013/3/12", "2013/3/13",
+							"2013/3/14", "2013/3/15", "2013/3/18", "2013/3/19", "2013/3/20",
+							"2013/3/21", "2013/3/22", "2013/3/25", "2013/3/26", "2013/3/27",
+							"2013/3/28", "2013/3/29", "2013/4/1", "2013/4/2", "2013/4/3",
+							"2013/4/8", "2013/4/9", "2013/4/10", "2013/4/11", "2013/4/12",
+							"2013/4/15", "2013/4/16", "2013/4/17", "2013/4/18", "2013/4/19",
+							"2013/4/22", "2013/4/23", "2013/4/24", "2013/4/25", "2013/4/26",
+							"2013/5/2", "2013/5/3", "2013/5/6", "2013/5/7", "2013/5/8",
+							"2013/5/9", "2013/5/10", "2013/5/13", "2013/5/14", "2013/5/15",
+							"2013/5/16", "2013/5/17", "2013/5/20", "2013/5/21", "2013/5/22",
+							"2013/5/23", "2013/5/24", "2013/5/27", "2013/5/28", "2013/5/29",
+							"2013/5/30", "2013/5/31", "2013/6/3", "2013/6/4", "2013/6/5",
+							"2013/6/6", "2013/6/7", "2013/6/13"
+						];
+
+
+						function GetData(){
+							var myData = [];
+							for( var i = 0; i < axisData.length; i++ ){
+								myData.push( Math.round(Math.random() * 10000) );
+							};
+							return myData;
+						};
+
+						function GetDataHg(){
+							var myData = [];
+							for( var i = 0; i < axisData.length; i++ ){
+								myData.push( Math.round(Math.random() * 100) );
+							};
+							return myData;
+						};
+
+						var option = {
+							backgroundColor : "white",
+							color : ['#ec8666'],
+							title : {
+								x : '470',
+								y : 'center',
+								text: '会\n员\n总\n数',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+								showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+
+							},
+							dataZoom : {
+								show : true,
+								realtime: true,
+								handleSize : 2,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+							calculable : true,
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true
+
+								}
+							],
+							series : [
+								{
+									name:'会员总数',
+									type:'line',
+									//itemStyle: {normal: {areaStyle: {type: 'default'}}},
+									data:GetData()
+								}
+
+							]
+						};
+						myChart.setOption(option);
+						option2 = {
+							backgroundColor : "white",
+							color : ['#ec8666'],
+							title : {
+								x : '470',
+								y : 'center',
+								text: '总\n销\n售\n额',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+								showDelay: 0             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+							},
+							dataZoom : {
+								show : true,
+								realtime: true,
+								handleSize : 2,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+							legend: {
+								y : -30,
+								data:['会员总数','总销售额']
+							},
+							calculable : true,
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true
+								}
+							],
+							series : [
+								{
+									name:'总销售额',
+									type:'line',
+									//itemStyle: {normal: {areaStyle: {type: 'default'}}},
+									data:GetData()
+								}
+							]
+						};
+						myChart2.setOption(option2);
+
+
+
+						myChart.connect([myChart2]);
+						myChart2.connect([myChart]);
+
+						var option3 = {
+							backgroundColor : "white",
+							title : {
+								x : '470',
+								y : 'center',
+								text: '各\n级\n别\n会\n员\n数\n量',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+
+								showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+								formatter: function ( data ) {
+									data.reverse();
+									//console.log( data )
+									var res = data[0].name + '</br>';
+									for ( var i = 0; i < data.length; i++ ){
+										res += data[i].seriesName + " : " + data[i].value + " (10%)</br>"
+									}
+									return res;
+								}
+
+							},
+							dataZoom : {
+								show : true,
+								realtime: true,
+								handleSize : 2,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+							legend: {
+								data:['准会员','普通会员','高级会员','VIP会员','超级VIP会员'],
+								selected:{
+									'准会员':true,
+									'普通会员':false,
+									'高级会员':false,
+									'VIP会员':false,
+									'超级VIP会员':false
+								}
+							},
+							calculable : true,
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true
+
+								}
+							],
+							series : [
+								{
+									name:'准会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'普通会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'高级会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'VIP会员',
+									type:'line',
+									barWidth : 10,
+									stack: '人数',
+									data:GetData()
+								},
+								{
+									name:'超级VIP会员',
+									type:'line',
+									barWidth : 10,
+									stack: '人数',
+									data:GetData()
+								}
+
+							]
+						};
+						myChart3.setOption(option3);
+
+						var option4 = {
+							backgroundColor : "white",
+							title : {
+								x : '470',
+								y : 'center',
+								text: '贡\n献\n销\n售\n额',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+
+								showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+								formatter: function ( data ) {
+									data.reverse();
+									//console.log( data )
+									var res = data[0].name + '</br>';
+									for ( var i = 0; i < data.length; i++ ){
+										res += data[i].seriesName + " : " + data[i].value + " (10%)</br>"
+									}
+									return res;
+								}
+							},
+							legend: {
+								data:['准会员','普通会员','高级会员','VIP会员','超级VIP会员'],
+								selected:{
+									'准会员':true,
+									'普通会员':false,
+									'高级会员':false,
+									'VIP会员':false,
+									'超级VIP会员':false
+								}
+							},
+							dataZoom : {
+								y : 200,
+								show : true,
+								realtime: true,
+								handleSize : 2,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+							calculable : true,
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true
+
+								}
+							],
+							series : [
+								{
+									name:'准会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'普通会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'高级会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'VIP会员',
+									type:'line',
+									barWidth : 10,
+									stack: '人数',
+									data:GetData()
+								},
+								{
+									name:'超级VIP会员',
+									type:'line',
+									barWidth : 10,
+									stack: '人数',
+									data:GetData()
+								}
+
+							]
+						};
+						myChart4.setOption(option4);
+
+						myChart3.connect([myChart4]);
+						myChart4.connect([myChart3]);
+
+						var option5 = {
+							backgroundColor : "white",
+							color : ["#8d98b3","#e5cf0d","#97b552"],
+							title : {
+								x : '470',
+								y : 'center',
+								text: '忠\n诚\n骨\n灰\n会\n员\n数\n量',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+								showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+								formatter: function ( data ) {
+									data.reverse();
+									//console.log( data )
+									var res = data[0].name + '</br>';
+									for ( var i = 0; i < data.length; i++ ){
+										res += data[i].seriesName + " : " + data[i].value + " (10%)</br>"
+									}
+									return res;
+								}
+
+							},
+							dataZoom : {
+								y : 200,
+								show : true,
+								realtime: true,
+								handleSize : 2,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+							legend: {
+								data:['普通会员','忠诚会员','骨灰会员'],
+								selected:{
+									'普通会员':true,
+									'忠诚会员':false,
+									'骨灰会员':false
+								}
+							},
+							calculable : true,
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true
+
+								}
+							],
+							series : [
+								{
+									name:'普通会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'忠诚会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'骨灰会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								}
+
+							]
+						};
+						myChart5.setOption(option5);
+
+						var option6 = {
+							backgroundColor : "white",
+							color : ["#8d98b3","#e5cf0d","#97b552"],
+							title : {
+								x : '470',
+								y : 'center',
+								text: '贡\n献\n销\n售\n额',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+								showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+								formatter: function ( data ) {
+									data.reverse();
+									//console.log( data )
+									var res = data[0].name + '</br>';
+									for ( var i = 0; i < data.length; i++ ){
+										res += data[i].seriesName + " : " + data[i].value + " (10%)</br>"
+									}
+									return res;
+								}
+							},
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							dataZoom : {
+								y : 200,
+								show : true,
+								realtime: true,
+								handleSize : 2,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+							calculable : true,
+
+							legend: {
+								data:['普通会员','忠诚会员','骨灰会员'],
+								selected:{
+									'普通会员':true,
+									'忠诚会员':false,
+									'骨灰会员':false
+								}
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true
+
+								}
+							],
+							series : [
+								{
+									name:'普通会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'忠诚会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'骨灰会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								}
+							]
+						};
+						myChart6.setOption(option6);
+
+						myChart5.connect([myChart6]);
+						myChart6.connect([myChart5]);
+
+						var option7 = {
+							backgroundColor : "white",
+							color : ["#95706d","#dc69aa","#07a2a4"],
+							title : {
+								x : '470',
+								y : 'center',
+								text: '新\n老\n会\n员\n数\n量',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+
+								showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+								formatter: function ( data ) {
+									data.reverse();
+									//console.log( data )
+									var res = data[0].name + '</br>';
+									for ( var i = 0; i < data.length; i++ ){
+										res += data[i].seriesName + " : " + data[i].value + " (10%)</br>"
+									}
+									return res;
+								}
+
+							},
+							dataZoom : {
+								y : 200,
+								show : true,
+								realtime: true,
+								handleSize : 2,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+							legend: {
+								data:['新会员','老会员'],
+								selected:{
+									'新会员':true,
+									'老会员':false
+								}
+							},
+							calculable : true,
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true
+
+								}
+							],
+							series : [
+								{
+									name:'新会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'老会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								}
+							]
+						};
+						myChart7.setOption(option7);
+
+						var option8 = {
+							backgroundColor : "white",
+							color : ["#95706d","#dc69aa","#07a2a4"],
+							title : {
+								x : '470',
+								y : 'center',
+								text: '贡\n献\n销\n售\n额',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+
+								showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+								formatter: function ( data ) {
+									data.reverse();
+									//console.log( data )
+									var res = data[0].name + '</br>';
+									for ( var i = 0; i < data.length; i++ ){
+										res += data[i].seriesName + " : " + data[i].value + " (10%)</br>"
+									}
+									return res;
+								}
+							},
+							legend: {
+								data:['新会员','老会员'],
+								selected:{
+									'新会员':true,
+									'老会员':false
+								}
+							},
+							dataZoom : {
+								y : 200,
+								show : true,
+								realtime: true,
+								handleSize : 2,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+							calculable : true,
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true
+
+								}
+							],
+							series : [
+								{
+									name:'新会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'老会员',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								}
+							]
+						};
+						myChart8.setOption(option8);
+
+						myChart7.connect([myChart8]);
+						myChart8.connect([myChart7]);
+
+						var option9 = {
+							backgroundColor : "white",
+							color : ["#9a7fd1","#588dd5","#f5994e"],
+							title : {
+								x : '980',
+								y : 'center',
+								text: '客\n单\n价',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+								showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+								formatter: function ( data ) {
+									data.reverse();
+									//console.log( data )
+									var res = data[0].name + '</br>';
+									for ( var i = 0; i < data.length; i++ ){
+										res += data[i].seriesName + " : " + data[i].value + " (10%)</br>"
+									}
+									return res;
+								}
+
+							},
+							dataZoom : {
+								show : true,
+								realtime: true,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+							legend: {
+								data:['总客单价','老客客单价','新客客单价'],
+								selected:{
+									'总客单价':true,
+									'老客客单价':false,
+									'新客客单价':false
+								}
+							},
+							calculable : true,
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true
+
+								}
+							],
+							series : [
+								{
+									name:'总客单价',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'老客客单价',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								},
+								{
+									name:'新客客单价',
+									type:'line',
+									stack: '人数',
+									barWidth : 10,
+									data:GetData()
+								}
+							]
+						};
+						myChart9.setOption(option9);
+
+						var option10 = {
+							backgroundColor : "white",
+							color : ["#c05050","#59678c"],
+							title : {
+								x : '980',
+								y : 'center',
+								text: '回\n购\n率',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+
+								showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+								formatter: "{b}</br>{a} : {c}%"
+
+							},
+							dataZoom : {
+								show : true,
+								realtime: true,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+							calculable : true,
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true,
+
+								}
+							],
+							series : [
+								{
+									name:'回购率',
+									type:'line',
+									//stack: '人数',
+									barWidth : 10,
+									data:GetDataHg()
+								}
+							]
+						};
+						myChart10.setOption(option10);
+
+						var option11 = {
+							backgroundColor : "white",
+							color : ["#59678c"],
+							title : {
+								x : '980',
+								y : 'center',
+								text: '活\n跃\n度',
+								textStyle : {
+									fontSize : 16
+								}
+							},
+							tooltip : {
+								trigger: 'axis',
+
+								showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+								formatter: "{b}</br>{a} : {c}%"
+
+							},
+							dataZoom : {
+								show : true,
+								realtime: true,
+								y : 220,
+								height: 20,
+								start : 96,
+								end : 100
+							},
+
+							calculable : true,
+							grid: {
+								x: 80,
+								y: 40,
+								x2:60,
+							},
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : axisData
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									scale:true,
+
+								}
+							],
+							series : [
+								{
+									name:'活跃度',
+									type:'line',
+									//stack: '人数',
+									barWidth : 10,
+									data:GetDataHg()
+								}
+							]
+						};
+						myChart11.setOption(option11);
+
+
+						setTimeout(function (){
+							window.onresize = function () {
+								myChart.resize();
+								myChart2.resize();
+								myChart3.resize();
+								myChart4.resize();
+								myChart5.resize();
+								myChart6.resize();
+								myChart7.resize();
+								myChart8.resize();
+								myChart9.resize();
+								myChart10.resize();
+								myChart11.resize();
+							}
+						},200)
+
+					}
+		        );
+
+				$(window).on('scroll',function () {
+					$('.echarts-tooltip').hide();
+				})
+
+				//关闭提示
+				$('.xsfx_tips  i').on('click',function(){
+					$(this).parent().slideUp();
+				})
+			        
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+{% extends "My_Admin/index.html" %} {% load staticfiles %} {% block title %}小节完成情况{% endblock %} {% block css %}
+<link rel="stylesheet" href="{% static 'My_Admin/Section_completion.css' %}"> {% endblock %} {% block body %}
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">小节完成情况</h3>
+    </div>
+    <div class="panel-body">
+        <div class="rom">
+            <div class="col-md-3">
+                <select id="Book" class="form-control input-lg" onchange="Book_onchange(this);">
+                    {% for i in books %}
+                    <option value="{{ i.pk }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="Unit" class="form-control input-lg" onchange="Unit_onchange(this);">
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="minutia" class="form-control input-lg">
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="class" class="form-control input-lg">
+                    {% for j in class %}
+                    <option value="{{ j.pk }}">{{ j.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary btn-block margin_top_10" onclick="Section_completion_ajax();">GO!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- BASIC TABLE -->
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">数据表格</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>姓名</th>
+                        <th>完成(正确)量</th>
+                        <th>错题量</th>
+                        <th>完成率</th>
+                        <th>正确率</th>
+                    </tr>
+                </thead>
+                <tbody id="usermsg_tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END BASIC TABLE -->
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Line Chart</h3>
+        </div>
+        <div class="panel-body">
+            <div id="demo-line-chart" class="ct-chart">
+            </div>
+        </div>
+    </div>
+{% endblock %} {% block JS %}
+<script type="text/javascript" src="{% static 'My_Admin/Section_completion.js' %}"></script>
+<script type="text/javascript" src="{% static 'My_Admin/Tk_add.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="css/animsition.min.css" />
+		<link rel="stylesheet" href="css/drop-down.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/xsfx.css" />
+		<link rel="stylesheet" href="jedate/skin/jedate.css" />
+		<link rel="stylesheet" href="css/jquery-labelauty.css" />
+		<link rel="stylesheet" href="css/alertify/alertify.min.css" />
+		<link rel="stylesheet" href="css/alertify/default.min.css"/>
+	</head>
+	<body>
+		
+		<div class="data_wrap" style="background: #efeff5; width: 1020px; padding: 10px;">
+		    <div class="animsition" style="overflow: hidden;">
+				<div class="xsfx_tips">
+					1.回购周期分析用于分析店铺内客户回购的周期情况分布，分为新客户回购周期与老客户回购周期两种分析结果；<br />
+						&nbsp;&nbsp;A：新客户回购周期：在店铺内新客户回购（仅产生1->2）的分析;<br />
+						&nbsp;&nbsp;B：老客户回购周期：在店铺内老客户回购（n->n+1,其中n>=2）的分析;<br />
+					2.回购周期的分析以订单的付款时间（表示客户购买意向）作为判断，排除交易不成功的订单进行核算；<br />
+					3.如果当天同一个客户有多笔订单付款系统算为一次，因此不算回购；<br />
+					4.付款时间默认为从当前日期向前核算90天；
+					<i class="fa fa-close"></i>
+				</div>
+				<div class="hg_title" style="margin-top: 10px;">
+					<h2>全店会员回购率分析</h2>
+					<h2>全店会员回购周期分析</h2>
+				</div>
+				<div id="main1" class="my_main2" style="width: 505px; height: 250px; float: left; margin: 10px 0;"></div>
+			    <div id="main2" class="my_main2" style="width: 505px; height: 250px; float: right; margin: 10px 0;"></div>
+				 <div class="my_duxs_time" style="margin: 0px;">
+					
+					<div style="background: white; clear: both; padding: 10px 10px 0 10px;">
+						付款时间：
+						<input class="datainp wicon" id="inpstart" type="text" placeholder="开始日期" value=""  readonly style="width: 110px !important;"> ~
+						<input class="datainp wicon" id="inpend" type="text" placeholder="结束日期"   readonly style="margin-right: 25px; width: 110px !important;">
+						客户类型：
+						<select id="khly" style="width: 110px; margin-right: 25px;">
+							<option value="not">不限</option>
+							<option value="new">新客户</option>
+							<option value="oid">老客户</option>
+						</select>
+						
+						备注旗帜：
+						<label class="my_label"><input type="checkbox" value="qz1" name="qz1"/> <i class="fa fa-flag"></i></label>
+						<label class="my_label"><input type="checkbox" value="qz2" name="qz2"/> <i class="fa fa-flag"></i></label>
+						<label class="my_label"><input type="checkbox" value="qz3" name="qz3"/> <i class="fa fa-flag"></i></label>
+						<label class="my_label"><input type="checkbox" value="qz4" name="qz4"/> <i class="fa fa-flag"></i></label>
+						<label class="my_label"><input type="checkbox" value="qz5" name="qz5"/> <i class="fa fa-flag"></i></label>
+						<label class="my_label"><input type="checkbox" value="qz5" name="qz5"/> <i class="fa fa-flag"></i></label>
+						<div style=" padding: 10px 0;">
+							<button id="my_search">搜索</button>
+							<span class="src_span">昨天</span>
+							<span class="src_span">最近一周</span>
+							<span class="src_span">最近一个月</span>
+						</div>
+					</div>
+					<div class="fx_zq"><i class="fa fa-tags"></i>经分析客户平均回购周期为：<span id="zq_val">16.13</span>天</div>
+					<div class="chebox_wrap" style="color: #36a2ef;">
+						回购周期间隔：
+						<label class="my_label"><input type="radio" value="10" name="jange" checked/> 10天</label>
+						<label class="my_label"><input type="radio" value="30" name="jange"/> 30天</label>
+						<label class="my_label" style="margin-right: 25px;"><input type="radio" value="set" name="jange"/> 自定义</label>
+						指标选择：
+						<label class="my_label"><input type="radio" value="10" name="zhibao" checked/> F值指标</label>
+						<label class="my_label"><input type="radio" value="30" name="zhibao"/> M值指标</label>
+						<label class="my_label"><input type="radio" value="set" name="zhibao"/> 会员等级指标</label>
+						<span id="dcbb"><i class="fa fa-download"></i> 导出报表</span>
+					</div>
+			  </div>
+				<table id="hg_f_table" class="my_table" cellspacing="0" cellpadding="0" style="background: white; width: 1019px;">
+					<tr>
+						<th></th>
+						<th>回购周期</th>
+						<th>客户数</th>
+						<th>客户占比%</th>
+						<th>累计占比%</th>
+						<th>F = 1</th>
+						<th>F = 2</th>
+						<th>F = 3</th>
+						<th>F = 4</th>
+						<th>F >= 5</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>还未再次购买</td>
+						<td>1234</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+					</tr>			
+					<tr>
+						<td>2</td>
+						<td>0</td>
+						<td>1234</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+					</tr>	
+					<tr>
+						<td>2</td>
+						<td>0</td>
+						<td>1234</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+					</tr>	
+					<tr>
+						<td>2</td>
+						<td>0</td>
+						<td>1234</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+					</tr>	
+					<tr>
+						<td>2</td>
+						<td>0</td>
+						<td>1234</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+					</tr>	
+				</table>
+			   
+		    </div>
+		   
+		</div>
+		
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="layer/layer.js"></script>
+		<script src="js/alertify.min.js"></script>
+		<script src="js/alertify.min.js"></script>
+		<script src="js/jquery-labelauty.js"></script>
+		<script src="js/jquery.cityselect.js"></script>
+		<script src="jedate/jquery.jedate.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+		<script src="js/select-widget-min.js"></script>
+		<script src="js/jquery.animsition.min.js"></script>
+		<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		<script src="js/macarons .js"></script>
+		<script src="js/common.js"></script>
+		
+		
+		
+		<script>
+			$(document).ready(function() {
+				
+				//插件初始化
+				$(":checkbox").labelauty({
+					checked_label: "",
+					unchecked_label: "",
+				});
+				$(":radio").labelauty({
+					checked_label: "",
+					unchecked_label: "",
+				});
+
+			    //调用日期
+			   var start = {
+				    format: 'YYYY-MM-DD',
+				    minDate: '2014-06-16 23:59:59', //设定最小日期为当前日期
+				    isinitVal:true,
+				    initAddVal:[-90],   //初始化日期加2小时
+				    festival: true,
+				    maxDate: $.nowDate(0), //最大日期
+				    choosefun: function(elem,datas){
+				        end.minDate = datas; //开始日选好后，重置结束日的最小日期
+				    }
+				};
+				var end = {
+				    format: 'YYYY-MM-DD',
+				    minDate: $.nowDate(0), //设定最小日期为当前日期
+				    isinitVal:true,
+				    maxDate: '2099-06-16', //最大日期
+				    choosefun: function(elem,datas){
+				        start.maxDate = datas; //将结束日的初始值设定为开始日的最大日期
+				    }
+				};
+				$("#inpstart").jeDate(start);
+				$("#inpend").jeDate(end);
+				
+  			  //初始化切换
+			  $(".animsition").animsition({
+			  
+			    inClass               :   'fade-in-right',
+			    outClass              :   'fade-out',
+			    inDuration            :    1500,
+			    outDuration           :    800,
+			    linkElement           :   '.animsition-link',
+			    // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+			    loading               :    true,
+			    loadingParentElement  :   'body', //animsition wrapper element
+			    loadingClass          :   'animsition-loading',
+			    unSupportCss          : [ 'animation-duration',
+			                              '-webkit-animation-duration',
+			                              '-o-animation-duration'
+			                            ],
+			    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+			    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+			    
+			    overlay               :   false,
+			    
+			    overlayClass          :   'animsition-overlay-slide',
+			    overlayParentElement  :   'body'
+			  });
+			  
+				
+
+			    // 路径配置
+		        require.config({
+		            paths: {
+		                echarts: 'http://echarts.baidu.com/build/dist'
+		            }
+		        });
+		        
+		        // 使用
+		        require(
+		            [
+		                'echarts',
+		                'echarts/chart/bar',
+		                'echarts/chart/line',
+		                'echarts/chart/pie',
+		                'echarts/chart/map',// 使用柱状图就加载bar模块，按需加载
+		            ],
+		            function (ec) {
+		                // 基于准备好的dom，初始化echarts图表
+		                var myChart = ec.init(document.getElementById('main1'),'macarons');
+		                var myChart2 = ec.init(document.getElementById('main2'),'macarons');
+		                var ecConfig = require('echarts/config');
+		                
+						var option = {
+							backgroundColor:'white',
+						    tooltip : {
+						        trigger: 'item',
+						        formatter : '{a}' + '<br/>' + '{b}:{d}%'
+						        
+						    },
+						    toolbox: {
+						        show : false,
+						        feature : {
+						            mark : {show: true},
+						            dataView : {show: true, readOnly: false},
+						            magicType : {
+						                show: true, 
+						                type: ['pie', 'funnel'],
+						                option: {
+						                    funnel: {
+						                        x: '25%',
+						                        width: '50%',
+						                        funnelAlign: 'center',
+						                        max: 1548
+						                    }
+						                }
+						            }
+						        }
+						    },
+						    calculable : false,
+						    series : [
+						        {
+						            name:'回购率',
+						            type:'pie',
+						            center:['50%','50%'],
+						            radius : ['40%', '60%'],
+							        itemStyle: {  
+						                normal: {  
+						                 label:{  
+						                        show: true,  
+						                        formatter: function(param) {
+								                     return param.name + ':\n' + Math.round(param.percent) + '%';
+								                },
+								                textStyle : {
+				                                    fontWeight : 'bolder'
+				                                }
+						                	}   
+						              	},
+						              	emphasis : {
+						                    label : {
+						                        show : true,
+						                        position : 'center',
+						                        textStyle : {
+						                            fontSize : '30',
+						                            fontWeight : 'bold'
+						                        }
+						                    }
+						                }
+							         },      
+						            data:[
+						                {value:335, name:'无购买'},
+						                {value:310, name:'购买一次'},
+						                {value:234, name:'多次购买'}
+						            ]
+						            
+						        }
+						    ]
+						};
+						var option2 = {
+							backgroundColor:'white',
+						    tooltip : {
+						        trigger: 'item',
+						        formatter : '{a}' + '<br/>' + '{b}:{d}%'
+						        
+						    },
+						    toolbox: {
+						        show : false,
+						        feature : {
+						            mark : {show: true},
+						            dataView : {show: true, readOnly: false},
+						            magicType : {
+						                show: true, 
+						                type: ['pie', 'funnel'],
+						                option: {
+						                    funnel: {
+						                        x: '25%',
+						                        width: '50%',
+						                        funnelAlign: 'center',
+						                        max: 1548
+						                    }
+						                }
+						            }
+						        }
+						    },
+						    calculable : false,
+						    series : [
+						        {
+						            name:'回购周期',
+						            type:'pie',
+						            center:['50%','50%'],
+						            radius : ['40%', '60%'],
+							        itemStyle: {  
+						                normal: {  
+						                 label:{  
+						                        show: true,  
+						                        formatter: function(param) {
+								                     return param.name + ' : ' + Math.round(param.percent) + '%';
+								                },
+								                textStyle : {
+				                                    fontWeight : 'bolder'
+				                                }
+						                	}   
+						              	},
+						              	 emphasis : {
+						                    label : {
+						                        show : true,
+						                        position : 'center',
+						                        textStyle : {
+						                            fontSize : '30',
+						                            fontWeight : 'bold'
+						                        }
+						                    }
+						                }
+							        },
+						            data:[
+						                {value:2500, name:'0天'},
+						                {value:310, name:'1天'},
+						                {value:234, name:'2天'},
+						                {value:335, name:'3天'},
+						                {value:310, name:'4天'},
+						                {value:234, name:'5天'},
+						                {value:335, name:'6天'},
+						                {value:310, name:'7天'},
+						                {value:234, name:'8天'},
+						                {value:335, name:'9天'},
+						                {value:310, name:'10天'},
+						                {value:234, name:'11天'},
+						                {value:234, name:'12天'}
+						            ]
+						            
+						        }
+						    ]
+						};
+                    
+
+		                // 为echarts对象加载数据 
+		                myChart.setOption(option); 
+		                myChart2.setOption(option2); 
+		                
+		                //点击搜索
+						$('#my_search').on('click',function(){
+							
+							
+							
+							myChart.clear();
+							myChart.setOption(option,true);
+						})
+		               
+		                $('input[name=num]').on('click',function(){
+		                	
+		                });
+		               
+			            }
+			        );
+			   
+					//关闭提示
+					$('.xsfx_tips  i').on('click',function(){
+						$(this).parent().slideUp();
+					})
+					
+					//间隔时间
+					$('input[name=jange]').on('click',function(){
+						var val = $(this).val();
+						if(val == 'set'){
+							  layer.open({
+								  title : '请输入间隔天数',
+								  skin: 'layui-layer-rim', //加上边框
+								  area: ['220px', '160px'], //宽高
+								  zIndex : '10',
+								  content: '<input id="set_val" type="text" style="line-height: 30px; width: 180px;border: 1px solid #36a2ef; border-radius: 3px;" /> 天',
+								  yes : function(index, layero){
+								  
+								  	var angelweb = $.trim($('#set_val').val());//是否为空
+								  	if(angelweb == ''){
+										alertify.error('天数不能为空!');
+										return;
+									}
+									var reg = /^[1-9]*[1-9][0-9]*$/;//正整数
+									if(!reg.test(angelweb)){
+										alertify.error('请输入有效数字!');
+										return;
+									}
+									layer.close(index);
+									console.log(angelweb);
+								 }
+							});
+						}
+					});
+					
+			});
+		</script>
+	</body>
+</html>

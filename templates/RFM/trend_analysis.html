@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="css/animsition.min.css" />
+		<link rel="stylesheet" href="css/drop-down.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/xsfx.css" />
+		<link rel="stylesheet" href="jedate/skin/jedate.css" />
+		<link rel="stylesheet" href="css/jquery-labelauty.css" />
+	</head>
+	<body>
+		
+		<div class="data_wrap" style="background: #efeff5; width: 1020px; padding: 10px;">
+		    <div class="animsition" style="overflow: hidden;">
+				<div class="xsfx_tips">
+					1.销售趋势分析用于反映某个时间内的销售数据的波动变化情况，常用于大促时销售数据变化的跟踪；<br />
+					2.订单金额与商品件数不排除补差价商品；
+					<i class="fa fa-close"></i>
+				</div>
+				 <div class="my_duxs_time">
+					付款客户：
+					<div id="city_1" class="inline" style="margin-right: 30px;">
+						<select class="prov" style="width: 100px;"></select> 
+						<select class="city" style="width: 140px;"></select>
+					</div>
+							
+					备注旗帜：
+					<label class="my_label"><input type="checkbox" value="qz1" name="qz1"/> <i class="fa fa-flag"></i></label>
+					<label class="my_label"><input type="checkbox" value="qz2" name="qz2"/> <i class="fa fa-flag"></i></label>
+					<label class="my_label"><input type="checkbox" value="qz3" name="qz3"/> <i class="fa fa-flag"></i></label>
+					<label class="my_label"><input type="checkbox" value="qz4" name="qz4"/> <i class="fa fa-flag"></i></label>
+					<label class="my_label"><input type="checkbox" value="qz5" name="qz5"/> <i class="fa fa-flag"></i></label>
+					<label class="my_label"><input type="checkbox" value="qz5" name="qz5"/> <i class="fa fa-flag"></i></label>
+					
+					<div class="chebox_wrap">
+						交易来源：
+						<label class="my_label"><input type="checkbox" value="shouji" name="shouji"/> 手机网页聚划算</label>
+						<label class="my_label"><input type="checkbox" value="shouji" name="shouji"/> 手机客户端聚划算</label>
+						<label class="my_label"><input type="checkbox" value="shouji" name="shouji"/> PC聚划算</label>
+						<label class="my_label"><input type="checkbox" value="shouji" name="shouji"/> 手机客户端</label>
+						<label class="my_label"><input type="checkbox" value="shouji" name="shouji"/> 手机客户端</label>
+						<button id="my_search">搜索</button>
+					</div>
+			    </div>
+			    	<div id="main1" class="my_main2" style="width: 100%; height: 400px; float: left;"></div>
+		    </div>
+		   
+		</div>
+		
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="js/jquery-labelauty.js"></script>
+		<script src="js/jquery.cityselect.js"></script>
+		<script src="jedate/jquery.jedate.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+		<script src="js/select-widget-min.js"></script>
+		<script src="js/jquery.animsition.min.js"></script>
+		<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		<script src="js/macarons .js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/sq_data.js"></script>
+		
+		
+		<script>
+			$(document).ready(function() {
+				//插件初始化
+				$(":checkbox").labelauty({
+					checked_label: "",
+					unchecked_label: "",
+				});
+				$(":radio").labelauty();
+				//联动下拉
+				$("#city_1").citySelect({
+					url:{"citylist":[
+							{"p":"新老客户","c":[{"n":"不限"},{"n":"新客户"},{"n":"老客户"}]},
+							{"p":"级别","c":[{"n":"LV-0"},{"n":"LV-1"},{"n":"LV-2"},{"n":"LV-3"},{"n":"LV-4"}]}
+						]},
+					prov:"新老客户",
+					city:"不限"
+				});
+				$("#city_2").citySelect({
+				url:{"citylist":[
+						{"p":"全国省份排名","c":[{"n":"HTML"},{"n":"CSS","a":[{"s":"CSS2.0"},{"s":"CSS3.0"}]},{"n":"JAVASCIPT"}]},
+						{"p":"编程语言","c":[{"n":"C"},{"n":"C++"},{"n":"Objective-C"},{"n":"PHP"},{"n":"JAVA"}]},
+						{"p":"数据库","c":[{"n":"Mysql"},{"n":"SqlServer"},{"n":"Oracle"},{"n":"DB2"}]},
+					]},
+				prov:"全国省份排名",
+				city:"",
+				dist:"",
+				nodata:"none"
+			});
+				
+			    //调用日期
+			    /*var start = {
+				    format: 'YYYY-MM-DD',
+				    //minDate: '2014-06-16 23:59:59', //设定最小日期为当前日期
+				    festival:true,
+				    //isinitVal:true,
+				    maxDate: $.nowDate(0), //最大日期
+				    choosefun: function(elem,datas){
+				        end.minDate = datas; //开始日选好后，重置结束日的最小日期
+				    }
+				};
+				var end = {
+				    format: 'YYYY-MM-DD',
+				    //minDate: $.nowDate(0), //设定最小日期为当前日期
+				    festival:true,
+				    //isinitVal:true,
+				    maxDate: '2099-06-16 23:59:59', //最大日期
+				    choosefun: function(elem,datas){
+				        start.maxDate = datas; //将结束日的初始值设定为开始日的最大日期
+				    }
+				};
+				$("#inpstart").jeDate(start);
+				$("#inpend").jeDate(end);*/
+				
+  			  //初始化切换
+			  $(".animsition").animsition({
+			  
+			    inClass               :   'fade-in-right',
+			    outClass              :   'fade-out',
+			    inDuration            :    1500,
+			    outDuration           :    800,
+			    linkElement           :   '.animsition-link',
+			    // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+			    loading               :    true,
+			    loadingParentElement  :   'body', //animsition wrapper element
+			    loadingClass          :   'animsition-loading',
+			    unSupportCss          : [ 'animation-duration',
+			                              '-webkit-animation-duration',
+			                              '-o-animation-duration'
+			                            ],
+			    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+			    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+			    
+			    overlay               :   false,
+			    
+			    overlayClass          :   'animsition-overlay-slide',
+			    overlayParentElement  :   'body'
+			  });
+			  
+
+				function my_data(){
+					var data = [];
+					for( var i =0; i<30; i++){
+						data.push(Math.round(Math.random() * (500 - 100) + 100));
+					};
+					return data;
+				}
+				
+				var date = ['2016/11/1','2016/11/2','2016/11/3','2016/11/4','2016/11/5','2016/11/6','2016/11/7','2016/11/8','2016/11/9','2016/11/10',
+				'2016/11/11','2016/11/12','2016/11/13','2016/11/14','2016/11/15','2016/11/16','2016/11/17','2016/11/18'
+				,'2016/11/19','2016/11/20','2016/11/21','2016/11/22','2016/11/23','2016/11/24','2016/11/25','2016/11/26','2016/11/27'
+				,'2016/11/28','2016/11/29','2016/11/30'];
+				
+			    // 路径配置
+		        require.config({
+		            paths: {
+		                echarts: 'http://echarts.baidu.com/build/dist'
+		            }
+		        });
+		        
+		        // 使用
+		        require(
+		            [
+		                'echarts',
+		                'echarts/chart/bar',
+		                'echarts/chart/line',
+		                'echarts/chart/pie',
+		                'echarts/chart/map',// 使用柱状图就加载bar模块，按需加载
+		            ],
+		            function (ec) {
+		                // 基于准备好的dom，初始化echarts图表
+		                var myChart = ec.init(document.getElementById('main1'),'macarons');
+		                var ecConfig = require('echarts/config');
+		                
+						var option = {
+							backgroundColor : 'white',
+						    tooltip : {
+						        trigger: 'axis'
+						    },
+						    grid :{
+						    	y : 100,
+						    	y2 : 80
+						    },
+							legend: {
+						    	y:35,
+						    	borderColor: 'rgba(205,205,205,0.8)',
+        						borderWidth: 1,
+        						padding: 7,
+        						itemGap: 20,
+						        data:['当前下单总额','当日下单且付款总额','当日有效付款']
+						    },
+						    toolbox: {
+						        show : true,
+						        y:32,
+						        x : 770,
+						        feature : {
+						            //mark : {show: true},
+						            dataView : {show: true, readOnly: false},
+						            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+						            restore : {show: true},
+						            saveAsImage : {show: true}
+						        }
+						    },
+						    calculable : true,
+						    dataZoom : {
+						        show : true,
+						        realtime : true,
+						        y: 360,
+						        height: 20,
+						        start : 87,
+						        end : 100
+						    },
+						    xAxis : [
+						        {
+						            type : 'category',
+						            boundaryGap : false,
+						            data : date
+						        }
+						    ],
+						    yAxis : [
+						        {
+						            type : 'value'
+						        }
+						    ],
+						    series : [
+						        
+						        {
+						            name:'当前下单总额',
+						            type:'line',
+						            stack: '总量',
+						            symbol:'emptyRectangle',
+						            barMaxWidth : 25,
+						            itemStyle: {
+						                normal: {
+						                    lineStyle: {            // 系列级个性化折线样式，横向渐变描边
+						                        width: 2,
+						                        color: (function (){
+						                            var zrColor = require('zrender/tool/color');
+						                            return zrColor.getLinearGradient(
+						                                0, 0, 1000, 0,
+						                                [[0, 'rgba(46,157,228,1)'],[0.8, 'rgba(132,236,90,0.8)']]
+						                            )
+						                        })(),
+						                        shadowColor : 'rgba(0,0,0,0.5)',
+						                        shadowBlur: 10,
+						                        shadowOffsetX: 4,
+						                        shadowOffsetY: 4
+						                    }
+						                }
+						               
+						            },
+						            data:my_data()
+						        },
+						        {
+						            name:'当日下单且付款总额',
+						            type:'line',
+						            stack: '总量',
+						            barMaxWidth : 25,
+						            symbol:'emptyTriangle',
+						            itemStyle: {
+						                normal: {
+						                    lineStyle: {            // 系列级个性化折线样式，横向渐变描边
+						                        width: 2,
+						                        color: (function (){
+						                            var zrColor = require('zrender/tool/color');
+						                            return zrColor.getLinearGradient(
+						                                0, 0, 1000, 0,
+						                                [[0, 'rgba(143,100,229,0.8)'],[0.8, 'rgba(68,234,354,0.8)']]
+						                            )
+						                        })(),
+						                        shadowColor : 'rgba(0,0,0,0.5)',
+						                        shadowBlur: 10,
+						                        shadowOffsetX: 4,
+						                        shadowOffsetY: 4
+						                    }
+						                }
+						               
+						            },
+						            data:my_data()
+						        },
+						        {
+						            name:'当日有效付款',
+						            type:'line',
+						            stack: '总量',
+						            barMaxWidth : 25,
+						            itemStyle: {
+						                normal: {
+						                    lineStyle: {            // 系列级个性化折线样式，横向渐变描边
+						                        width: 2,
+						                        color: (function (){
+						                            var zrColor = require('zrender/tool/color');
+						                            return zrColor.getLinearGradient(
+						                                0, 0, 1000, 0,
+						                                [[0, 'rgba(255,0,0,0.8)'],[0.8, 'rgba(255,255,0,0.8)']]
+						                            )
+						                        })(),
+						                        shadowColor : 'rgba(0,0,0,0.5)',
+						                        shadowBlur: 10,
+						                        shadowOffsetX: 4,
+						                        shadowOffsetY: 4
+						                    }
+						                }
+						               
+						            },
+						            data:my_data()
+						        }
+						    ]
+						};
+                    
+
+		                // 为echarts对象加载数据 
+		                myChart.setOption(option); 
+		               
+			            }
+			        );
+			   
+					//关闭提示
+					$('.xsfx_tips  i').on('click',function(){
+						$(this).parent().slideUp();
+					})
+			
+			});
+		</script>
+	</body>
+</html>

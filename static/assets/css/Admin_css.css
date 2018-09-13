@@ -1,0 +1,31 @@
+.information{
+    height: 60px;
+}
+.information div{
+    position: absolute;
+}
+.fancy_checkbox_MY{
+    display:inline;
+    margin-right: 10px;
+}
+.fancy_checkbox_MY_span{
+    
+}
+.fancy-checkbox input[type="checkbox"] + span{
+    font-size:25px;
+    
+}
+.fancy-radio input[type="radio"] + span{
+    font-size:20px;
+    display: inherit;
+}
+.msgnn span{
+    display: block;
+    text-align: center;
+}
+.task-list_my{
+    margin-top: 10px;
+}
+.xianximas span{
+    display: block;
+}

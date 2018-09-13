@@ -1,0 +1,55 @@
+{% extends "My_Admin/index.html" %} {% load staticfiles %} {% block title %}题目查询{% endblock %} {% block css %}
+<link rel="stylesheet" href="{% static 'My_Admin/query.css' %}"> {% endblock %} {% block body %}
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">查询</h3>
+        <div class="right">
+            <button type="button" class="btn-toggle-collapse">
+                <i class="lnr lnr-chevron-up"></i>
+            </button>
+            <button type="button" class="btn-remove">
+                <i class="lnr lnr-cross"></i>
+            </button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-search"></i>
+            </span>
+            <input id="keyword" class="form-control" placeholder="题目关键字查询" type="text">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="query_keyword();">Go!</button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">查询情况</h3>
+        <div class="right">
+            <button type="button" class="btn-toggle-collapse">
+                <i class="lnr lnr-chevron-up"></i>
+            </button>
+            <button type="button" class="btn-remove">
+                <i class="lnr lnr-cross"></i>
+            </button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class=" table table-bordered">
+            <thead class="">
+                <tr>
+                    <th>#</th>
+                    <th>内容</th>
+                    <th>ID</th>
+                </tr>
+            </thead>
+            <tbody class="get_msg">
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %} {% block JS %}
+<script type="text/javascript" src="{% static 'My_Admin/query.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="css/animsition.min.css" />
+		<link rel="stylesheet" href="css/drop-down.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/xsfx.css" />
+		<link rel="stylesheet" href="jedate/skin/jedate.css" />
+		<link rel="stylesheet" href="css/jquery-labelauty.css" />
+		<link rel="stylesheet" href="css/alertify/alertify.min.css" />
+		<link rel="stylesheet" href="css/alertify/default.min.css"/>
+		<style>
+			label.error{ color: red; font-size: 12px;padding:0 6px;}
+		</style>
+	</head>
+	<body>
+		
+		<div class="data_wrap" style="background: #efeff5; width: 1020px; padding: 10px;">
+		    <div class="animsition" style="overflow: hidden;">
+				<div class="xsfx_tips">
+					1.省份分析包括会员分布、商品分布、积分分布三种分析状态根据条件筛选展示省份占比分析的分析结果；<br />
+					<i class="fa fa-close"></i>
+				</div>
+				<div class="my_duxs_time" style="margin: 0px;">
+					<form id="my_Form">
+						<div style="clear: both; padding: 10px 10px 0 10px;">
+							筛选条件：
+							<select id="khly" style="width: 110px;">
+								<option value="hy">会员</option>
+								<option value="sp">商品</option>
+								<option value="jf">积分</option>
+							</select>
+
+							<select id="hy_slect" class="my_sxtj" style="width: 110px; display: inline-block">
+								<option value="not">不限</option>
+								<option value="new">新客户</option>
+								<option value="old">老客户</option>
+								<option value="zhy">准会员</option>
+								<option value="pthy">普通会员</option>
+								<option value="gjhy">高级会员</option>
+								<option value="vip">VIP会员</option>
+								<option value="cjvip">超级VIP会员</option>
+							</select>
+
+								<input id="sp_id" class="my_sxtj" name="sp_id" type="num" style="width: 150px;" placeholder="请输入商品ID" required/>
+								<label id="hy_jf" class="my_sxtj">
+									<input type="num2" name="jf_start" required/> ~ <input type="num2" name="jf_end" required/>
+								</label>
+								<button type="submit" id="my_search" style="height: 24px">筛选</button>
+					</form>
+				</div>
+				<div class="hg_title" style="margin-top: 10px;">
+
+				</div>
+			    <div id="main" class="my_main2" style="width: 100%; height: 400px;"></div>
+
+			  </div>
+		    </div>
+		   
+		</div>
+		
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="layer/layer.js"></script>
+		<script src="js/alertify.min.js"></script>
+		<script src="js/alertify.min.js"></script>
+		<script src="js/jquery.validate.js"></script>
+		<script src="js/jquery-labelauty.js"></script>
+		<script src="js/jquery.cityselect.js"></script>
+		<script src="jedate/jquery.jedate.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+		<script src="js/select-widget-min.js"></script>
+		<script src="js/jquery.animsition.min.js"></script>
+		<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		<script src="js/macarons .js"></script>
+		<script src="js/common.js"></script>
+		
+		
+		
+		<script>
+			$(document).ready(function() {
+
+				//省份信息
+				var sf_data = [
+					{name: '北京',value: Math.round(Math.random()*1000)},
+					{name: '天津',value: Math.round(Math.random()*1000)},
+					{name: '上海',value: Math.round(Math.random()*1000)},
+					{name: '重庆',value: Math.round(Math.random()*1000)},
+					{name: '河北',value: Math.round(Math.random()*1000)},
+					{name: '河南',value: Math.round(Math.random()*1000)},
+					{name: '云南',value: Math.round(Math.random()*1000)},
+					{name: '辽宁',value: Math.round(Math.random()*1000)},
+					{name: '黑龙江',value: Math.round(Math.random()*1000)},
+					{name: '湖南',value: Math.round(Math.random()*1000)},
+					{name: '安徽',value: Math.round(Math.random()*1000)},
+					{name: '山东',value: Math.round(Math.random()*1000)},
+					{name: '新疆',value: Math.round(Math.random()*1000)},
+					{name: '江苏',value: Math.round(Math.random()*1000)},
+					{name: '浙江',value: Math.round(Math.random()*1000)},
+					{name: '江西',value: Math.round(Math.random()*1000)},
+					{name: '湖北',value: Math.round(Math.random()*1000)},
+					{name: '广西',value: Math.round(Math.random()*1000)},
+					{name: '甘肃',value: Math.round(Math.random()*1000)},
+					{name: '山西',value: Math.round(Math.random()*1000)},
+					{name: '内蒙古',value: Math.round(Math.random()*1000)},
+					{name: '陕西',value: Math.round(Math.random()*1000)},
+					{name: '吉林',value: Math.round(Math.random()*1000)},
+					{name: '福建',value: Math.round(Math.random()*1000)},
+					{name: '贵州',value: Math.round(Math.random()*1000)},
+					{name: '广东',value: Math.round(Math.random()*1000)},
+					{name: '青海',value: Math.round(Math.random()*1000)},
+					{name: '西藏',value: Math.round(Math.random()*1000)},
+					{name: '四川',value: Math.round(Math.random()*1000)},
+					{name: '宁夏',value: Math.round(Math.random()*1000)},
+					{name: '海南',value: Math.round(Math.random()*1000)},
+					{name: '台湾',value: Math.round(Math.random()*1000)},
+					{name: '香港',value: Math.round(Math.random()*1000)},
+					{name: '澳门',value: Math.round(Math.random()*1000)},
+
+				];
+
+				//配置通用的默认提示语
+				$.extend($.validator.messages, {
+					required: '必填',
+					equalTo: "请再次输入相同的值",
+					url : "网址不对",
+					email : "邮箱不对"
+				});
+				jQuery.validator.addMethod("num", function (value, element) {
+					var num = /^[0-9]*$/;
+					return this.optional(element) || (num.test(value));
+				}, "请输入有效ID");
+				jQuery.validator.addMethod("num2", function (value, element) {
+					var num2 = /^(0|[1-9][0-9]*)$/;
+					return this.optional(element) || (num2.test(value));
+				}, "请输入有效数字");
+
+				//插件初始化
+				$(":checkbox").labelauty({
+					checked_label: "",
+					unchecked_label: "",
+				});
+				$(":radio").labelauty({
+					checked_label: "",
+					unchecked_label: "",
+				});
+
+			    //调用日期
+			   var start = {
+				    format: 'YYYY-MM-DD',
+				    minDate: '2014-06-16 23:59:59', //设定最小日期为当前日期
+				    isinitVal:true,
+				    initAddVal:[-90],   //初始化日期加2小时
+				    festival: true,
+				    maxDate: $.nowDate(0), //最大日期
+				    choosefun: function(elem,datas){
+				        end.minDate = datas; //开始日选好后，重置结束日的最小日期
+				    }
+				};
+				var end = {
+				    format: 'YYYY-MM-DD',
+				    minDate: $.nowDate(0), //设定最小日期为当前日期
+				    isinitVal:true,
+				    maxDate: '2099-06-16', //最大日期
+				    choosefun: function(elem,datas){
+				        start.maxDate = datas; //将结束日的初始值设定为开始日的最大日期
+				    }
+				};
+				$("#inpstart").jeDate(start);
+				$("#inpend").jeDate(end);
+				
+  			  //初始化切换
+			  $(".animsition").animsition({
+			  
+			    inClass               :   'fade-in-right',
+			    outClass              :   'fade-out',
+			    inDuration            :    1500,
+			    outDuration           :    800,
+			    linkElement           :   '.animsition-link',
+			    // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+			    loading               :    true,
+			    loadingParentElement  :   'body', //animsition wrapper element
+			    loadingClass          :   'animsition-loading',
+			    unSupportCss          : [ 'animation-duration',
+			                              '-webkit-animation-duration',
+			                              '-o-animation-duration'
+			                            ],
+			    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+			    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+			    
+			    overlay               :   false,
+			    
+			    overlayClass          :   'animsition-overlay-slide',
+			    overlayParentElement  :   'body'
+			  });
+			  
+				
+
+			    // 路径配置
+		        require.config({
+		            paths: {
+		                echarts: 'http://echarts.baidu.com/build/dist'
+		            }
+		        });
+		        
+		        // 使用
+		        require(
+		            [
+		                'echarts',
+		                'echarts/chart/bar',
+		                'echarts/chart/line',
+		                'echarts/chart/pie',
+		                'echarts/chart/map',// 使用柱状图就加载bar模块，按需加载
+		            ],
+		            function (ec) {
+		                // 基于准备好的dom，初始化echarts图表
+		                var myChart = ec.init(document.getElementById('main'),'macarons');
+		                var ecConfig = require('echarts/config');
+		                
+
+						var option = {
+							backgroundColor:'white',
+							title : {
+								text : '会员省份分析',
+								textStyle : {
+									fontSize : 17
+								},
+								x : 'center',
+								y : 20
+							},
+						    tooltip : {
+						        trigger: 'item',
+						        formatter : '{a}' + '<br/>' + '{b}: {c}; {d}%'
+						        
+						    },
+							toolbox: {
+								show : true,
+								y : 25,
+								x : 930,
+								feature : {
+									dataView : {show: true, readOnly: false},
+									restore : {show: true},
+									saveAsImage : {show: true}
+								}
+							},
+						    calculable : false,
+						    series : [
+						        {
+						            name:'省份分析',
+						            type:'pie',
+						            center:['50%','55%'],
+						            radius : ['40%', '55%'],
+									selectedMode: 'single',
+							        itemStyle: {  
+						                normal: {  
+						                 label:{  
+						                        show: true,  
+						                        formatter: function(param) {
+								                     return param.name + ' : ' + Math.round(param.percent) + '%';
+								                },
+								                textStyle : {
+				                                    fontWeight : 'bolder'
+				                                }
+						                	}   
+						              	},
+						              	 emphasis : {
+						                    label : {
+						                        show : true,
+						                        position : 'center',
+						                        textStyle : {
+						                            fontSize : '30',
+						                            fontWeight : 'bold'
+						                        }
+						                    }
+						                }
+							        },
+						            data:sf_data
+						            
+						        }
+						    ]
+						};
+                    
+
+		                // 为echarts对象加载数据 
+		                myChart.setOption(option);
+
+						$("#my_Form").validate({
+							submitHandler: function() {
+								option.series[0].data = [{name: '北京',value: Math.round(Math.random()*1000)},
+														{name: '天津',value: Math.round(Math.random()*1000)},
+														{name: '上海',value: Math.round(Math.random()*1000)},
+														{name: '重庆',value: Math.round(Math.random()*1000)}]
+								myChart.clear();
+								myChart.setOption(option,true);
+							}
+						});
+
+		                $('#khly').on('change',function(){
+							$('label.error').hide();
+							$('#hy_slect').val('not');
+							$('#sp_id').val('');
+							$('#hy_jf').find('input').val('');
+		                	var  val = $(this).val();
+							switch (val){
+								case  'hy':
+										$('.my_sxtj').hide();
+										$('#hy_slect').show();
+									break;
+								case  'sp':
+									$('.my_sxtj').hide();
+									$('#sp_id').show();
+									break;
+								case  'jf':
+									$('.my_sxtj').hide();
+									$('#hy_jf').show();
+									break;
+							}
+		                });
+		               
+			            }
+			        );
+			   
+					//关闭提示
+					$('.xsfx_tips  i').on('click',function(){
+						$(this).parent().slideUp();
+					});
+
+					
+			});
+		</script>
+	</body>
+</html>

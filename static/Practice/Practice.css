@@ -1,0 +1,158 @@
+.nav_panel{
+    height: 80px;
+    background-color: white;
+    box-shadow: 10px -2px 38px #bfbfbf;
+    overflow:hidden;
+}
+.panel_text span{
+    display: inline;
+    line-height: 80px;
+}
+
+
+.nav_content{
+    position: absolute;
+    top: 80px;
+    background-color: rgb(255, 255, 255);
+    z-index: 2;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    display: none;
+    width: 100%;
+    /* transition: 0.1s; */
+}
+
+.nav_content:hover{
+    background-color: rgba(255, 255, 255, 0.596);
+    transition: 1s;
+}
+/* @media screen and (max-width: 450px) {
+    .nav_content{
+        transition: 0;
+    }
+    .nav_content:hover{
+        transition: 0;
+    }
+} */ 
+.nav_content li{
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    line-height: 31px;
+    text-align: center;
+    background-color: #e2e2e1ad;
+    border-radius: 50%;
+    border:2px solid #ffffff;
+    float: left;
+    margin-left: 5px;
+    transition: 0.9s;
+    
+}
+.nav_content li:hover{
+    border:2px solid #05aafd;
+    transition: 1s;
+}
+.nav_content .miy{
+    background-color: #05aafd;
+    color: white;
+}
+.nav_content .min{
+    background-color: #fd0505;
+    color: white;
+}
+.nav_content .boder{
+    border:2px solid #3886af;
+}
+.panel_text h2{
+
+}
+.MyBar{
+    font-size: 25px;
+    float: left;
+    width: 90%;
+    cursor: context-menu;
+}
+.ico_large{
+    line-height: 80px;
+    float: left;
+    width: 10%;
+    font-size: 24px;
+    cursor: pointer; 
+    transition: 1s;
+}
+.boj_if_ico{
+    font-size: 24px;
+    color: red;
+}
+
+.ico_large:hover{
+    color: #05aafd;
+    transition: 1s;
+}
+.ico_large_act{
+    color: #05aafd;
+    transition: 1s;
+}
+
+.article_box{
+    padding-top: 20%;
+
+}
+.article_box button{
+    margin-bottom: 10px;
+}
+.ico_empty{
+    font-size: 20px;
+    cursor: pointer;
+}
+.ico_sign{
+    font-size: 20px;
+    cursor: pointer;
+}
+.subject_text{
+    /* text-indent:2em; */
+    letter-spacing:3px;
+}
+.subject_options{
+    padding-top: 50px;
+}
+.subject_options .fancy-radio input[type="radio"] + span, .subject_options .fancy-checkbox input[type="checkbox"] + span{
+    font-size: 20px;
+    letter-spacing:3px;
+}
+@media screen and (max-width: 450px) {
+    .mih2{
+       display: block;
+       
+       width: 300px;
+    }
+    .article_box{
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+        bottom: 0;
+        margin-bottom: 0;
+        border-width: 1px 0 0;
+        padding-top: 0px;
+        
+    }
+}
+
+.btn-default{
+    background-color: #f3f5f8;
+    padding: 0px;
+}
+
+@media screen and (max-width: 480px) {
+    .nav_panel{
+        height: 47px;
+
+    }
+    .panel_text span{
+        line-height: 46px;
+    }
+    .nav_content{
+        top:47px;
+    }
+}

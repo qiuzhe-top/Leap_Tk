@@ -1,0 +1,117 @@
+{% extends "My_Admin/index.html" %} {% load staticfiles %} {% block title %}添加题目{% endblock %} {% block css %}
+<link rel="stylesheet" href="{% static 'My_Admin/Tk_add.css' %}"> {% endblock %} {% block body %}
+
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">题目</h3>
+    </div>
+    <div class="panel-body">
+        <form action="">
+            {% for field in subject_form %} {{ field }} {% endfor %}
+        </form>
+    </div>
+</div>
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">信息</h3>
+    </div>
+    <div class="panel-body">
+        <div class="rom">
+            <div class="col-md-3">
+                <select id="Book" class="form-control input-lg" onchange="Book_onchange(this);">
+                    {% for i in books %}
+                    <option value="{{ i.pk }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="Unit" class="form-control input-lg" onchange="Unit_onchange(this);">
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="minutia" class="form-control input-lg" onchange="minutia_onchange(this);">
+
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="subject_types" class="form-control input-lg" onchange="subject_types();">
+                    <option value="单选">单选</option>
+                    <option value="多选">多选</option>
+                    <option value="判断">判断</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">选项</h3>
+    </div>
+    <div class="panel-body subject_data">
+        <div id="radio_box">
+            <input id="answerA" class="form-control input-lg" placeholder="A" name='answerA' type="text">
+            <input id="answerB" class="form-control input-lg" placeholder="B" name='answerB' type="text">
+            <input id="answerC" class="form-control input-lg" placeholder="C" name='answerC' type="text">
+            <input id="answerD" class="form-control input-lg" placeholder="D" name='answerD' type="text">
+            <div class="input-group" id="answer_radio_box">
+                <span class="input-group-addon">正确答案</span>
+                <select id="answer_radio" class="form-control">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</oCDption>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                </select>
+            </div>
+        </div>
+        <div id="checkbox_box">
+            <input id="answerE" class="form-control input-lg" placeholder="E" name='answerE' type="text">
+            <input id="answerF" class="form-control input-lg" placeholder="F" name='answerF' type="text">
+            <div class="input-group" id="answer_checkbox_box">
+                <span class="input-group-addon">正确答案</span>
+                <label class="fancy-checkbox display-inline">
+                    <input name="check_answer" value="A" type="checkbox">
+                    <span>A</span>
+                </label>
+                <label class="fancy-checkbox display-inline">
+                    <input name="check_answer" value="B" type="checkbox">
+                    <span>B</span>
+                </label>
+                <label class="fancy-checkbox display-inline">
+                    <input name="check_answer" value="C" type="checkbox">
+                    <span>C</span>
+                </label>
+                <label class="fancy-checkbox display-inline">
+                    <input name="check_answer" value="D" type="checkbox">
+                    <span>D</span>
+                </label>
+                <label class="fancy-checkbox display-inline">
+                    <input name="check_answer" value="E" type="checkbox">
+                    <span>E</span>
+                </label>
+                <label class="fancy-checkbox display-inline">
+                    <input name="check_answer" value="F" type="checkbox">
+                    <span>F</span>
+                </label>
+            </div>
+        </div>
+        <div id="if_box">
+            <label class="fancy-radio">
+                <input name="gender" value="正确" type="radio">
+                <span>
+                    <i></i>正确</span>
+            </label>
+            <label class="fancy-radio">
+                <input name="gender" value="错误" type="radio">
+                <span>
+                    <i></i>错误</span>
+            </label>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-primary btn-lg" onclick="subject_form_ajax();" style="width:100%;">提交</button>
+{% endblock %} {% block JS %}
+<script type="text/javascript" src="{% static 'My_Admin/Tk_add.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="css/animsition.min.css" />
+		<link rel="stylesheet" href="css/drop-down.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/qk.css" />
+		<link rel="stylesheet" href="css/xsfx.css">
+	</head>
+	<body>
+		
+		<div id="jfhu" class="data_wrap" style="background: #efeff5; width: 1020px; padding: 10px; overflow: hidden;">
+		    <div class="animsition">
+				<div class="xsfx_tips">
+					1.互动分析包括互动人次数和互动人数两种分析方式，展示每日互动情况，互动所带来的回购率的分析结果；<br />
+					2.互动渠道包含所有互动赚取积分活动方式；
+
+					<i class="fa fa-close"></i>
+				</div>
+				<div class="my_duxs_time">
+					互动渠道：<select id="jf_select">
+					<option value="all">全部</option>
+					<option value="jd">进店送积分</option>
+					<option value="qd">签到送积分</option>
+					<option value="sc">收藏送积分</option>
+					<option value="tj">推荐送积分</option>
+					<option value="cj">抽奖互动</option>
+					<option value="sr">生日送积分</option>
+					<option value="wb">微博送积分</option>
+				</select>
+
+				</div>
+				<div class="qk_wrap" style=" margin-bottom: 10px; position: relative;">
+					<div id="hdjf_tips" style=" padding-left: 680px; height: 76px; padding-top: 14px; z-index: 999999; top: 0">
+						<span id="hdjf_hdl">互动率：30%</span>
+						<span id="hdjf_hgl">回购率：10%</span>
+						<span id="hdjf_je">金额：123456</span>
+						<p id="hdjf_date">2017/1/1</p>
+					</div>
+					<div>
+						<div id="main1" class="my_main" style="width: 1020px;"></div>
+					</div>
+
+				</div>
+				<div class="qk_wrap">
+					<div>
+						<div id="main2" class="my_main" style="width: 505px; height: 300px"></div>
+					</div>
+					<div>
+						<div id="main3" class="my_main" style="width: 505px; height: 300px"></div>
+					</div>
+
+				</div>
+
+
+		    </div>
+		</div>
+
+
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+		<script src="js/select-widget-min.js"></script>
+		<script src="js/jquery.animsition.min.js"></script>
+		<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		<script src="js/macarons .js"></script>
+		
+		<script>
+			$(document).ready(function() {
+  			  //初始化切换
+				$(".animsition").animsition({
+			  
+			    inClass               :   'fade-in-right',
+			    outClass              :   'fade-out',
+			    inDuration            :    1500,
+			    outDuration           :    800,
+			    linkElement           :   '.animsition-link',
+			    // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+			    loading               :    true,
+			    loadingParentElement  :   'body', //animsition wrapper element
+			    loadingClass          :   'animsition-loading',
+			    unSupportCss          : [ 'animation-duration',
+			                              '-webkit-animation-duration',
+			                              '-o-animation-duration'
+			                            ],
+			    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+			    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+			    
+			    overlay               :   false,
+			    
+			    overlayClass          :   'animsition-overlay-slide',
+			    overlayParentElement  :   'body'
+			  });
+			  
+			  //虚拟数据
+			 	var date = ['2016/11/1','2016/11/2','2016/11/3','2016/11/4','2016/11/5','2016/11/6','2016/11/7','2016/11/8','2016/11/9','2016/11/10',
+				'2016/11/11','2016/11/12','2016/11/13','2016/11/14','2016/11/15','2016/11/16','2016/11/17','2016/11/18'
+				,'2016/11/19','2016/11/20','2016/11/21','2016/11/22','2016/11/23','2016/11/24','2016/11/25','2016/11/26','2016/11/27'
+				,'2016/11/28','2016/11/29','2016/11/30'];
+				
+				
+				function my_data(){
+					var data = [];
+					for( var i =0; i<30; i++){
+						data.push(Math.round(Math.random() * (500 - 100) + 100));
+					};
+					return data;
+				}
+			   var num = my_data();
+			   var bl = '30%';
+
+
+			   
+			     // 路径配置
+		        require.config({
+		            paths: {
+		                echarts: 'http://echarts.baidu.com/build/dist'
+		            }
+		        });
+		        
+		        // 使用
+		        require(
+		            [
+		                'echarts',
+		                'echarts/chart/bar',
+		                'echarts/chart/line',
+		                'echarts/chart/pie'// 使用柱状图就加载bar模块，按需加载
+		            ],
+		            function (ec) {
+		                // 基于准备好的dom，初始化echarts图表
+		                var myChart = ec.init(document.getElementById('main1'),'macarons');
+		                var myChart2 = ec.init(document.getElementById('main2'),'macarons');
+		                var myChart3 = ec.init(document.getElementById('main3'),'macarons');
+
+						var option ={
+							title:{
+								text : '互动总人数：1000\n互动总次数：500',
+								y: 15,
+								x : 20,
+								borderColor : '#ccc',
+								borderWidth : 1,
+								padding : [8, 15],
+								textStyle : {
+									fontSize : 14
+								}
+							},
+							backgroundColor:'white',
+							tooltip : {
+								trigger: 'axis',
+								formatter : function(data){
+									console.log(data[0].name)
+
+									if( data[0].name == "2016/11/22" ){
+										option2.title.subtext = data[0].name;
+										option2.series[0].data = [
+											{value:0, name:'PC端'},
+											{value:0, name:'手机端'},
+											{value:0, name:'微信端'}
+										];
+										option3.title.subtext = data[0].name;
+										option3.series[0].data = [
+											{value:0, name:'准会员'},
+											{value:0, name:'普通会员'},
+											{value:0, name:'高级会员'},
+											{value:0, name:'VIP会员'},
+											{value:0, name:'超级VIP会员'}
+										];
+									}
+									else {
+										option2.title.subtext = data[0].name;
+										option2.series[0].data = [
+											{value:900, name:'PC端'},
+											{value:150, name:'手机端'},
+											{value:250, name:'微信端'}
+										];
+										option3.title.subtext = data[0].name;
+										option3.series[0].data = [
+											{value:900, name:'准会员'},
+											{value:150, name:'普通会员'},
+											{value:150, name:'高级会员'},
+											{value:150, name:'VIP会员'},
+											{value:150, name:'超级VIP会员'}
+										];
+									}
+
+
+									myChart2.clear();
+									myChart2.setOption(option2,true);
+									myChart3.clear();
+									myChart3.setOption(option3,true);
+									var str = data[1].name ;
+									str += '</br>' + data[0].seriesName + ':' + data[0].value;
+									str += '</br>' + data[1].seriesName + ':' + data[1].value;
+
+									$('#hdjf_date').html(data[1].name);
+									$('#hdjf_hdl').html('互动率：10%');
+									$('#hdjf_hgl').html('回购率：20%');
+									$('#hdjf_je').html('金额：456');
+									return str;
+
+								}
+							},
+							legend: {
+								selectedMode : false,
+								data:['互动人次数','互动人数'],
+								y:'20'
+							},
+							grid:{
+								y:'100',
+							},
+							toolbox: {
+								show : false,
+								y:'20',
+								feature : {
+									mark : {show: false},
+									dataView : {show: true, readOnly: false},
+									magicType : {show: true, type: ['line', 'bar']},
+									restore : {show: true},
+									saveAsImage : {show: true}
+								}
+							},
+							dataZoom : {
+								show : true,
+								realtime : true,
+								y: 320,
+								height: 20,
+								start : 70,
+								end : 100
+							},
+							calculable : true,
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : date
+								}
+							],
+							yAxis : [
+								{
+									//name : '积分数',
+									type : 'value'
+								}
+							],
+							series : [
+								{
+									name:'互动人数',
+									type:'bar',
+									//stack: '总量',
+									barMaxWidth : 15,
+									itemStyle:{
+										normal:{
+											borderWidth : 3
+										}
+									},
+									data:my_data()
+								},
+								{
+									name:'互动人次数',
+									type:'bar',
+									//stack: '总量',
+									barMaxWidth : 15,
+									itemStyle:{
+										normal:{
+											borderWidth : 3
+										}
+									},
+									data:my_data()
+								}
+							]
+						};
+						var option2 = {
+							title :{
+								text : '参与会员来源分析',
+								subtext : '2017-1-1',
+								textStyle : {
+									fontSize : 14
+								}
+							},
+							backgroundColor : 'white',
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							legend: {
+								show : false,
+								orient : 'vertical',
+								x : 'left',
+								data:['PC端','手机端','微信端']
+							},
+							toolbox: {
+								show : false,
+								feature : {
+									mark : {show: false},
+									dataView : {show: true, readOnly: false},
+
+									restore : {show: true},
+									saveAsImage : {show: true}
+								}
+							},
+							calculable : false,
+							series : [
+
+								{
+									name:'互动人数',
+									selectedMode: 'single',
+									type:'pie',
+									radius : [65, 85],
+
+									// for funnel
+									x: '60%',
+									width: '35%',
+									funnelAlign: 'left',
+
+									data:[
+										{value:335, name:'PC端'},
+										{value:310, name:'手机端'},
+										{value:234, name:'微信端'}
+									]
+								}
+							]
+						};
+
+						var option3 = {
+							title :{
+								text : '参与会员级别分析',
+								subtext : '2017-1-1',
+								textStyle : {
+									fontSize : 14
+								}
+							},
+							backgroundColor : 'white',
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							legend: {
+								show : false,
+								orient : 'vertical',
+								x : 'left',
+								data:['准会员','普通会员','高级会员','VIP会员','超级VIP会员']
+							},
+							toolbox: {
+								show : false,
+								feature : {
+									mark : {show: false},
+									dataView : {show: true, readOnly: false},
+
+									restore : {show: true},
+									saveAsImage : {show: true}
+								}
+							},
+							calculable : false,
+							series : [
+
+								{
+									name:'级别占比',
+									selectedMode: 'single',
+									type:'pie',
+									radius : [65, 85],
+
+									// for funnel
+									x: '60%',
+									width: '35%',
+									funnelAlign: 'left',
+
+									data:[
+										{value:335, name:'准会员'},
+										{value:310, name:'普通会员'},
+										{value:234, name:'高级会员'},
+										{value:234, name:'VIP会员'},
+										{value:234, name:'超级VIP会员'}
+									]
+								}
+							]
+						};
+                    
+			        	
+			        	var ecConfig = require('echarts/config');
+			        	
+			        	
+		                // 为echarts对象加载数据 
+		                myChart.setOption(option); 
+		                myChart2.setOption(option2);
+			        	myChart3.setOption(option3);
+
+						//changge事件
+						$('#jf_select').on('change',function () {
+							var val = $(this).val();
+							$('#hdjf_date').html('2017/1/1');
+							$('#hdjf_hdl').html('互动率：10%');
+							$('#hdjf_hgl').html('回购率：20%');
+							$('#hdjf_je').html('金额：456');
+							option.title.text = '互动总人数：300\n互动总次数：100';
+							option.title.subtext = '2017/1/1';
+							option.series[0].data = my_data();
+							option.series[1].data = my_data();
+							option2.title.subtext = '2017/1/1';
+							option2.series[0].data = [
+								{value:900, name:'PC端'},
+								{value:150, name:'手机端'},
+								{value:250, name:'微信端'}
+							];
+							option3.title.subtext = '2017/1/1';
+							option3.series[0].data = [
+								{value:900, name:'准会员'},
+								{value:150, name:'普通会员'},
+								{value:150, name:'高级会员'},
+								{value:150, name:'VIP会员'},
+								{value:150, name:'超级VIP会员'}
+							];
+							myChart.clear();
+							myChart.setOption(option,true);
+							myChart2.clear();
+							myChart2.setOption(option2,true);
+							myChart3.clear();
+							myChart3.setOption(option3,true);
+						})
+		            }
+		        );
+				//关闭提示
+				$('.xsfx_tips  i').on('click',function(){
+					$(this).parent().slideUp();
+				})
+			        
+			});
+		</script>
+	</body>
+</html>

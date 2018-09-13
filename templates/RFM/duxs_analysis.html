@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="css/animsition.min.css" />
+		<link rel="stylesheet" href="css/drop-down.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/xsfx.css" />
+		<link rel="stylesheet" href="jedate/skin/jedate.css" />
+		<link rel="stylesheet" href="css/jquery-labelauty.css" />
+	</head>
+	<body>
+		
+		<div class="data_wrap" style="background: #efeff5; width: 1020px; padding: 10px;">
+		    <div class="animsition" style="overflow: hidden;">
+				<div class="xsfx_tips">
+					1.地区销售分析用于判断在某一段时间内全国各省份客户的消费能力，或者用于分析某一商品在各省份的消费能力，
+					尤其针对季节性商品，可以有效利用该报表分析季节性商品与地域分<br />布的关系；<br />
+					2.由于当客户使用购物车拍下多种宝贝时，存在购物车级别的优惠的分摊问题，在此分析数据中，购物车级别的优
+					惠不会从销售额中减去，所以宝贝的销售额仅供参考，不能作为财务核算数据。销售件数可以作为精确数据使用；<br />
+					3.数据采用付款判定（排除退款数据）；<br />
+					4.商品关键字为模糊查询，商家编码为精确查询；
+					<i class="fa fa-close"></i>
+				</div>
+				 <div class="my_duxs_time">
+			    	<!--付款时间：<input class="datainp wicon" id="inpstart" type="text" placeholder="开始日期" value=""  readonly>
+							<input class="datainp wicon" id="inpend" type="text" placeholder="结束日期"   readonly>-->
+							付款时间：<select id="sp_select">
+								<option value="商品ID">商品ID</option>
+								<option value="商品名称">商品名称</option>
+							</select>
+							<input id="search" type="text" />
+							<div id="city_1" class="inline">
+								<select class="prov"></select> 
+								<select class="city"></select>
+							</div>
+					<!--省份名称：<div id="city_2" class="inline">
+								<select class="prov"></select> 
+								<select class="city"></select>
+							</div>-->
+					<select id="sf_select">
+						<option value="china">全国省份排名</option>
+					</select>
+					<div class="chebox_wrap">
+						交易来源：
+						<label class="my_label"><input type="checkbox" value="shouji" name="shouji"/> 手机网页聚划算</label>
+						<label class="my_label"><input type="checkbox" value="shouji" name="shouji"/> 手机客户端聚划算</label>
+						<label class="my_label"><input type="checkbox" value="shouji" name="shouji"/> PC聚划算</label>
+						<label class="my_label"><input type="checkbox" value="shouji" name="shouji"/> 手机客户端</label>
+						<label class="my_label"><input type="checkbox" value="shouji" name="shouji"/> 手机客户端</label>
+						<button id="my_search">搜索</button><span class="src_span">最近一周</span><span class="src_span">最近一个月</span>
+					</div>
+			    </div>
+			    	<div class="map_title">客户地区分布图</div>
+			    	<div id="main1" style="width: 510px; height: 350px; float: left;"></div>
+			    	<div class="my_main" id="main2" style="width: 510px; height: 350px; float: left;"></div>
+		    </div>
+		   
+		</div>
+		
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="js/jquery-labelauty.js"></script>
+		<script src="js/jquery.cityselect.js"></script>
+		<script src="jedate/jquery.jedate.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+		<script src="js/select-widget-min.js"></script>
+		<script src="js/jquery.animsition.min.js"></script>
+		<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		<script src="js/macarons .js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/sq_data.js"></script>
+		
+		
+		<script>
+			$(document).ready(function() {
+				//插件初始化
+				$(":checkbox").labelauty({
+					checked_label: "",
+					unchecked_label: "",
+				});
+				$(":radio").labelauty();
+				//联动下拉
+				$("#city_1").citySelect({
+					url:{"citylist":[
+							{"p":"新老客户","c":[{"n":"不限"},{"n":"新客户"},{"n":"老客户"}]},
+							{"p":"级别","c":[{"n":"LV-0"},{"n":"LV-1"},{"n":"LV-2"},{"n":"LV-3"},{"n":"LV-4"}]}
+						]},
+					prov:"新老客户",
+					city:"不限"
+				});
+				$("#city_2").citySelect({
+				url:{"citylist":[
+						{"p":"全国省份排名","c":[{"n":"HTML"},{"n":"CSS","a":[{"s":"CSS2.0"},{"s":"CSS3.0"}]},{"n":"JAVASCIPT"}]},
+						{"p":"编程语言","c":[{"n":"C"},{"n":"C++"},{"n":"Objective-C"},{"n":"PHP"},{"n":"JAVA"}]},
+						{"p":"数据库","c":[{"n":"Mysql"},{"n":"SqlServer"},{"n":"Oracle"},{"n":"DB2"}]},
+					]},
+				prov:"全国省份排名",
+				city:"",
+				dist:"",
+				nodata:"none"
+			});
+				
+			    //调用日期
+			    /*var start = {
+				    format: 'YYYY-MM-DD',
+				    //minDate: '2014-06-16 23:59:59', //设定最小日期为当前日期
+				    festival:true,
+				    //isinitVal:true,
+				    maxDate: $.nowDate(0), //最大日期
+				    choosefun: function(elem,datas){
+				        end.minDate = datas; //开始日选好后，重置结束日的最小日期
+				    }
+				};
+				var end = {
+				    format: 'YYYY-MM-DD',
+				    //minDate: $.nowDate(0), //设定最小日期为当前日期
+				    festival:true,
+				    //isinitVal:true,
+				    maxDate: '2099-06-16 23:59:59', //最大日期
+				    choosefun: function(elem,datas){
+				        start.maxDate = datas; //将结束日的初始值设定为开始日的最大日期
+				    }
+				};
+				$("#inpstart").jeDate(start);
+				$("#inpend").jeDate(end);*/
+				
+  			  //初始化切换
+			  $(".animsition").animsition({
+			  
+			    inClass               :   'fade-in-right',
+			    outClass              :   'fade-out',
+			    inDuration            :    1500,
+			    outDuration           :    800,
+			    linkElement           :   '.animsition-link',
+			    // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+			    loading               :    true,
+			    loadingParentElement  :   'body', //animsition wrapper element
+			    loadingClass          :   'animsition-loading',
+			    unSupportCss          : [ 'animation-duration',
+			                              '-webkit-animation-duration',
+			                              '-o-animation-duration'
+			                            ],
+			    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+			    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+			    
+			    overlay               :   false,
+			    
+			    overlayClass          :   'animsition-overlay-slide',
+			    overlayParentElement  :   'body'
+			  });
+			  
+
+				function my_data(){
+					var data = [];
+					for( var i =0; i<30; i++){
+						data.push(Math.round(Math.random() * (500 - 100) + 100));
+					};
+					return data;
+				}
+			   
+			   	
+			   	//省份信息
+			   	var sf_data = [
+		            {name: '北京',value: Math.round(Math.random()*1000)},
+	                {name: '天津',value: Math.round(Math.random()*1000)},
+	                {name: '上海',value: Math.round(Math.random()*1000)},
+	                {name: '重庆',value: Math.round(Math.random()*1000)},
+	                {name: '河北',value: Math.round(Math.random()*1000)},
+	                {name: '河南',value: Math.round(Math.random()*1000)},
+	                {name: '云南',value: Math.round(Math.random()*1000)},
+	                {name: '辽宁',value: Math.round(Math.random()*1000)},
+	                {name: '黑龙江',value: Math.round(Math.random()*1000)},
+	                {name: '湖南',value: Math.round(Math.random()*1000)},
+	                {name: '安徽',value: Math.round(Math.random()*1000)},
+	                {name: '山东',value: Math.round(Math.random()*1000)},
+	                {name: '新疆',value: Math.round(Math.random()*1000)},
+	                {name: '江苏',value: Math.round(Math.random()*1000)},
+	                {name: '浙江',value: Math.round(Math.random()*1000)},
+	                {name: '江西',value: Math.round(Math.random()*1000)},
+	                {name: '湖北',value: Math.round(Math.random()*1000)},
+	                {name: '广西',value: Math.round(Math.random()*1000)},
+	                {name: '甘肃',value: Math.round(Math.random()*1000)},
+	                {name: '山西',value: Math.round(Math.random()*1000)},
+	                {name: '内蒙古',value: Math.round(Math.random()*1000)},
+	                {name: '陕西',value: Math.round(Math.random()*1000)},
+	                {name: '吉林',value: Math.round(Math.random()*1000)},
+	                {name: '福建',value: Math.round(Math.random()*1000)},
+	                {name: '贵州',value: Math.round(Math.random()*1000)},
+	                {name: '广东',value: Math.round(Math.random()*1000)},
+	                {name: '青海',value: Math.round(Math.random()*1000)},
+	                {name: '西藏',value: Math.round(Math.random()*1000)},
+	                {name: '四川',value: Math.round(Math.random()*1000)},
+	                {name: '宁夏',value: Math.round(Math.random()*1000)},
+	                {name: '海南',value: Math.round(Math.random()*1000)},
+	                {name: '台湾',value: Math.round(Math.random()*1000)},
+	                {name: '香港',value: Math.round(Math.random()*1000)},
+	                {name: '澳门',value: Math.round(Math.random()*1000)},
+	                {name: '南海诸岛',value: 0, 
+	                	itemStyle: {
+		                normal: {
+		                    color: '#e4f9fb',
+		                    label: {
+		                        show: false
+		                    }
+		                },
+		                emphasis: {                 // 也是选中样式
+		                    color: '#e4f9fb',
+		                    label: {
+		                        show: false,
+		                        textStyle: {
+		                            color: '#fff'
+		                        }
+		                    }
+		                }
+		            },
+	                }//去掉南海诸岛
+	            ]
+			   	
+			   	//排名前十前10的数据
+		   		var sf_data10
+			   	var sf10_value
+			   	var sf10_name
+			   	var zw_json = {name :'-',value : 0};
+			   	var len
+			   	Sort_10(sf_data)
+			   	function Sort_10(data){
+			   		sf_data10 = [];
+				   	sf10_value = [];
+				   	sf10_name = [];
+				   	len = data.length;
+				   	
+				   	for(var i=0; i<len; i++){
+				   		sf_data10[i] = $.extend(true,{}, data[i]);
+				   	}
+				   	console.log(sf_data10.length)
+				   	if(len < 10){
+				   		for(var i=0; i<(10 - len); i++){
+				   			sf_data10.push(zw_json);
+				   		}
+				   	}
+				   	function size(){  
+				        var j = sf_data10[0].value;
+				        var n = sf_data10[0];
+				        var iNow = 0;
+				        for (var i=1;i<sf_data10.length ;i++ ){  
+				    
+				            if(sf_data10[i].value>j){  
+				                j = sf_data10[i].value;  
+				                iNow = i;
+				            }  
+				        }
+				        return sf_data10.splice(iNow,1);
+				    }  
+				   	for(var i=0; i<10; i++){
+				   		sf10_value.unshift(size()[0]);
+				   		sf10_name.unshift(sf10_value[0].name);
+				   	}
+				   	//console.log(sf_data10)
+			   	}
+			   	
+				
+				
+			   	//下拉省份选择
+			   	var sf_length = sf_data.length - 1;
+			   	var sf_options = '';
+			   	for(var i=0; i<sf_length; i++){
+			   		sf_options += '<option value="'+ sf_data[i].name +'">'+ sf_data[i].name +'</option>'
+			   	}
+			   
+			   	$('#sf_select').html($('#sf_select').html() + sf_options);
+			   	
+			    // 路径配置
+		        require.config({
+		            paths: {
+		                echarts: 'http://echarts.baidu.com/build/dist'
+		            }
+		        });
+		        
+		        // 使用
+		        require(
+		            [
+		                'echarts',
+		                'echarts/chart/bar',
+		                'echarts/chart/line',
+		                'echarts/chart/pie',
+		                'echarts/chart/map',// 使用柱状图就加载bar模块，按需加载
+		            ],
+		            function (ec) {
+		                // 基于准备好的dom，初始化echarts图表
+		                var myChart = ec.init(document.getElementById('main1'),'macarons');
+		                var myChart2 = ec.init(document.getElementById('main2'),'macarons');
+		                var ecConfig = require('echarts/config');
+						var zrEvent = require('zrender/tool/event');
+						var curIndx = 0;
+
+						$('#sf_select').on('change',function(){
+							 var val = $(this).val();
+							 var sf_mapTypeControl = {};
+							 sf_mapTypeControl[val] = true;
+							 if(val == 'china'){
+							 	Sort_10(sf_data);
+						 	 	 myChart.setOption({
+								 	 roamController: {
+								        mapTypeControl: sf_mapTypeControl
+								 	 },
+								 	 series : [{
+									 	 	mapType: val,
+									 	 	data: sf_data
+									 	 }]
+									 });
+								 
+								 myChart2.setOption({
+								 	 yAxis : [
+									        {
+									            data : sf10_name
+									        }
+									    ],
+								 	 series : [{
+									 	 	data: sf10_value
+									 	 }]
+									 });
+							 }
+							 else{
+							 	 Sort_10(sq_data[val]);
+							 	 myChart.setOption({
+						 	 		roamController: {
+							        	mapTypeControl: sf_mapTypeControl
+							     	},
+								 	 series : [{
+									 	 mapType: val,
+									 	 	data: sq_data[val]
+									 	}]
+									 });
+								 myChart2.setOption({
+								 	 yAxis : [
+									        {
+									            data : sf10_name
+									        }
+									    ],
+								 	 series : [{
+									 	 	data: sf10_value
+									 	 }]
+									 });
+							 }
+							
+						});
+		              
+			             var option = {
+			             	backgroundColor : '#f3fffe',
+						    tooltip : {
+						        trigger: 'item',
+						        //formatter: '滚轮切换或点击进入该省<br/>{b}'
+						    },
+						    legend: {
+						    	show : false,
+						        orient: 'vertical',
+						        x:'right',
+						        data:['客户数量']
+						    },
+						    dataRange: {
+						        min: 0,
+						        max: 1000,
+						        y:'top',
+						        //color:['orange','yellow'],
+						        text:['高','低'],           // 文本，默认为数值文本
+						        calculable : true
+						    },
+						      roamController: {
+						      	width : 60,
+						      	height : 90,
+						        show: true,
+						        x: 'left',
+						        y:'bottom',
+						        mapTypeControl: {
+						            'china': true
+						        }
+						    },
+						    series : [
+						        {
+						            name: '客户数量',
+						            type: 'map',
+						            mapType: 'china',
+						            selectedMode : 'single',
+						            scaleLimit : {
+						            	min : 0.5,
+						            	max : 2
+						            },
+						            mapLocation :{
+						            	x : 'right'
+						            },
+						            itemStyle:{
+						                normal:{label:{show:true}},
+						                emphasis:{label:{show:true}}
+						            },
+						            data:sf_data
+					        },
+					       
+						    ]
+						};
+						
+						var option2 = {
+							backgroundColor : 'white',
+							title:{
+			        			text : '排名前10',
+			        			x : 48,
+			        			y : 15,
+			        			textStyle : {
+			        				fontSize : 12
+			        			}
+			        		},
+						    tooltip : {
+						        trigger: 'axis',
+						    },
+						    grid :{
+						    	y: 55,
+						    	y2: 80
+						    },
+						    legend: {
+						    	show : true,
+						    	y : 'bottom',
+						        borderWidth: 1,
+						        padding: 8,   
+						        data:['人数']
+						    },
+						    toolbox: {
+						        show : true,
+						        y: 15,
+						        itemSize : 12,
+						        feature : {
+						            //mark : {show: true},
+						            dataView : {show: true},
+						            //magicType: {show: true, type: ['line', 'bar']},
+						            restore : {show: true},
+						            saveAsImage : {show: true}
+						        }
+						    },
+						    calculable : true,
+						    xAxis : [
+						        {
+						            type : 'value',
+						            boundaryGap : [0, 0.01]
+						        }
+						    ],
+						    yAxis : [
+						        {
+						            type : 'category',
+						            data : sf10_name
+						        }
+						    ],
+						    series : [
+						        {
+						            name:'人数',
+						            type:'bar',
+						            barMaxWidth : 10,
+						            itemStyle: {
+									    normal: {
+									        color : '#36a2ef'
+									    }
+									},
+						            data:sf10_value
+						        }
+						    ]
+						};
+	
+		                // 为echarts对象加载数据 
+		                myChart.setOption(option); 
+		                myChart2.setOption(option2); 
+				        	
+			            }
+			        );
+			   
+					//关闭提示
+					$('.xsfx_tips  i').on('click',function(){
+						$(this).parent().slideUp();
+					})
+			
+			});
+		</script>
+	</body>
+</html>

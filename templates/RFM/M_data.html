@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/animsition.min.css" />
+		<link rel="stylesheet" href="css/rfm.css" />
+		<link rel="stylesheet" href="css/drop-down.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/jquery-labelauty.css" />
+	</head>
+	<body>
+		<div class="data_wrap">
+			
+			<header class="rfm_header">
+				<ul>
+					<li><a class="animsition-link" href="RFM_data.html" data-animsition-out="fade-out-left-sm">RFM模型分析</a></li>
+					<li><a class="animsition-link" href="R_data.html" data-animsition-out="fade-out-left-sm">R值分析</a></li>
+					<li><a class="animsition-link" href="F_data.html" data-animsition-out="fade-out-left-sm">F值分析</a></li>
+					<li class="active"><a class="animsition-link" href="M_data.html" data-animsition-out="fade-out-left-sm">M值分析</a></li>
+				</ul>
+			</header>
+		    <div class="animsition">
+		    	
+				<div class="data_time_set">
+					<div>最近付款时间在<span class="now_time">2017-1-20</span>前</div>
+					<select name="drop2" class="ui-select">
+						<option value="1">一年</option>
+						<option value="2">两年</option>
+						<option value="3">全部</option>
+					</select>
+					
+					<div>的客户</div>
+				</div>
+				
+				<div class="data_time_set" id="data_M_set">
+					<div style="margin-top: 5px;">M值</div>
+					<select name="drop2" class="ui-select">
+						<option value="1">客单价</option>
+						<option value="2">总金额</option>
+					</select>
+					<div>
+						时隔选择：
+						<label>
+							<input type="radio" checked name="date_radio" style="display: none;"/> 30元
+						</label>
+						<label>
+							<input id="customize" type="radio" name="date_radio" style="display: none;"/> 自定义
+						</label>
+						<input type="text" class="date_set" value="0" disabled="disabled" /> 元
+						<button class="save">保存配置</button>
+					</div>
+					
+					<div class="right_radiobox">
+						指标选择：
+						<label>
+							<input type="radio" checked name="rfm_radio" style="display: none;"/> R值指标
+						</label>
+						<label>
+							<input type="radio" name="rfm_radio" style="display: none;"/> F值指标
+						</label>
+						<label>
+							<input type="radio" name="rfm_radio" style="display: none;"/> 会员等级指标
+						</label>
+						
+					</div>
+				</div>
+				<div class="data_jiage_set">
+					<table id="F_table" cellspacing="0" cellpadding="0">
+						<tr>
+							<th>购买次数(F值)</th>
+							<th style="min-width: 60px;">客户数</th>
+							<th width="140">客户占比%</th>
+							<th>累计占比%</th>
+							<th>R &le; 45(%)</th>
+							<th>45 &lt; R &le; 90(%)</th>
+							<th>90 &lt; R &le; 180(%)</th>
+							<th>180 &lt; R &le; 365(%)</th>
+							<th>R &gt; 365(%)</th>
+						</tr>
+						<tr>
+							<td>0</td>
+							<td>1234</td>
+							<td>1%</td>
+							<td><span class="bar"></span></td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+						</tr>			
+						<tr>
+							<td>1</td>
+							<td>1234</td>
+							<td>1%</td>
+							<td><span class="bar"></span></td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+						</tr>	
+						<tr>
+							<td>2</td>
+							<td>1234</td>
+							<td>1%</td>
+							<td><span class="bar"></span></td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+						</tr>	
+						<tr>
+							<td>3</td>
+							<td>1234</td>
+							<td>1%</td>
+							<td><span class="bar"></span></td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+						</tr>	
+						<tr>
+							<td>4</td>
+							<td>1234</td>
+							<td>1%</td>
+							<td><span class="bar"></span></td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+						</tr>	
+						<tr>
+							<td>5</td>
+							<td>1234</td>
+							<td>1%</td>
+							<td><span class="bar"></span></td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+							<td>1%</td>
+						</tr>	
+					</table>
+				</div>
+		    </div>
+		</div>
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+		<script src="js/select-widget-min.js"></script>
+		<script src="js/jquery.animsition.min.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/jquery-labelauty.js"></script>
+		<script src="js/jqbar.js"></script>
+		<script>
+			$(document).ready(function() {
+				
+				//配置单选
+				$(":radio").labelauty({ label: false });
+				
+  			  //初始化切换
+			  $(".animsition").animsition({
+			  
+			    inClass               :   'fade-in-right',
+			    outClass              :   'fade-out',
+			    inDuration            :    1500,
+			    outDuration           :    800,
+			    linkElement           :   '.animsition-link',
+			    // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+			    loading               :    true,
+			    loadingParentElement  :   'body', //animsition wrapper element
+			    loadingClass          :   'animsition-loading',
+			    unSupportCss          : [ 'animation-duration',
+			                              '-webkit-animation-duration',
+			                              '-o-animation-duration'
+			                            ],
+			    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+			    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+			    
+			    overlay               :   false,
+			    
+			    overlayClass          :   'animsition-overlay-slide',
+			    overlayParentElement  :   'body'
+			  });
+			  
+			   //初始化累计占比
+			  $('.bar').jqbar({ label: '', value: 55.55, barColor: '#d9edf7' });
+			  
+			  //时隔选择
+			  $('input[name=date_radio]').click(function(e){
+			  	if(e.target.id == 'customize'){
+			  		$('.date_set').attr('disabled',false);
+			  	}
+			  	else{
+			  		$('.date_set').attr('disabled','disabled');
+			  	}
+			  })
+			  
+			  
+			  /*$('.ui-select').next().find('.select-list li').on('click',function(){
+			  	 $('.ui-select').next().find('.select-set').html('123')
+			  })*/
+			  
+			});
+		</script>
+	</body>
+</html>

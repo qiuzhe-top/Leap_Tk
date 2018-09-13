@@ -1,0 +1,113 @@
+{% extends "home/home.html" %} {% load staticfiles %} {% block css_all %}
+<link rel="stylesheet" href="{% static 'Practice/Practice.css' %}">
+<link rel="stylesheet" href="{% static 'assets/vendor/font-awesome/css/font-awesome.min.css' %}"> {% endblock %} {% block title %}单元练习{% endblock %} {% block html_body %}
+<div class="container-fluid padding_0">
+    <nav class="rom padding_0">
+        <div class="col-md-12 nav_panel">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 panel_text">
+                <span class="MyBar">{{ minutia_text }}</span>
+                <span id="flip" class="glyphicon glyphicon-th-large ico_large"></span>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+        <div id="panel" class="col-md-12 nav_content" mouseover="div_over();">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <ul class="answers">
+                    {%　for k,v in tm_list.items　%}
+                    <li class="milix {{ v }} {% if forloop.counter == 1 %}boder{% endif %}" value="{{ k }}">{{ forloop.counter }}</li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </nav>
+
+
+    <div class="rom">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" style="margin-bottom: 100px;">
+            <div class="col-md-11 subject_text">
+                <br>
+                <h4 style="line-height:27px;" class="obj_title">载入中...</h4>
+            </div>
+            <div class="col-md-1">
+                <br>
+                <br>
+                <span class="glyphicon glyphicon-star-empty ico_empty" title="收藏"></span>
+                <br>
+                <br>
+                <span class="glyphicon glyphicon-ok display-none boj_if_ico"></span>
+                <br>
+                <br>
+                <span class="glyphicon glyphicon-question-sign ico_sign" title="查看答案" onclick="show_checked_aws();"></span>
+
+            </div>
+            <div class="col-md-12 subject_options">
+                <label class="fancy-radio answerA display-none">
+                    <input name="gender" value="A" type="radio">
+                    <span>
+                        <i></i>载入中...</span>
+                </label>
+                <label class="fancy-radio answerB display-none">
+                    <input name="gender" value="B" type="radio">
+                    <span>
+                        <i></i>载入中...</span>
+                </label>
+                <label class="fancy-radio answerC display-none">
+                    <input name="gender" value="C" type="radio">
+                    <span>
+                        <i></i>载入中...</span>
+                </label>
+                <label class="fancy-radio answerD display-none">
+                    <input name="gender" value="D" type="radio">
+                    <span>
+                        <i></i>载入中...</span>
+                </label>
+                <label class="fancy-radio answerE display-none">
+                    <input name="gender" value="E" type="radio">
+                    <span>
+                        <i></i>载入中...</span>
+                </label>
+                <label class="fancy-radio answerF display-none">
+                    <input name="gender" value="F" type="radio">
+                    <span>
+                        <i></i>载入中...</span>
+                </label>
+
+                <label class="fancy-radio answeryes display-none">
+                    <input name="gender" value="正确" type="radio">
+                    <span>
+                        <i></i>载入中...</span>
+                </label>
+                <label class="fancy-radio answerno display-none">
+                    <input name="gender" value="错误" type="radio">
+                    <span>
+                        <i></i>载入中...</span>
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 article_box">
+            <button type="button" class="btn btn-primary btn-lg prev_sub" onclick="prev_sub();">上一题</button>
+            <button type="button" class="btn btn-primary btn-lg next_sub" onclick="next_sub();">下一题</button>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block javascript %}
+<script type="text/javascript" src="{% static 'Practice/Practice.js' %}"></script>
+<script>
+    var tmid = '{{ objid }}'
+    window.onload = function () {
+        if (tmid == '') {
+            var obj_id = $('.answers li')[0].value
+
+        } else {
+            var obj_id = Number(tmid)
+        }
+        boj_ajax(obj_id)
+    }
+</script>
+{% endblock %}

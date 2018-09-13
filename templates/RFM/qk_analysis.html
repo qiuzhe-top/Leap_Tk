@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="css/animsition.min.css" />
+		<link rel="stylesheet" href="css/drop-down.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/qk.css" />
+	</head>
+	<body>
+		
+		<div class="data_wrap" style="background: #efeff5; width: 1020px; padding: 10px; overflow: hidden;">
+		    <div class="animsition">
+				<div class="qk_wrap">
+					<div class="qk_top">昨日转化潜客<span>0</span><p>历史转化潜客:&nbsp;6&nbsp;(3%)</p></div>
+					<div class="qk_top">昨日新增潜客<span>0</span><p>当前潜客人数:&nbsp;6&nbsp;</p></div>
+					<div class="qk_top">当前<span>0%</span>潜客有联系方式<p>有联系方式潜客:&nbsp;6&nbsp;人</p></div>
+				</div>
+				<div class="qk_wrap">
+					<div>
+						<h3>潜客转化分析</h3>
+						<div id="main1" class="my_main"></div>
+					</div>
+					<div>
+						<h3>潜客贡献分析</h3>
+						<div id="main2" class="my_main"></div>
+					</div>
+				</div>
+				<div class="qk_wrap">
+					<div>
+						<h3>历史潜客活跃情况</h3>
+						<div id="main3" class="my_main"></div>
+					</div>
+					<div>
+						<h3>潜客来源分析</h3>
+						<div id="main4" class="my_main"></div>
+					</div>
+				</div>
+				</div>
+		    </div>
+		</div>
+		
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+		<script src="js/select-widget-min.js"></script>
+		<script src="js/jquery.animsition.min.js"></script>
+		<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		<script src="js/macarons .js"></script>
+		<script src="js/common.js"></script>
+		
+		<script>
+			$(document).ready(function() {
+  			  //初始化切换
+			  $(".animsition").animsition({
+			  
+			    inClass               :   'fade-in-right',
+			    outClass              :   'fade-out',
+			    inDuration            :    1500,
+			    outDuration           :    800,
+			    linkElement           :   '.animsition-link',
+			    // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+			    loading               :    true,
+			    loadingParentElement  :   'body', //animsition wrapper element
+			    loadingClass          :   'animsition-loading',
+			    unSupportCss          : [ 'animation-duration',
+			                              '-webkit-animation-duration',
+			                              '-o-animation-duration'
+			                            ],
+			    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+			    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+			    
+			    overlay               :   false,
+			    
+			    overlayClass          :   'animsition-overlay-slide',
+			    overlayParentElement  :   'body'
+			  });
+			  
+			  //虚拟数据
+			 	var date = ['2016/11/1','2016/11/2','2016/11/3','2016/11/4','2016/11/5','2016/11/6','2016/11/7','2016/11/8','2016/11/9','2016/11/10',
+				'2016/11/11','2016/11/12','2016/11/13','2016/11/14','2016/11/15','2016/11/16','2016/11/17','2016/11/18'
+				,'2016/11/19','2016/11/20','2016/11/21','2016/11/22','2016/11/23','2016/11/24','2016/11/25','2016/11/26','2016/11/27'
+				,'2016/11/28','2016/11/29','2016/11/30'];
+				
+				
+				function my_data(){
+					var data = [];
+					for( var i =0; i<30; i++){
+						data.push(Math.round(Math.random() * (500 - 100) + 100));
+					};
+					return data;
+				}
+			   var num = my_data();
+			   var bl = '30%';
+			   
+			     // 路径配置
+		        require.config({
+		            paths: {
+		                echarts: 'http://echarts.baidu.com/build/dist'
+		            }
+		        });
+		        
+		        // 使用
+		        require(
+		            [
+		                'echarts',
+		                'echarts/chart/bar',
+		                'echarts/chart/line',
+		                'echarts/chart/pie'// 使用柱状图就加载bar模块，按需加载
+		            ],
+		            function (ec) {
+		                // 基于准备好的dom，初始化echarts图表
+		                var myChart = ec.init(document.getElementById('main1'),'macarons');
+		                var myChart2 = ec.init(document.getElementById('main2'),'macarons');
+		                var myChart3 = ec.init(document.getElementById('main3'),'macarons');
+		                var myChart4 = ec.init(document.getElementById('main4'),'macarons');
+		                
+		                var option = {
+			        	backgroundColor:'white',
+						    tooltip : {
+						        trigger: 'axis'
+						    },
+						    legend: {
+						        data:['转化人数'],
+						        y:'20'
+						    },
+						   grid:{
+						   	y:'100'
+						   },
+						    toolbox: {
+						        show : false,
+						        y:'20',
+						        feature : {
+						            mark : {show: false},
+						            dataView : {show: true, readOnly: false},
+						            magicType : {show: true, type: ['line', 'bar']},
+						            restore : {show: true},
+						            saveAsImage : {show: true}
+						        }
+						    },
+						    dataZoom : {
+						        show : true,
+						        realtime : true,
+						        y: 320,
+						        height: 20,
+						        start : 87,
+						        end : 100
+						    },
+						    calculable : true,
+						    xAxis : [
+						        {
+						            type : 'category',
+						            boundaryGap : false,
+						            data : date
+						        }
+						    ],
+						    yAxis : [
+						        {
+						            type : 'value'
+						        }
+						    ],
+						    series : [
+						        {
+						            name:'转化人数',
+						            type:'line',
+						            stack: '总量',
+						            barMaxWidth : 30,
+						            itemStyle:{
+						            	normal:{
+						            		borderWidth : 3
+						            	}
+						            },
+						            data:my_data()
+						        },
+						        
+						    ]
+						};
+						var option2 = {
+			        	backgroundColor:'white',
+						    tooltip : {
+						        trigger: 'axis'
+						    },
+						    legend: {
+						        data:['付款总额'],
+						        y:'20'
+						    },
+						   grid:{
+						   	y:'100'
+						   },
+						    toolbox: {
+						        show : false,
+						        y:'20',
+						        feature : {
+						            mark : {show: false},
+						            dataView : {show: true, readOnly: false},
+						            magicType : {show: true, type: ['line', 'bar']},
+						            restore : {show: true},
+						            saveAsImage : {show: true}
+						        }
+						    },
+						    dataZoom : {
+						        show : true,
+						        realtime : true,
+						        y: 320,
+						        height: 20,
+						        start : 87,
+						        end : 100
+						    },
+						    calculable : true,
+						    xAxis : [
+						        {
+						            type : 'category',
+						            boundaryGap : false,
+						            data : date
+						        }
+						    ],
+						    yAxis : [
+						        {
+						            type : 'value'
+						        }
+						    ],
+						    series : [
+						        {
+						            name:'付款总额',
+						            type:'line',
+						            stack: '总量',
+						            barMaxWidth : 30,
+						            itemStyle:{
+						            	normal:{
+						            		borderWidth : 3
+						            	}
+						            },
+						            data:my_data()
+						        },
+
+						    ]
+						};
+
+						var option3 = {
+			        	backgroundColor:'white',
+						    tooltip : {
+						        trigger: 'axis',
+						        formatter : function(data){
+						        	console.log(data);
+						        	return data[1].name + '</br>人数：' + data[1].value + '</br>占比：' + bl
+						        }
+						    },
+						    legend: {
+						    	selectedMode : false,
+						        data:['人数','占比'],
+						        y:'20'
+						    },
+						   grid:{
+						   	y:'100'
+						   },
+						   toolbox: {
+						        show : false,
+						        y:'20',
+						        feature : {
+						            mark : {show: false},
+						            dataView : {show: true, readOnly: false},
+						            magicType : {show: true, type: ['line', 'bar']},
+						            restore : {show: true},
+						            saveAsImage : {show: true}
+						        }
+						    },
+						    dataZoom : {
+						        show : true,
+						        realtime : true,
+						        y: 320,
+						        height: 20,
+						        start : 87,
+						        end : 100
+						    },
+						    calculable : true,
+						    xAxis : [
+						        {
+						            type : 'category',
+						            boundaryGap : false,
+						            data : date
+						        }
+						    ],
+						    yAxis : [
+						        {
+						            type : 'value'
+						        }
+						    ],
+						    series : [
+						        {
+						            name:'人数',
+						            type:'line',
+						            stack: '总量',
+						            barMaxWidth : 30,
+						            itemStyle:{
+						            	normal:{
+						            		borderWidth : 3
+						            	}
+						            },
+						            data:num
+						        },
+						        {
+						            name:'占比',
+						            type:'line',
+						            stack: '占比',
+						            barMaxWidth : 30,
+						            show : false,
+						            itemStyle:{
+						            	normal:{
+						            		borderWidth : 3,
+											//color :'#32dadd'
+						            	}
+						            },
+						            data:num
+						        },
+
+						    ]
+						};
+						var option4 = {
+						backgroundColor:'white',
+					    tooltip : {
+					        trigger: 'item',
+					        formatter: "{a} <br/>{b} : {c} ({d}%)"
+					    },
+					    legend: {
+					        orient : 'vertical',
+					        x : 'right',
+					        y : 'center',
+					        data:['PC端','移动端','微信']
+					    },
+					    toolbox: {
+					        show : false,
+					        feature : {
+					            mark : {show: true},
+					            dataView : {show: true, readOnly: false},
+					            magicType : {
+					                show: true,
+					                type: ['pie', 'funnel'],
+					                option: {
+					                    funnel: {
+					                        x: '25%',
+					                        width: '50%',
+					                        funnelAlign: 'center',
+					                        max: 1548
+					                    }
+					                }
+					            },
+					            restore : {show: true},
+					            saveAsImage : {show: true}
+					        }
+					    },
+					    calculable : false,
+					    series : [
+					        {
+					            name:'访问来源',
+					            type:'pie',
+					            center:['50%','55%'],
+					            radius : ['40%', '52%'],
+					            itemStyle : {
+					                normal : {
+					                    label : {
+					                        show : false
+					                    },
+					                    labelLine : {
+					                        show : false
+					                    }
+					                },
+					                emphasis : {
+					                    label : {
+					                        show : true,
+					                        position : 'center',
+					                        textStyle : {
+					                            fontSize : '30',
+					                            fontWeight : 'bold'
+					                        }
+					                    }
+					                }
+					            },
+					            data:[
+					                {value:335, name:'PC端'},
+					                {value:310, name:'移动端'},
+					                {value:234, name:'微信'}
+					            ]
+					        }
+					    ]
+					};
+                    
+			        	
+			        	//var ecConfig = require('echarts/config');
+			        	
+			        	
+		                // 为echarts对象加载数据 
+		                myChart.setOption(option); 
+		                myChart2.setOption(option2);
+			        	myChart3.setOption(option3);
+			        	myChart4.setOption(option4);
+			        	
+			        	/*myChart3.on(ecConfig.EVENT.LEGEND_SELECTED, function(param){
+			        		if(param.type == 'legendSelected'){
+			        			return;
+			        		}
+			        	});*/
+			        	
+		            }
+		        );
+			   
+			 /*  
+			  // 基于准备好的dom，初始化echarts实例
+			  	
+				
+		        var myChart = echarts.init(document.getElementById('main1'),'macarons');
+		        var myChart2 = echarts.init(document.getElementById('main2'),'macarons');
+		        var myChart3 = echarts.init(document.getElementById('main3'),'macarons');
+		        var option = {
+		        	backgroundColor:'white',
+					    tooltip : {
+					        trigger: 'axis'
+					    },
+					    legend: {
+					        data:['转化人数'],
+					        y:'20'
+					    },
+					   grid:{
+					   	y:'100'
+					   },
+					    toolbox: {
+					        show : true,
+					        y:'20',
+					        feature : {
+					            mark : {show: true},
+					            dataView : {show: true, readOnly: false},
+					            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+					            restore : {show: true},
+					            saveAsImage : {show: true}
+					        }
+					    },
+					    dataZoom: [{
+					        type: 'inside',
+					        start: 90,
+					        end: 100
+					    }, {
+					        start: 90,
+					        end: 100,
+					        handleSize: '80%',
+					        handleStyle: {
+					            color: '#fff',
+					            shadowBlur: 3,
+					            shadowColor: 'rgba(0, 0, 0, 0.6)',
+					            shadowOffsetX: 2,
+					            shadowOffsetY: 2
+					        }
+					    }],
+					    calculable : true,
+					    xAxis : [
+					        {
+					            type : 'category',
+					            boundaryGap : false,
+					            data : date
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'value'
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'转化人数',
+					            type:'line',
+					            stack: '总量',
+					            barMaxWidth : 30,
+					            itemStyle:{
+					            	normal:{
+					            		borderWidth : 5
+					            	}
+					            },
+					            data:my_data()
+					        },
+					        
+					    ]
+					};
+                    
+                    var option2 = {
+		        	backgroundColor:'white',
+					    tooltip : {
+					        trigger: 'axis'
+					    },
+					    legend: {
+					        data:['付款总额'],
+					        y:'20'
+					    },
+					   grid:{
+					   	y:'100'
+					   },
+					    toolbox: {
+					        show : true,
+					        y:'20',
+					        feature : {
+					            mark : {show: true},
+					            dataView : {show: true, readOnly: false},
+					            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+					            restore : {show: true},
+					            saveAsImage : {show: true}
+					        }
+					    },
+					    dataZoom: [{
+					        type: 'inside',
+					        start: 90,
+					        end: 100
+					    }, {
+					        start: 90,
+					        end: 100,
+					        handleSize: '80%',
+					        handleStyle: {
+					            color: '#fff',
+					            shadowBlur: 3,
+					            shadowColor: 'rgba(0, 0, 0, 0.6)',
+					            shadowOffsetX: 2,
+					            shadowOffsetY: 2
+					        }
+					    }],
+					    calculable : true,
+					    xAxis : [
+					        {
+					            type : 'category',
+					            boundaryGap : false,
+					            data : date
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'value'
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'付款总额',
+					            type:'line',
+					            stack: '总量',
+					            barMaxWidth : 30,
+					            itemStyle:{
+					            	normal:{
+					            		borderWidth : 5
+					            	}
+					            },
+					            data:my_data()
+					        },
+					        
+					    ]
+					};
+					
+					var option3 = {
+		        	backgroundColor:'white',
+					    tooltip : {
+					        trigger: 'axis',
+					        formatter: '{b}</br>{a}：{c}</br>占比：' + bl
+					    },
+					    legend: {
+					        data:['人数','占比'],
+					        y:'20'
+					    },
+					   grid:{
+					   	y:'100'
+					   },
+					    toolbox: {
+					        show : true,
+					        y:'20',
+					        feature : {
+					            mark : {show: true},
+					            dataView : {show: true, readOnly: false},
+					            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+					            restore : {show: true},
+					            saveAsImage : {show: true}
+					        }
+					    },
+					    dataZoom: [{
+					        type: 'inside',
+					        start: 90,
+					        end: 100
+					    }, {
+					        start: 90,
+					        end: 100,
+					        handleSize: '80%',
+					        handleStyle: {
+					            color: '#fff',
+					            shadowBlur: 3,
+					            shadowColor: 'rgba(0, 0, 0, 0.6)',
+					            shadowOffsetX: 2,
+					            shadowOffsetY: 2
+					        }
+					    }],
+					    calculable : true,
+					    xAxis : [
+					        {
+					            type : 'category',
+					            boundaryGap : false,
+					            data : date
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'value'
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'人数',
+					            type:'line',
+					            stack: '总量',
+					            barMaxWidth : 30,
+					            itemStyle:{
+					            	normal:{
+					            		borderWidth : 5
+					            	}
+					            },
+					            data:num
+					        },
+					        {
+					            name:'占比',
+					            type:'line',
+					            stack: '占比',
+					            barMaxWidth : 30,
+					            show : false,
+					            itemStyle:{
+					            	normal:{
+					            		borderWidth : 5,
+										//color :'#32dadd'
+					            	}
+					            },
+					            data:num
+					        },
+					        
+					    ]
+					};
+				    // 使用刚指定的配置项和数据显示图表。
+			        myChart.setOption(option);
+			        myChart2.setOption(option2);
+			        myChart3.setOption(option3);*/
+			        
+			        
+			});
+		</script>
+	</body>
+</html>

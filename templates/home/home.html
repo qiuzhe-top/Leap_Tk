@@ -1,0 +1,217 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}">
+    <link rel="stylesheet" href="{% static 'Public/Public.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+
+
+    <!-- ICONS -->
+
+    {% block css_all %}
+    <link rel="stylesheet" href="{% static 'home/home.css' %}"> {% endblock %}
+
+    <title>{% block title %}home{% endblock %}</title>
+</head>
+{% block style_css %}
+<style>
+    .msg_header {
+        background-image: url("https://i02piccdn.sogoucdn.com/bcbeb06184e0bc7d");
+    }
+</style>
+{% endblock %}
+
+<body>
+    {% block html_body %}
+    <div class="container-fluid">
+        <div class="row personal_msg">
+            <div class="col-md-4 msg_left">
+                <div class="col-md-12 msg_header">
+                    <!-- <img src="https://i03piccdn.sogoucdn.com/3c28af542f2d49f7-fe9c78d2ff4ac332-7b4eb8d4a489d25a24edfce5afdf706e_qq" alt=""> -->
+                    <h2>{{ request.session.user_miname }}</h2>
+                    <!-- <span>***</span> -->
+                </div>
+                <div class="col-md-4 stat_item">
+                    <span>{{ all }}</span>
+                    <span>做题</span>
+                </div>
+                <div class="col-md-4 stat_item" style="cursor: pointer;" onclick="rank_updata();">
+                    <span id="rank_data">0</span>
+                    <span id="rank_data_text">刷新排名</span>
+                </div>
+                <div class="col-md-4 stat_item">
+                    <span>{{ correct|truncatewords:1 }}%</span>
+                    <span>正确率</span>
+                </div>
+                <div class="col-md-12">
+                    <ul class="msg_ul">
+                        <li>
+                            <span class="li_l">个人信息</span>
+                            <span class="li_r"></span>
+                        </li>
+                        <li>
+                            <span class="li_l">账号</span>
+                            <span class="li_r">{{ request.session.user_name }}</span>
+                        </li>
+                        <li>
+                            <span class="li_l">姓名</span>
+                            <span class="li_r">{{ request.session.user_miname }}</span>
+                        </li>
+                        <li>
+                            <span class="li_l">性别</span>
+                            <span class="li_r">{{ request.session.user_gender }}</span>
+                        </li>
+                        <li>
+                            <span class="li_l">经验</span>
+                            <span class="li_r">{{ user_experience }}</span>
+                        </li>
+                        <li>
+                            <span class="li_l">班级</span>
+                            <span class="li_r">{{ request.session.user_Classroom }}</span>
+                        </li>
+                        <li>
+                            <span class="li_l">所学内容</span>
+                            <span class="li_r">
+                                <select id="books_data" class="form-control mi_form-control" onchange="books_up(this);">
+                                    {% for i in books %}
+                                    <option value="{{ i.id }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="col-md-12">
+                    <!-- Small modal -->
+                    <!-- //模态框按钮 -->
+                    <button type="button" class="btn btn-primary " data-toggle="modal" data-target=".bs-example-modal-sm" style="width: 100%;">修改密码</button>
+
+                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <!-- //模态框内容 -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">密码修改</div>
+                                <div class="panel-body text_align_center">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control pawsword_old" placeholder="旧密码" aria-describedby="sizing-addon2">
+                                        <input type="text" class="form-control pawsword_new1" placeholder="新密码" aria-describedby="sizing-addon2">
+                                        <input type="text" class="form-control pawsword_new2" placeholder="新密码" aria-describedby="sizing-addon2">
+                                    </div>
+                                    <button type="button" id="new_password_but" class="btn btn-primary margin_top_10" onclick="new_password_ajax();">确认修改</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{% url 'Logout' %}">
+                        <button type="button" class="btn btn-primary margin_top_10" style="width: 100%;">退出登录 </button>
+                    </a>
+                </div>
+
+
+            </div>
+            <div class="col-md-8 personal_right">
+                <div class="col-md-12">
+                    <ul class="matter_ul">
+                        <li class="matter_li active_list" value="1">练习</li>
+                        <li class="matter_li" value="2">测试</li>
+                        <li class="matter_li" value="3">收藏</li>
+                        <!--onclick="user_Collection();" -->
+                        <li class="matter_li" value="4">错题</li>
+                        <!--onclick="user_Error();" -->
+                    </ul>
+                </div>
+
+                <div class="col-md-12 matter_list padding_0">
+                    <div class="ma_list active_list_box">
+                        {% for i in unit %}
+                        <div class="panel-heading hea_hover" role="tab" id="headingTwo">
+                            <span class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo{{ i.pk }}  " aria-expanded="false"
+                                aria-controls="collapseTwo">
+                                <span class="glyphicon glyphicon-th-list"></span>
+                                {{ i.title }}
+                            </span>
+                        </div>
+                        <div id="collapseTwo{{ i.pk }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo ">
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    {% for j in Measure %} {% if i.pk == j.unitID.pk %}
+                                    <div class="minutiatext">
+                                        <a href="Answer/Exercise/?pag={{ j.id }}">{{ j.title }}</a>
+                                        <!-- <span class=""> 10</span>
+                                                    <span class="">5 /</span> -->
+                                    </div>
+                                    {% endif %} {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+             
+                    </div>
+                    <div class="ma_list">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            {% for j in Exam %}
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="" aria-expanded="false" aria-controls="collapseTwo">
+                                {{ j.title|safe }}
+                            </a>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="ma_list">
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                {% for i in user_Collection %}
+                                <li class="list-group-item">
+                                    <a class="a-list-obj" href="{% url 'See_the_title' %}?pag={{ i.subjectID.pk }}">{{ i.subjectID|safe|truncatewords_html:'3' }}</a>
+                                    <button type="button" class="btn btn-danger btn-toastr my_span_obj" data-context="error" data-position="top-right" value='{{ i.subjectID.pk }}'
+                                        onclick="Delete_the_title(this);">删除</button>
+                                </li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <div class="ma_list">
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                {% for i in user_Error %}
+                                <li class="list-group-item">
+                                    <a class="a-list-obj" href="{% url 'See_the_title' %}?pag={{ i.subjectID.pk }}">{{ i.subjectID|safe|truncatewords_html:'3' }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+
+    <script type="text/javascript" src="{% static 'Public/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/scripts/klorofil-common.js' %}"></script>
+    {% block javascript %}
+    <script type="text/javascript" src="{% static 'home/home.js' %}"></script>
+
+    {% endblock %}
+</body>
+
+</html>

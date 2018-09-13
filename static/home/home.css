@@ -1,0 +1,225 @@
+body {
+    background-color: #f5f5fa;
+}
+
+.personal_msg {
+    padding: 2%;
+    height: 100vh;
+}
+
+@media screen and (max-width: 480px) {
+    .personal_msg {
+        padding: 2%;
+        height: auto;
+    }
+}
+
+.vertical-align-wrap {
+    padding-top: 1%;
+}
+
+.profile-main {
+    text-align: center;
+}
+
+.msg_left {
+    padding: 0px;
+    height: 100%;
+    background-color: #f8f5f5;
+}
+
+.msg_header {
+    height: 150px;
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+
+.msg_header img {
+    height: 80px;
+    border-radius: 50%;
+}
+
+.stat_item {
+    text-align: center;
+    background-color: #05aafd;
+    color: white;
+}
+
+.stat_item span {
+    display: block;
+    padding: 5px;
+}
+
+.msg_ul {
+    padding: 20px;
+    float: left;
+    width: 100%;
+}
+
+.msg_ul li {
+    margin-top: 20px;
+}
+
+.msg_butt {
+    width: 100%;
+}
+
+.mi_form-control {
+    -moz-box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.1);
+    -moz-border-radius: 2px;
+    border-color: #eaeaea00;
+    background-color: #fcfcfc00;
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    background-image: none;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+    height: auto;
+    padding: 0px;
+}
+
+.li_r {
+    float: right;
+}
+
+.personal_right {
+    background-color: white;
+    height: 100%;
+}
+
+.personal_right {
+    padding: 0px;
+}
+
+@media screen and (max-width: 480px) {
+    .personal_right {
+        margin-top: 50px;
+    }
+}
+
+.matter_ul {
+    padding-top: 10px;
+    padding-left: 0px;
+    height: auto;
+    border-bottom: 1px solid #eaeaea;
+    height: 37px;
+}
+
+.matter_ul li {
+    float: left;
+    height: 26px;
+    width: 25%;
+    cursor: pointer;
+    text-align: center;
+}
+
+.matter_ul li:hover {
+    color: black;
+}
+
+.hea_hover:hover {
+    background-color: #f5f5fa;
+}
+
+.active_matter {
+    border-bottom: 2px solid #00AAFF;
+}
+
+.matter_list {
+    position: relative;
+}
+
+.ma_list {
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    display: none;
+}
+
+.active_list {
+    transition: 0.2s;
+    border-bottom: 2px solid #00AAFF;
+}
+
+.active_list_box {
+    display: block;
+}
+
+.panel .panel-heading {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.collapsed {
+    display: block;
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+}
+
+.minutiatext {
+    cursor: pointer;
+    width: 100%;
+    line-height: 30px;
+}
+
+.minutiatext a {
+    padding: 14px;
+    color: black;
+    display: block;
+    float: left;
+    margin-right: 10px;
+    text-align: center;
+    box-shadow: 0 0 1px #c5c5c5;
+    transition: 0.2s;
+}
+
+.minutiatext a:hover {
+    color: #00AAFF;
+    box-shadow: 0 0 1px #c5c5c5;
+}
+
+.minutiatext a:hover {
+    color: #00AAFF;
+    box-shadow: 0 0 24px #efefef;
+}
+
+/* .collapsed:hover{
+    background-color: #e8e8ee;
+} */
+
+.minutiatext span {
+    float: right;
+}
+
+.minutiatext s1 {}
+
+.minutiatext .s2 {
+    font-size: 15px;
+}
+
+.panel {}
+
+.my_panellist {
+    background-color: white;
+}
+
+.a-list-obj {
+    color: black;
+}
+
+.a-list-obj:hover {
+    color: black;
+}
+
+.my_span_obj {
+    float: right;
+    cursor: pointer;
+    font-size: 6px;
+    line-height: 11px;
+}

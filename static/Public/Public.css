@@ -1,0 +1,39 @@
+ul li{
+    list-style: none;
+}
+a{
+    color: white;
+}
+a:hover{
+    color: white;
+}
+.float_left{
+    float: left;
+}
+.float_right{
+    float: right;
+}
+.padding_0{
+    padding: 0px;
+}
+.padding_10{
+    padding: 10px;
+}
+.text_align_center{
+    text-align: center;
+}
+.margin_0_auto{
+    margin: 0 auto;
+}
+.margin_top_10{
+    margin-top: 10px;
+}
+.display-none{
+    display: none;
+}
+.display-inline{
+    display: inline;
+}
+.a-list-obj p{
+    display: inline;
+}

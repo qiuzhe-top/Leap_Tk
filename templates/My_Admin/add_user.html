@@ -1,0 +1,109 @@
+{% extends "My_Admin/index.html" %} {% load staticfiles %} {% block title %}添加用户{% endblock %} {% block css %}
+<link rel="stylesheet" href="{% static 'My_Admin/add_user.css' %}"> {% endblock %} {% block body %}
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">添加用户</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-4">
+            <input id="name" class="form-control input-lg" placeholder="姓名" type="text">
+        </div>
+        <div class="col-md-4">
+            <select id="gender" class="form-control input-lg">
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+        </div>
+        <div class="col-md-12 margin_top_10">
+        </div>
+        <div class="col-md-4">
+            <select id="class" class="form-control input-lg">
+                {% for i in Classroom %}
+                <option value="{{ i.pk }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select id="book" class="form-control input-lg">
+                {% for j in book %}
+                <option value="{{ j.pk }}">{{ j }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-12 margin_top_10">
+        </div>
+        <div class="col-md-4">
+            <input id="username" class="form-control input-lg" placeholder="账号" type="text">
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary btn-lg" type="button" onclick="add_user_ajax();">添加</button>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">批量添加</h3>
+    </div>
+    <div class="panel-body">
+
+        <button type="button" class="btn btn-primary">
+            <a href="/static/Other/用户.xls">下载文档</a>
+        </button>
+        <input type="file" id="excel-file" style="margin-top: 56px;">
+
+
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">录入信息</h3>
+        <div class="right">
+            <button type="button" class="btn-toggle-collapse">
+                <i class="lnr lnr-chevron-up"></i>
+            </button>
+            <button type="button" class="btn-remove">
+                <i class="lnr lnr-cross"></i>
+            </button>
+        </div>
+        <iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe>
+    </div>
+    <div class="panel-body">
+        <table class="exceltable table table-bordered">
+            <thead class="tablehead"></thead>
+            <tbody class="tablebody"></tbody>
+        </table>
+    </div>
+</div>
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">录入情况</h3>
+        <div class="right">
+            <button type="button" class="btn-toggle-collapse">
+                <i class="lnr lnr-chevron-up"></i>
+            </button>
+            <button type="button" class="btn-remove">
+                <i class="lnr lnr-cross"></i>
+            </button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class=" table table-bordered">
+            <thead class="">
+                <tr>
+                    <th>题目</th>
+                    <th>失败情况</th>
+                </tr>
+            </thead>
+            <tbody class="get_back">
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %} {% block JS %}
+<script type="text/javascript" src="{% static 'My_Admin/add_user.js' %}"></script>
+{% endblock %}

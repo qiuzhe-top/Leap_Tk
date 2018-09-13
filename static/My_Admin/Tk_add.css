@@ -1,0 +1,16 @@
+.django-ckeditor-widget{
+    width: 100%;
+}
+
+#cke_id_subject_form{
+    width: 100%;   
+}
+.subject_data input{
+    margin-bottom: 20px;
+}
+.fancy-checkbox {
+    margin-left: 25px;
+}
+#answer_radio_box option{
+    font-size: 25px;
+}

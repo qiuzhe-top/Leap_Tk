@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="css/animsition.min.css" />
+		<link rel="stylesheet" href="css/drop-down.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/xsfx.css" />
+		<link rel="stylesheet" href="jedate/skin/jedate.css" />
+		<link rel="stylesheet" href="css/jquery-labelauty.css" />
+		<link rel="stylesheet" href="css/alertify/alertify.min.css" />
+		<link rel="stylesheet" href="css/alertify/default.min.css"/>
+		<!--<link rel="stylesheet" href="css/style.css">-->
+		<style>
+			label.error{ color: red; font-size: 12px;}
+		</style>
+	</head>
+	<body>
+		
+		<div class="data_wrap" style="background: #efeff5; width: 1020px; padding: 10px;">
+		    <div class="animsition" style="overflow: hidden;">
+				<div class="xsfx_tips">
+					1.商品回购周期用于店铺商品复购率，购买周期分析，分为单独商品分析与类目分析两种分析结果；<br />
+					A：产品回购周期=(第N+1次购买时间-第N次购买时间)的分析;<br />
+					B：回购率=回购总人数/购买总人数的分析;<br />
+					C：回购人均次数=回购总次数/回购总人数的分析;<br />
+					D：平均回购周期=N次购买记录，N-1次回购周期，（hg1+hg2+hg3....）/n 的分析;<br />
+					E：今日到期未购买人数=确定回购周期时间日期，到期未购买顾客的分析;<br />
+					F：本周到期未购买人数=确定回购周期日期，7天内到期未购买人数的分析;<br />
+					<i class="fa fa-close"></i>
+				</div>
+				
+				 <div class="my_duxs_time">
+					 <form id="jsForm">
+					 	<div style="padding-bottom: 10px;">
+					 		<label class="my_setlabel">购买人数：
+								<input type="num" value="" name="r1" /> - <input type="num" name="r2" value="" />
+							</label>
+							<label class="my_setlabel">平均回购周期：
+								<input type="num" value="" name="d1" /> - <input type="num" name="d2" value="" />
+							</label>
+							<label>今日到期未购买人数：
+								<input type="num" value="" name="r3" /> - <input type="num" name="r4" value="" />
+							</label>
+					 	</div>
+					 	<div>
+					 		<label class="my_setlabel"><span style="padding-right: 24px;">商品：</span>
+								<input style="width: 222px;" type="text" value="" name="s1" placeholder="商品ID/商品关键字" />
+							</label>
+							<label class="my_setlabel">类目：
+								<select id="leimu" style="width: 176px;">
+									<option value="">接口去取</option>
+								</select>
+							</label>
+							<label>本周到期未购买人数：
+								<input type="num" value="" name="r5" /> - <input type="num" name="r6" value="" />
+							</label>
+					 	</div>
+						
+					 </form>
+					 <div class="btn_wrap">
+					 	 <button id="shaixuan">筛选</button>
+						 <button id="czbtn">重置</button>
+					 </div>
+			     </div>
+			     
+			    <div id="to_tips">本次筛选出商品 <span id="sp_num">180</span> 款，今日到期未购买人数 <span id="jr_num">848</span> 人，本周到期未购买人数 <span id="bz_num">9394</span> 人</div>
+			    <div class="chebox_wrap" style="color: #36a2ef;">
+					<span id="gzlb" class="set_r"><i class="fa fa-download"></i> 导出推荐规则列表</span>
+					<span id="ljyx" class="set_r"><i class="fa fa-toggle-down"></i> 选中推荐客户立即营销</span>
+					<span id="mdxz" class="set_r"><i class="fa fa-sign-in"></i> 选中推荐客户名单下载</span>
+					<div class="date_tip">
+						<span>统计范围：店铺近一年内订单数据</span>
+						<span>最新数据时间：<span id="start_date">2016-11-11</span> 到 <span id="end_date">2017-11-11</span></span>
+					</div>
+				</div>
+				<table id="sphg_table" class="my_table tablesorter" cellspacing="0" cellpadding="0" style="background: white; width: 1019px;">
+					<thead>
+						<tr>
+							<th style="position: relative">
+								<label><input type="checkbox" id="check_all"/>商品</label>
+								<i id="my_select" class="fa fa-caret-square-o-down"></i>
+								<ul id="my_se_layer">
+									<li class="layer_active">不限</li>
+									<li>只看在架商品</li>
+									<li>只看下架商品</li>
+								</ul>
+							</th>
+							<th>购买人数</th>
+							<th>回购人数%</th>
+							<th>回购率</th>
+							<th>人均回购次数</th>
+							<th>平均回购周期(天)</th>
+							<th>今日到期未购买人数</th>
+							<th>本周到期未购买人数</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td style="width: 230px;"><label><input type="checkbox" class="sp_check" /><img class="my_img" src="img/sp1.jpg"><span class="sp_name">商品名称商品名称商品名称商品名称商品名称</span></label></td>
+						<td>1234</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>654</td>
+						<td><span class="my_span">654654</span><span class="my_span sp_yx"><i>立即营销</i><br><i>下载</i></span></td>
+						<td>3543</span><span class="my_span sp_yx"><i>立即营销</i><br><i>下载</i></span></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox" class="sp_check" /><img class="my_img" src="img/sp1.jpg"><span class="sp_name">商品名称商品名称商品名称商品名称商品名称</span></label></td>
+						<td>1234</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>654</td>
+						<td>6546</span><span class="my_span sp_yx"><i>立即营销</i><br><i>下载</i></span></td>
+						<td>353</span><span class="my_span sp_yx"><i>立即营销</i><br><i>下载</i></span></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox" class="sp_check" /><img class="my_img" src="img/sp1.jpg"><span class="sp_name">商品名称商品名称商品名称商品名称商品名称</span></label></td>
+						<td>1234</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>654</td>
+						<td>13213</span><span class="my_span sp_yx"><i>立即营销</i><br><i>下载</i></span></td>
+						<td>54354</span><span class="my_span sp_yx"><i>立即营销</i><br><i>下载</i></span></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox" class="sp_check" /><img class="my_img" src="img/sp1.jpg"><span class="sp_name">商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称</span></label></td>
+						<td>1234</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>45</td>
+						<td>56</td>
+						<td>3213</span><span class="my_span sp_yx"><i>立即营销</i><br><i>下载</i></span></td>
+						<td>543245</span><span class="my_span sp_yx"><i>立即营销</i><br><i>下载</i></span></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox" class="sp_check" /><img class="my_img" src="img/sp1.jpg"><span class="sp_name">商品名称商品名称商品名称商品名称商品名称</span></label></td>
+						<td>1234</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>1%</td>
+						<td>16</td>
+						<td>587</span><span class="my_span sp_yx"><i>立即营销</i><br><i>下载</i></span></td>
+						<td>354354</span><span class="my_span sp_yx"><i>立即营销</i><br><i>下载</i></span></td>
+					</tr>
+					</tbody>
+
+				</table>
+
+		    </div>
+
+		</div>
+
+		<script src="js/jquery-latest.js"></script>
+		<script src="js/jquery.tablesorter.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="layer/layer.js"></script>
+		<script src="js/alertify.min.js"></script>
+		<script src="js/jquery.validate.js"></script>
+		<script src="js/jquery.cityselect.js"></script>
+		<script src="jedate/jquery.jedate.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+		<script src="js/select-widget-min.js"></script>
+		<script src="js/jquery.animsition.min.js"></script>
+		<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		<script src="js/macarons .js"></script>
+
+		<!--<script src="js/common.js"></script>-->
+
+
+
+		<script>
+			var $j=jQuery.noConflict();
+			//初始化切换
+
+			$j(".animsition").animsition({
+
+			    inClass               :   'fade-in-right',
+			    outClass              :   'fade-out',
+			    inDuration            :    1500,
+			    outDuration           :    800,
+			    linkElement           :   '.animsition-link',
+			    // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+			    loading               :    true,
+			    loadingParentElement  :   'body', //animsition wrapper element
+			    loadingClass          :   'animsition-loading',
+			    unSupportCss          : [ 'animation-duration',
+			                              '-webkit-animation-duration',
+			                              '-o-animation-duration'
+			                            ],
+			    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+			    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+
+			    overlay               :   false,
+
+			    overlayClass          :   'animsition-overlay-slide',
+			    overlayParentElement  :   'body'
+			  });
+
+				//关闭提示
+			$j('.xsfx_tips  i').on('click',function(){
+				$j(this).parent().slideUp();
+			});
+
+				//表单筛选
+			$j("#jsForm").validate({
+					submitHandler: function() {   //提交成功回调
+						//alert($('input[type=email]').val())
+					}
+				});
+
+				//配置通用的默认提示语
+			$j.extend($j.validator.messages, {
+					required: '必填',
+				    equalTo: "请再次输入相同的值",
+				    url : "网址不对",
+				    email : "邮箱不对"
+				});
+
+				//验证零和非零开头的数字
+			jQuery.validator.addMethod("num", function (value, element) {
+				    var num = /^[1-9]*[1-9][0-9]*$/;
+				    return this.optional(element) || (num.test(value));
+				}, "请输入有效数字");
+
+			$j('#shaixuan').click(function(){
+				$j('#jsForm').submit();
+				});
+			$j('#czbtn').on('click',function(){
+				$j('#jsForm')[0].reset();
+				$('label.error').css('display','none');
+				});
+
+				//全选
+			$j('#check_all').on('click',function(){
+					var len = $j('.sp_check').length;
+					var my_change = $j(this).prop('checked');
+					for(var i=0; i<len; i++){
+						$j('.sp_check').eq(i).prop('checked',my_change);
+					};
+				    $j('#my_se_layer').slideUp();
+				});
+
+			//表格排序
+			$("#sphg_table").tablesorter({
+				// pass the headers argument and assing a object
+				headers: {
+					// assign the secound column (we start counting zero)
+					0: {
+						// disable it by setting the property sorter to false
+						sorter: false
+					}
+				}
+			});
+
+			//商品下拉点击
+			$j('#my_select').on('click',function () {
+				//alert(1)
+			});
+			$j('#my_se_layer li').on('click',function () {
+				$j('#my_se_layer li').removeClass('layer_active');
+				$j(this).addClass('layer_active');
+				$j('#my_se_layer').slideUp();
+			});
+			$j('#my_select').on('click',function () {
+				$j('#my_se_layer').slideToggle();
+			});
+
+			$j('.tablesorter tbody tr').hover(function () {
+				$(this).css('background','#d9edf7');
+			},function () {
+				$(this).css('background','none');
+			})
+			/*document.onclick = function () {
+				var html = '<tr><td><label><input type="checkbox" class="sp_check" />商品名称</label></td><td>1234</td><td>1%</td><td>1%</td><td>1%</td><td>16</td><td>10</td><td>11</td></tr>';
+				$j('#sphg_table').append(html);
+				$("table").trigger("update");
+			}*/
+		</script>
+	</body>
+</html>

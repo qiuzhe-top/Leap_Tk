@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="css/animsition.min.css" />
+		<link rel="stylesheet" href="css/drop-down.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/qk.css" />
+		<link rel="stylesheet" href="css/xsfx.css">
+	</head>
+	<body>
+		
+		<div id="jfhu" class="data_wrap" style="background: #efeff5; width: 1020px; padding: 10px; overflow: hidden;">
+		    <div class="animsition">
+
+				<div class="xsfx_tips">
+					1.会员互动分析，包括赚取积分和花费积分两种分析数据展示
+					当日积分各活动占积分当日总积分占比的分析结果；<br />
+
+					<i class="fa fa-close"></i>
+				</div>
+
+				<div class="qk_wrap" style=" margin-bottom: 10px; position: relative;">
+					<div id="hdjf_tips">
+						<span id="hdjf_hdl">互动率：30%</span>
+						<span id="hdjf_hgl">回购率：10%</span>
+						<span id="hdjf_je">金额：123456</span>
+						<p id="hdjf_date">2017/1/1</p>
+					</div>
+					<div>
+						<div id="main1" class="my_main" style="width: 1020px;"></div>
+					</div>
+
+				</div>
+				<div class="qk_wrap">
+					<div>
+						<div id="main2" class="my_main" style="width: 505px; height: 300px"></div>
+					</div>
+					<div>
+						<div id="main3" class="my_main" style="width: 505px; height: 300px"></div>
+					</div>
+					
+				</div>
+
+				<table class="my_table tablesorter" cellspacing="0" cellpadding="0" style="background: white; width: 1020px; margin-top: 10px">
+					<thead>
+					<tr>
+						<th>日期</th>
+						<th>赚积分数</th>
+						<th>新会员赚积分数</th>
+						<th>老会员赚积分数</th>
+						<th>花积分数</th>
+						<th>新会员花积分数</th>
+						<th>老会员花积分数</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td style="line-height: 35px">2017-2-12</td>
+						<td>1234</td>
+						<td>202</td>
+						<td>11</td>
+						<td>532</td>
+						<td>1257234</td>
+						<td>254</td>
+					</tr>
+					<tr>
+						<td style="line-height: 35px">2017-8-24</td>
+						<td>245</td>
+						<td>245</td>
+						<td>8796578</td>
+						<td>6546</td>
+						<td>5678</td>
+						<td>687</td>
+					</tr>
+					<tr>
+						<td style="line-height: 35px">2017-1-20</td>
+						<td>687</td>
+						<td>456</td>
+						<td>287</td>
+						<td>8576</td>
+						<td>654</td>
+						<td>27</td>
+					</tr>
+					<tr>
+						<td style="line-height: 35px">2017-2-1</td>
+						<td>5</td>
+						<td>25754</td>
+						<td>254</td>
+						<td>455</td>
+						<td>245</td>
+						<td>78</td>
+					</tr>
+
+					</tbody>
+
+				</table>
+
+		    </div>
+		</div>
+
+		<script src="js/jquery-latest.js"></script>
+		<script src="js/jquery.tablesorter.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+		<script src="js/select-widget-min.js"></script>
+		<script src="js/jquery.animsition.min.js"></script>
+		<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+		<script src="js/macarons .js"></script>
+		
+		<script>
+			var $j=jQuery.noConflict();
+			$j(document).ready(function() {
+  			  //初始化切换
+				$j(".animsition").animsition({
+			  
+			    inClass               :   'fade-in-right',
+			    outClass              :   'fade-out',
+			    inDuration            :    1500,
+			    outDuration           :    800,
+			    linkElement           :   '.animsition-link',
+			    // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+			    loading               :    true,
+			    loadingParentElement  :   'body', //animsition wrapper element
+			    loadingClass          :   'animsition-loading',
+			    unSupportCss          : [ 'animation-duration',
+			                              '-webkit-animation-duration',
+			                              '-o-animation-duration'
+			                            ],
+			    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+			    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+			    
+			    overlay               :   false,
+			    
+			    overlayClass          :   'animsition-overlay-slide',
+			    overlayParentElement  :   'body'
+			  });
+			  
+			  //虚拟数据
+			 	var date = ['2016/11/1','2016/11/2','2016/11/3','2016/11/4','2016/11/5','2016/11/6','2016/11/7','2016/11/8','2016/11/9','2016/11/10',
+				'2016/11/11','2016/11/12','2016/11/13','2016/11/14','2016/11/15','2016/11/16','2016/11/17','2016/11/18'
+				,'2016/11/19','2016/11/20','2016/11/21','2016/11/22','2016/11/23','2016/11/24','2016/11/25','2016/11/26','2016/11/27'
+				,'2016/11/28','2016/11/29','2016/11/30'];
+				
+				
+				function my_data(){
+					var data = [];
+					for( var i =0; i<30; i++){
+						data.push(Math.round(Math.random() * (500 - 100) + 100));
+					};
+					return data;
+				}
+			   var num = my_data();
+			   var bl = '30%';
+
+				//表格排序
+				$("table").tablesorter();
+			   
+			     // 路径配置
+		        require.config({
+		            paths: {
+		                echarts: 'http://echarts.baidu.com/build/dist'
+		            }
+		        });
+		        
+		        // 使用
+		        require(
+		            [
+		                'echarts',
+		                'echarts/chart/bar',
+		                'echarts/chart/line',
+		                'echarts/chart/pie'// 使用柱状图就加载bar模块，按需加载
+		            ],
+		            function (ec) {
+		                // 基于准备好的dom，初始化echarts图表
+		                var myChart = ec.init(document.getElementById('main1'),'macarons');
+		                var myChart2 = ec.init(document.getElementById('main2'),'macarons');
+		                var myChart3 = ec.init(document.getElementById('main3'),'macarons');
+
+						var option ={
+							title:{
+								text : '赚积分总数：1000\n花积分总数：500',
+								y: 15,
+								x : 20,
+								borderColor : '#ccc',
+								borderWidth : 1,
+								padding : [8, 15],
+								textStyle : {
+									fontSize : 14
+								}
+							},
+							backgroundColor:'white',
+							tooltip : {
+								trigger: 'axis',
+								formatter : function(data){
+									//console.log(data[0].name)
+									option2.title.subtext = data[0].name;
+									option2.series[0].data = [
+										{value:900, name:'PC端'},
+										{value:150, name:'手机端'}
+									];
+									option2.series[1].data = [
+										{value:10, name:'积分抵现'},
+										{value:20, name:'折扣'},
+										{value:110, name:'免邮'},
+										{value:500, name:'积分加钱购'},
+										{value:30, name:'积分换礼品'},
+										{value:50, name:'积分换赠品'}
+									];
+									option3.title.subtext = data[0].name;
+									option3.series[0].data = [
+										{value:900, name:'PC端'},
+										{value:150, name:'手机端'}
+									];
+									option3.series[1].data = [
+										{value:10, name:'积分抵现'},
+										{value:20, name:'折扣'},
+										{value:110, name:'免邮'},
+										{value:500, name:'积分加钱购'},
+										{value:30, name:'积分换礼品'},
+										{value:50, name:'积分换赠品'}
+									];
+									myChart2.clear();
+									myChart2.setOption(option3,true);
+									myChart3.clear();
+									myChart3.setOption(option3,true);
+									var str = data[1].name ;
+									str += '</br>' + data[0].seriesName + ':' + data[0].value;
+									str += '</br>新客户赚积分：100';
+									str += '</br>老客户赚积分：200';
+									str += '</br>' + data[1].seriesName + ':' + data[1].value;
+									str += '</br>新客户花积分：100';
+									str += '</br>老客户花积分：200';
+									$j('#hdjf_date').html(data[1].name);
+									$j('#hdjf_hdl').html('互动率：10%');
+									$j('#hdjf_hgl').html('回购率：20%');
+									$j('#hdjf_je').html('金额：456');
+									return str;
+
+								}
+							},
+							legend: {
+								selectedMode : false,
+								data:['赚积分','花积分'],
+								y:'20'
+							},
+							grid:{
+								y:'100'
+							},
+							toolbox: {
+								show : false,
+								y:'20',
+								feature : {
+									mark : {show: false},
+									dataView : {show: true, readOnly: false},
+									magicType : {show: true, type: ['line', 'bar']},
+									restore : {show: true},
+									saveAsImage : {show: true}
+								}
+							},
+							dataZoom : {
+								show : true,
+								realtime : true,
+								y: 320,
+								height: 20,
+								start : 70,
+								end : 100
+							},
+							calculable : true,
+							xAxis : [
+								{
+									type : 'category',
+									boundaryGap : true,
+									data : date
+								}
+							],
+							yAxis : [
+								{
+									name : '积分数',
+									type : 'value'
+								}
+							],
+							series : [
+								{
+									name:'赚积分',
+									type:'bar',
+									//stack: '总量',
+									barMaxWidth : 15,
+									itemStyle:{
+										normal:{
+											borderWidth : 3
+										}
+									},
+									data:my_data()
+								},
+								{
+									name:'花积分',
+									type:'bar',
+									//stack: '总量',
+									barMaxWidth : 15,
+									itemStyle:{
+										normal:{
+											borderWidth : 3
+										}
+									},
+									data:my_data()
+								}
+							]
+						};
+						var option2 = {
+							title :{
+								text : '赚积分活动占比',
+								subtext : '2017-1-1',
+								textStyle : {
+									fontSize : 14
+								}
+							},
+							backgroundColor : 'white',
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							legend: {
+								show : false,
+								orient : 'vertical',
+								x : 'left',
+								data:['PC端','手机端','进店送积分','签到送积分','收藏送积分','推荐送积分','抽奖互动','生日送积分','微博送积分']
+							},
+							toolbox: {
+								show : false,
+								feature : {
+									mark : {show: false},
+									dataView : {show: true, readOnly: false},
+
+									restore : {show: true},
+									saveAsImage : {show: true}
+								}
+							},
+							calculable : false,
+							series : [
+								{
+									name:'赚积分来源',
+									type:'pie',
+									selectedMode: 'single',
+									radius : [0, 50],
+									itemStyle : {
+										normal : {
+											label : {
+												position : 'inner'
+											},
+											labelLine : {
+												show : false
+											}
+										}
+									},
+									data:[
+										{value:335, name:'PC端'},
+										{value:679, name:'手机端'}
+									]
+								},
+								{
+									name:'赚积分占比',
+									type:'pie',
+									radius : [65, 85],
+
+									// for funnel
+									x: '60%',
+									width: '35%',
+									funnelAlign: 'left',
+
+									data:[
+										{value:335, name:'进店送积分'},
+										{value:310, name:'签到送积分'},
+										{value:234, name:'收藏送积分'},
+										{value:135, name:'推荐送积分'},
+										{value:1048, name:'抽奖互动'},
+										{value:251, name:'生日送积分'},
+										{value:147, name:'微博送积分'}
+									]
+								}
+							]
+						};
+
+						var option3 = {
+							title :{
+								text : '花积分活动占比',
+								subtext : '2017-1-1',
+								textStyle : {
+									fontSize : 14
+								}
+						    },
+							backgroundColor : 'white',
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							legend: {
+								show : false,
+								orient : 'vertical',
+								x : 'left',
+								data:['PC端','手机端','积分抵现','折扣','免邮','积分加钱购','积分换礼品','积分换赠品']
+							},
+							toolbox: {
+								show : false,
+								feature : {
+									mark : {show: false},
+									dataView : {show: true, readOnly: false},
+
+									restore : {show: true},
+									saveAsImage : {show: true}
+								}
+							},
+							calculable : false,
+							series : [
+								{
+									name:'花积分来源',
+									type:'pie',
+									selectedMode: 'single',
+									radius : [0, 50],
+									itemStyle : {
+										normal : {
+											label : {
+												position : 'inner'
+											},
+											labelLine : {
+												show : false
+											}
+										}
+									},
+									data:[
+										{value:335, name:'PC端'},
+										{value:679, name:'手机端'}
+									]
+								},
+								{
+									name:'花积分占比',
+									type:'pie',
+									radius : [65, 85],
+
+									// for funnel
+									x: '60%',
+									width: '35%',
+									funnelAlign: 'left',
+
+									data:[
+										{value:335, name:'积分抵现'},
+										{value:310, name:'折扣'},
+										{value:234, name:'免邮'},
+										{value:135, name:'积分加钱购'},
+										{value:1048, name:'积分换礼品'},
+										{value:251, name:'积分换赠品'}
+									]
+								}
+							]
+						};
+                    
+			        	
+			        	var ecConfig = require('echarts/config');
+			        	
+			        	
+		                // 为echarts对象加载数据 
+		                myChart.setOption(option); 
+		                myChart2.setOption(option2);
+			        	myChart3.setOption(option3);
+		            }
+		        );
+				//关闭提示
+				$j('.xsfx_tips  i').on('click',function(){
+					$j(this).parent().slideUp();
+				});
+
+				$j('.tablesorter tbody tr').hover(function () {
+					$(this).css('background','#d9edf7');
+				},function () {
+					$(this).css('background','none');
+				})
+			        
+			});
+		</script>
+	</body>
+</html>
