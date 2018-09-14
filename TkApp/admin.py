@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import title, information, radio, more
+from .models import title, information, radio, more, Exam, ExamSubject
 # Register your models here.
 @admin.register(title)
 class titleleAdmin(admin.ModelAdmin):
@@ -8,7 +8,7 @@ class titleleAdmin(admin.ModelAdmin):
     
 @admin.register(information)
 class informationleAdmin(admin.ModelAdmin):
-    list_display = ('id','answer','types','minutiaID','subjectID','note','star_time','last_time')
+    list_display = ('id','answer','types','difficulty','minutiaID','subjectID','note','star_time','last_time')
     
     #list_per_page设置每页显示多少条记录，默认是100条
     list_per_page = 50
@@ -35,4 +35,10 @@ class radioleAdmin(admin.ModelAdmin):
 class moreleAdmin(admin.ModelAdmin):
     list_display = ('id','AnswerE','AnswerF','star_time','last_time')
 
+@admin.register(Exam)
+class ExamAdmin(admin.ModelAdmin):
+    list_display = ('id','title','star_time','last_time')
 
+@admin.register(ExamSubject)
+class ExamSubjectAdmin(admin.ModelAdmin):
+    list_display = ('id','examID','subjectID','star_time','last_time')

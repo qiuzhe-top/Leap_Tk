@@ -48,21 +48,23 @@ window.onload = function () {
         data = ''
         // 题目
         subject = CKEDITOR.instances['id_subject_form'].getData(); //获取富文本值
-        // subject=subject.ToString().RTrim('')     
-        subject = subject.substr(0, subject.length - 1);
-        subjectlen = subject.length
-
-
+        CKEDITOR.instances['id_subject_form'].setData('');
+        // subject=subject.ToString().RTrim('')   
+        console.log(subject)
+        // subject = subject.substr(0, subject.length - 1);
+        // subjectlen = subject.length
+        // console.log(subject)
+        // console.log(subjectlen)
         //答案
         Answer_subject()
         // 题目信息
         subject_information()
         // 选项
         text_subject()
-
-        data = String(ajax_data)
+        // 题目难度
+        difficulty_subjeck()
+        data = String(ajax_data)//转字符串
         console.log(data)
-
         $.ajax({
             url: '/myadmin/add',
             type: 'POST',
@@ -127,7 +129,10 @@ window.onload = function () {
             ajax_data[9] = $('#answerF').val()
         }
     }
-
+    // 获取题目难度
+    function difficulty_subjeck() {
+        ajax_data[10] = $('#difficulty_radio').val()        
+    }
 
 
 // 选择书本单元小节
@@ -190,3 +195,5 @@ window.onload = function () {
             }
         })
     }
+
+    

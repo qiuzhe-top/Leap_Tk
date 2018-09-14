@@ -1,0 +1,8 @@
+.bt-f-check{
+    display: inline;
+}
+
+.bt-f-check input[type="radio"] + span{
+    margin-top: -3px;
+    font-size: 13px;
+}

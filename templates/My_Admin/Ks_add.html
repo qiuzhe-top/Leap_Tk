@@ -1,0 +1,139 @@
+{% extends "My_Admin/index.html" %} {% load staticfiles %} {% block title %}批量添加{% endblock %} {% block css %}
+<link rel="stylesheet" href="{% static 'My_Admin/Ks_add.css' %}"> {% endblock %} {% block body %}
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">选择单元</h3>
+    </div>
+    <div class="panel-body">
+
+    </div>
+</div>
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">试卷设置</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-3 padding_l_0">
+            <div class="input-group">
+                <span class="input-group-addon">试卷名称</span>
+                <input class="form-control" placeholder="" type="text">
+            </div>
+        </div>
+        <div class="col-md-3 padding_l_0">
+            <div class="input-group">
+                <span class="input-group-addon">预计题量</span>
+                <input class="form-control" placeholder="" type="text">
+            </div>
+        </div>
+        <div class="col-md-3 padding_l_0">
+            <div class="input-group">
+                <span class="input-group-addon">考试时间</span>
+                <input class="form-control" placeholder="" type="text">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4 padding_0">
+        <div class="panel">
+            <div class="panel-heading">
+                    <h3 class="panel-title padding_bottom_10">题型分布</h3>
+                    <label class="fancy-radio bt-f-check">
+                        <input name="topic-options" value="1" type="radio" checked="checked">
+                        <span><i></i>随机</span>
+                    </label>
+                    <label class="fancy-radio bt-f-check">
+                        <input name="topic-options" value="2" type="radio">
+                        <span><i></i>手动</span>
+                    </label>
+                    <label class="fancy-radio bt-f-check">
+                        <input name="topic-options" value="3" type="radio">
+                        <span><i></i>百分比</span>
+                    </label>
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <span class="input-group-addon">单选</span>
+                    <input class="form-control" placeholder="" type="text">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">多选</span>
+                    <input class="form-control" placeholder="" type="text">
+                </div> 
+                <div class="input-group">
+                    <span class="input-group-addon">判断</span>
+                    <input class="form-control" placeholder="" type="text">
+                </div>                              
+            </div>
+        </div>
+    </div>   
+    <div class="col-md-4 padding_0">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title padding_bottom_10">难度分布</h3>
+                <label class="fancy-radio bt-f-check">
+                    <input name="difficulty-options" value="1" type="radio" checked="checked">
+                    <span><i></i>随机</span>
+                </label>
+                <label class="fancy-radio bt-f-check">
+                    <input name="difficulty-options" value="2" type="radio">
+                    <span><i></i>手动</span>
+                </label>
+                <label class="fancy-radio bt-f-check">
+                    <input name="difficulty-options" value="3" type="radio">
+                    <span><i></i>百分比</span>
+                </label>
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <span class="input-group-addon">1星</span>
+                    <input class="form-control" placeholder="" type="text">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">2星</span>
+                    <input class="form-control" placeholder="" type="text">
+                </div> 
+                <div class="input-group">
+                    <span class="input-group-addon">3星</span>
+                    <input class="form-control" placeholder="" type="text">
+                </div>  
+            </div>
+        </div>
+    </div> 
+
+    <div class="col-md-4 padding_0">
+        <div class="panel">
+            <div class="panel-heading ">
+                <h3 class="panel-title padding_bottom_10">单元分布</h3>
+                <label class="fancy-radio bt-f-check">
+                    <input name="unit-options" value="1" type="radio" checked="checked">
+                    <span><i></i>随机</span>
+                </label>
+                <label class="fancy-radio bt-f-check">
+                    <input name="unit-options" value="2" type="radio">
+                    <span><i></i>手动</span>
+                </label>
+                <label class="fancy-radio bt-f-check">
+                    <input name="unit-options" value="3" type="radio">
+                    <span><i></i>百分比</span>
+                </label>
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <span class="input-group-addon">单选</span>
+                    <input class="form-control" placeholder="" type="text">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">多选</span>
+                    <input class="form-control" placeholder="" type="text">
+                </div> 
+                <div class="input-group">
+                    <span class="input-group-addon">判断</span>
+                    <input class="form-control" placeholder="" type="text">
+                </div>  
+            </div>
+        </div>
+    </div> 
+{% endblock %} {% block JS %}
+<script type="text/javascript" src="{% static 'My_Admin/Tk_add_all.js' %}"></script>
+{% endblock %}

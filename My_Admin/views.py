@@ -54,7 +54,7 @@ def add_subject(request):
         if subject_data == 0:
             title.objects.create(subject=subject)
             subject_examples = title.objects.get(subject=subject)
-            information.objects.create(answer=data[3], types=data[2], minutiaID=Measure_examples, subjectID = subject_examples)
+            information.objects.create(answer=data[3], types=data[2], minutiaID=Measure_examples,difficulty= int(data[10]), subjectID = subject_examples)
             if data[2] == "单选":
                 radio.objects.create(AnswerA= data[4],AnswerB= data[5],AnswerC= data[6],AnswerD= data[7],subjectID = subject_examples)
             elif data[2] =="多选":
@@ -90,7 +90,7 @@ def add_all_subject(request):
             if subject_data == 0: #判断这个题目在数据库里面是否存在
                 title.objects.create(subject=d['subject']) #保存题目
                 subject_examples = title.objects.get(subject=d['subject'])#题目实例
-                information.objects.create(answer=d['answer'], types=d['types'], minutiaID=Measure_examples, subjectID = subject_examples)
+                information.objects.create(answer=d['answer'], types=d['types'],difficulty= int(d['difficulty']), minutiaID=Measure_examples, subjectID = subject_examples)
                 if d['types'] == "单选":
                     radio.objects.create(AnswerA= d['AnswerA'],AnswerB= d['AnswerB'],AnswerC= d['AnswerC'],AnswerD= d['AnswerD'],subjectID = subject_examples)
                 elif d['types'] =="多选":
@@ -184,7 +184,6 @@ def add_user_ajax(request):
             context['msg'] =  json.dumps(msg)
             
     return JsonResponse(context) 
-
 def Section_completion(request):
     context = {}
     minutia_ID = request.POST.get('data')
@@ -245,4 +244,7 @@ def Section_completion_ajax(request):
 def Error_rate_ranking(request):
     context = {}
     return render(request,'My_Admin/Error_rate_ranking.html',context)
-    
+#组卷部分
+def Ks_add(request):
+    context = {}
+    return render(request,'My_Admin/Ks_add.html',context)

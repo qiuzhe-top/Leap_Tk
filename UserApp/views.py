@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 from . import models
-from BookApp.models import book, unit, Measure, Exam, motto
+from BookApp.models import book, unit, Measure, motto
 import random
 import time
 

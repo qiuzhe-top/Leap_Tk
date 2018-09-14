@@ -16,8 +16,14 @@ a:hover{
 .padding_0{
     padding: 0px;
 }
+.padding_l_0{
+    padding-left: 0px;
+}
 .padding_10{
     padding: 10px;
+}
+.padding_bottom_10{
+    padding-bottom: 10px;
 }
 .text_align_center{
     text-align: center;
@@ -27,6 +33,9 @@ a:hover{
 }
 .margin_top_10{
     margin-top: 10px;
+}
+.margin_bottom_10{
+    margin-bottom: 10px;
 }
 .display-none{
     display: none;

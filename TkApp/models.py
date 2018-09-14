@@ -1,6 +1,5 @@
 from django.db import models
 from BookApp.models import Measure
- 
 from ckeditor_uploader.fields import RichTextUploadingField
 
 class title(models.Model):
@@ -26,6 +25,7 @@ class information(models.Model):
     types = models.CharField(max_length=60, choices = ob_types,  verbose_name=u'题型')
     minutiaID = models.ForeignKey(Measure, on_delete=models.CASCADE,verbose_name=u'小节ID') #小节
     subjectID = models.OneToOneField(title, on_delete=models.CASCADE,verbose_name=u'题目ID')
+    difficulty = models.IntegerField(verbose_name=u'难度等级',blank=True,null=True)   
     note = models.CharField(max_length=300, blank=True, verbose_name=u'备注')
 
     star_time = models.DateTimeField(auto_now_add=True,verbose_name=u'创建日期')    
@@ -62,4 +62,29 @@ class more(models.Model):
         
     class Meta:
         verbose_name_plural = "多选内容"
+
+#试卷这个数据表应该归类到BookApp，但是不知道为什么在BookApp无法引用title
+class Exam(models.Model):
+    title = models.CharField(max_length=60, verbose_name=u'试卷')     
+    star_time = models.DateTimeField(auto_now_add=True,verbose_name=u'创建日期')   
+    last_time = models.DateTimeField(auto_now=True,verbose_name=u'最后一次修改日期')    
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "试卷"
+
+class ExamSubject(models.Model):
+    examID = models.ForeignKey('Exam', on_delete=models.CASCADE,verbose_name=u'所属试卷')
+    subjectID = models.ForeignKey('title', on_delete=models.CASCADE,verbose_name=u'题目ID')
+
+    star_time = models.DateTimeField(auto_now_add=True,verbose_name=u'创建日期')   
+    last_time = models.DateTimeField(auto_now=True,verbose_name=u'最后一次修改日期')    
+
+    def __str__(self):
+        return self.examID
+
+    class Meta:
+        verbose_name_plural = "试卷题目"
         

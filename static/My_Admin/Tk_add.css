@@ -11,6 +11,6 @@
 .fancy-checkbox {
     margin-left: 25px;
 }
-#answer_radio_box option{
+#answer_radio_box option,#difficulty_radio option{
     font-size: 25px;
 }

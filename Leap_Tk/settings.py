@@ -136,6 +136,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 CKEDITOR_UPLOAD_PATH = 'upload/'
 
 CKEDITOR_CONFIGS = {
+    # 详细配置  https://www.cnblogs.com/Tirisfal/p/5548424.html
     'default': {
         'toolbar': (
 			['div','Source','-','Save','NewPage','Preview','-','Templates'], 
@@ -152,5 +153,9 @@ CKEDITOR_CONFIGS = {
 			['Maximize','ShowBlocks','-','About', 'pbckcode'],
 		),
         'width':'auto',
+        'startupMode':'source', #默认源代码方式打开
+        'startupFocus':True,
+        
 	}
+    
 }

@@ -16,6 +16,7 @@ urlpatterns = [
     path('Section_completion', views.Section_completion, name='Section_completion'), #小节完成情况
     path('Section_completion_ajax', views.Section_completion_ajax, name='Section_completion_ajax'), #
     path('Error_rate_ranking', views.Error_rate_ranking, name='Error_rate_ranking'), #错误率排行
+    path('Ks_add', views.Ks_add, name='Ks_add'), #组卷
 
 ]
  
