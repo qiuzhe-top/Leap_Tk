@@ -247,4 +247,10 @@ def Error_rate_ranking(request):
 #组卷部分
 def Ks_add(request):
     context = {}
+    books_data = book.objects.all()
+    if books_data.count() !=0:
+        for i in books_data:
+            pass
+    context['books'] = books_data
+
     return render(request,'My_Admin/Ks_add.html',context)

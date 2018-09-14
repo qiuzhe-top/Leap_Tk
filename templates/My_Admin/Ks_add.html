@@ -5,6 +5,30 @@
         <h3 class="panel-title">选择单元</h3>
     </div>
     <div class="panel-body">
+        <div class="input-group margin_top_10 " id="difficulty_radio_box">
+            <span class="input-group-addon">选择课程</span>
+            <select id="difficulty_radio" class="form-control">
+                {% for i in books %}
+                <option value="{{ i.pk }}">{{ i.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% comment %} <h5 class="margin_top_10">第一单元</h5> {% endcomment %}
+        <div class="input-group margin_top_10 unit_checkbox_box">
+            <span class="input-group-addon">第一单元</span>
+            <label class="fancy-checkbox display-inline">
+                <input name="check_unit" value="A" type="checkbox">
+                <span>第一小节第一小节第一小节第一小节第一小节</span>
+            </label>
+            <label class="fancy-checkbox display-inline">
+                <input name="check_unit" value="B" type="checkbox">
+                <span>第一小节</span>
+            </label>
+            <label class="fancy-checkbox display-inline">
+                <input name="check_unit" value="C" type="checkbox">
+                <span>C</span>
+            </label>
+        </div>
 
     </div>
 </div>
@@ -32,22 +56,27 @@
             </div>
         </div>
         <div class="col-md-12"></div>
-        <div class="col-md-4 padding_l_0 margin_top_10">
+        <div class="col-md-12 padding_l_0 margin_top_10">
             <div class="input-group">
                 <span class="input-group-addon">题目顺序</span>
                 <label class="fancy-radio bt-f-check">
-                    <input name="topic-options" value="1" type="radio" checked="checked">
+                    <input name="order-title" value="1" type="radio" checked="checked">
                     <span><i></i>随机</span>
                 </label>
                 <label class="fancy-radio bt-f-check">
-                    <input name="topic-options" value="2" type="radio">
-                    <span><i></i>手动</span>
+                    <input name="order-title" value="2" type="radio">
+                    <span><i></i>经典 单-多-判</span>
                 </label>
                 <label class="fancy-radio bt-f-check">
-                    <input name="topic-options" value="3" type="radio">
-                    <span><i></i>百分比</span>
+                    <input name="order-title" value="3" type="radio">
+                    <span><i></i>难度系数升序</span>
+                </label>
+                <label class="fancy-radio bt-f-check">
+                    <input name="order-title" value="3" type="radio">
+                    <span><i></i>难度系数降序</span>
                 </label>
             </div>
+
         </div>
     </div>
 </div>
