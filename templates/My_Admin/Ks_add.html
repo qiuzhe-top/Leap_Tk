@@ -14,22 +14,21 @@
             </select>
         </div>
         {% comment %} <h5 class="margin_top_10">第一单元</h5> {% endcomment %}
+        {% for i,v in units.items %}
         <div class="input-group margin_top_10 unit_checkbox_box">
-            <span class="input-group-addon">第一单元</span>
-            <label class="fancy-checkbox display-inline">
-                <input name="check_unit" value="A" type="checkbox">
-                <span>第一小节第一小节第一小节第一小节第一小节</span>
-            </label>
-            <label class="fancy-checkbox display-inline">
-                <input name="check_unit" value="B" type="checkbox">
-                <span>第一小节</span>
-            </label>
-            <label class="fancy-checkbox display-inline">
-                <input name="check_unit" value="C" type="checkbox">
-                <span>C</span>
-            </label>
+            <span class="input-group-addon">{{ v }}</span>
+            {% for j,n in Measure.items %}
+                {% if i == j %}
+                    {% for x in n %}
+                        <label class="fancy-checkbox display-inline">
+                            <input name="check_unit" value="{{ x.pk }}" type="checkbox">
+                            <span>{{ x.title }}</span>
+                        </label>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
         </div>
-
+        {% endfor %}
     </div>
 </div>
 <div class="panel">

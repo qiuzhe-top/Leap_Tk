@@ -247,10 +247,21 @@ def Error_rate_ranking(request):
 #组卷部分
 def Ks_add(request):
     context = {}
-    books_data = book.objects.all()
-    if books_data.count() !=0:
-        for i in books_data:
-            pass
+    Measure_data = {}
+    unit_data = {}
+    books_data = book.objects.all()#获取书
+    if books_data[0] !='':
+        units = unit.objects.filter(bookID = books_data[0].pk)
+        
+        # print(unit_data)
+    for i in units:
+        unit_data[i.pk] = i.title
+        Measures = Measure.objects.filter(unitID=i.pk)
+        # print(Measure_data)
+        Measure_data[i.pk] = Measures
     context['books'] = books_data
+    context['units'] = unit_data
+    context['Measure'] = Measure_data
+    # print(Measure_data)
 
     return render(request,'My_Admin/Ks_add.html',context)
