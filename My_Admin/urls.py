@@ -17,6 +17,6 @@ urlpatterns = [
     path('Section_completion_ajax', views.Section_completion_ajax, name='Section_completion_ajax'), #
     path('Error_rate_ranking', views.Error_rate_ranking, name='Error_rate_ranking'), #错误率排行
     path('Ks_add', views.Ks_add, name='Ks_add'), #组卷
-
+    path('For_section', views.For_section, name='For_section'), #获取web点击的课程然后返回小节
 ]
  

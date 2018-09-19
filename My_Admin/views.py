@@ -249,19 +249,52 @@ def Ks_add(request):
     context = {}
     Measure_data = {}
     unit_data = {}
-    books_data = book.objects.all()#获取书
-    if books_data[0] !='':
-        units = unit.objects.filter(bookID = books_data[0].pk)
-        
-        # print(unit_data)
+    book_ID = request.GET.get('data')
+    if  book_ID != None:
+        print(book_ID)   
+        units = unit.objects.filter(bookID = book_ID)
+        print(units)
+        for i in units:
+            unit_data[i.pk] = i.title
+            Measures = Measure.objects.filter(unitID=i.pk)
+            # print(Measure_data)
+            Measure_data[i.pk] = Measures
+        context['units'] = unit_data
+        context['Measure'] = Measure_data
+    else:
+        books_data = book.objects.all()#获取书
+        if books_data[0] !='':
+            units = unit.objects.filter(bookID = books_data[0].pk)
+            
+            # print(unit_data)
+        for i in units:
+            unit_data[i.pk] = i.title
+            Measures = Measure.objects.filter(unitID=i.pk)
+            # print(Measure_data)
+            Measure_data[i.pk] = Measures
+        context['books'] = books_data
+        context['units'] = unit_data
+        context['Measure'] = Measure_data
+        # print(Measure_data)
+
+    return render(request,'My_Admin/Ks_add.html',context)
+def For_section(request):
+    context = {}
+    Measure_data = {}
+    unit_data = {}
+    data = {}
+    book_ID = request.GET.get('data')
+    units = unit.objects.filter(bookID =book_ID)
     for i in units:
         unit_data[i.pk] = i.title
         Measures = Measure.objects.filter(unitID=i.pk)
         # print(Measure_data)
         Measure_data[i.pk] = Measures
-    context['books'] = books_data
-    context['units'] = unit_data
-    context['Measure'] = Measure_data
-    # print(Measure_data)
+    book_ID = request.GET.get('data')
+    data['units'] =json.dumps(unit_data) 
+    data['Measure'] =json.dumps(Measure_data)  
 
-    return render(request,'My_Admin/Ks_add.html',context)
+    print(data)
+    context= json.dumps(data)
+    return JsonResponse(data) 
+    

@@ -7,7 +7,7 @@
     <div class="panel-body">
         <div class="input-group margin_top_10 " id="difficulty_radio_box">
             <span class="input-group-addon">选择课程</span>
-            <select id="difficulty_radio" class="form-control">
+            <select id="difficulty_radio" class="form-control" onchange="For_section(this);">
                 {% for i in books %}
                 <option value="{{ i.pk }}">{{ i.name }}</option>
                 {% endfor %}
@@ -181,5 +181,5 @@
         </div>
     </div> 
 {% endblock %} {% block JS %}
-<script type="text/javascript" src="{% static 'My_Admin/Tk_add_all.js' %}"></script>
+<script type="text/javascript" src="{% static 'My_Admin/Ks_add.js' %}"></script>
 {% endblock %}
