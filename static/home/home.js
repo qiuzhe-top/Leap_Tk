@@ -1,7 +1,4 @@
-window.onload = function () {
-    document.getElementById('books_data').value = index
 
-}
 
 window.onload = function () {
     if ("ActiveXObject" in window) {
@@ -11,7 +8,7 @@ window.onload = function () {
     } else {
    
     }
-
+    document.getElementById('books_data').value = index
 }
 $(function () {
     $(".matter_li").click(function () {

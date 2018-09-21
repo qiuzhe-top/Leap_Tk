@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 from . import models
 from BookApp.models import book, unit, Measure, motto
+from TkApp.models import Exam
 import random
 import time
 
@@ -88,10 +89,11 @@ def updata_user_book(request):
     id = request.POST.get('data')
     bookid = models.book.objects.get(pk=id)
     data = models.User_Information.objects.get(userID=request.session['user_ID'])
-    print(data.bookID)
+    # print(id,data.bookID)
     data.bookID = bookid
     data.save()
     request.session['user_book'] = id
+    # print(data.bookID)
     return JsonResponse(context)
 #更新用户排名
 def rank_updata(request):

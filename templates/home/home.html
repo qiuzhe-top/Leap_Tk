@@ -81,7 +81,7 @@
                             <span class="li_r">
                                 <select id="books_data" class="form-control mi_form-control" onchange="books_up(this);">
                                     {% for i in books %}
-                                    <option value="{{ i.id }}">{{ i }}</option>
+                                    <option value="{{ i.id }}" >{{ i }}</option>
                                     {% endfor %}
                                 </select>
                             </span>
@@ -209,8 +209,10 @@
     <script type="text/javascript" src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/scripts/klorofil-common.js' %}"></script>
     {% block javascript %}
+    <script>
+            var index =  {{ user_book }}
+    </script>
     <script type="text/javascript" src="{% static 'home/home.js' %}"></script>
-
     {% endblock %}
 </body>
 
