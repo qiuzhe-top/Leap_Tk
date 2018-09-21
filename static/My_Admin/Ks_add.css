@@ -10,3 +10,7 @@
     font-size: 18px;
     margin-left: 20px;
 }
+.unit_checkbox_box .input-group-addon{
+    max-width: 150px;
+    overflow: auto;
+}

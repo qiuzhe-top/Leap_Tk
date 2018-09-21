@@ -7,7 +7,24 @@ function For_section(obj){
         type:'POST',
         data:{data:a},
         success:function(arg){
+            // console.log(arg['0'])
+            // data = JSON.parse(arg);
+            // console.log(data)
+            for(i in arg.msg){
+                da = arg.msg[i]
+                da =  JSON.parse(da)
+                for(i in da){
+                    console.log(i)
+                    da1 = JSON.parse(da[i])
+                    console.log(da1)
+                    
+                    // for(i in da1){
+                    //     console.log(da1[i])
+                        
+                    // }
+                }
+            }
     }
 })
-}
+} 
 

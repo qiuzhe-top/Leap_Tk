@@ -3,8 +3,9 @@ from TkApp.forms import Subject_form
 from UserApp.models import Classroom,User,User_Information,Finished,Error
 from TkApp.models import title, information, radio, more
 from BookApp.models import Measure, unit, book
+from django.core import serializers
 
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponseRedirect
 import json
 import time
 import datetime
@@ -278,23 +279,34 @@ def Ks_add(request):
         # print(Measure_data)
 
     return render(request,'My_Admin/Ks_add.html',context)
+# 获取点击的课程然后返回小节
 def For_section(request):
     context = {}
     Measure_data = {}
     unit_data = {}
-    data = {}
-    book_ID = request.GET.get('data')
-    units = unit.objects.filter(bookID =book_ID)
-    for i in units:
-        unit_data[i.pk] = i.title
-        Measures = Measure.objects.filter(unitID=i.pk)
-        # print(Measure_data)
-        Measure_data[i.pk] = Measures
-    book_ID = request.GET.get('data')
-    data['units'] =json.dumps(unit_data) 
-    data['Measure'] =json.dumps(Measure_data)  
+    data = []
+    book_ID = request.POST.get('data')
+    print(book_ID)
+    units = unit.objects.filter(bookID =book_ID) # 根据前端bookID，筛选本书单元
+    for i in units: #循环单元获取相关小节
+        # unit_data[i.pk] = i.title # 对应 单元 名字
+        Measures = serializers.serialize("json", Measure.objects.filter(unitID=i.pk)) # 对应 单元的小节 名字
 
-    print(data)
-    context= json.dumps(data)
-    return JsonResponse(data) 
+        # Measures = Measure.objects.filter(unitID=i.pk).values('id','title')
+        # print()
+        
+        # Measure_data[i.pk] = Measures
+        unit_data[i.title] = Measures # 对应 单元 名字
+        data.append(json.dumps(unit_data) )
+        # print(unit_data)
+        
+        unit_data.clear()
+        
+        
+    # data['units'] =json.dumps(unit_data) 
+    # data['Measure'] =json.dumps(Measure_data)  
+    # [ {un:meas} ]
+    context['msg']= data
+    return JsonResponse(context) 
+
     
