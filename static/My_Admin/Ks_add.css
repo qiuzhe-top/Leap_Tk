@@ -1,6 +1,11 @@
 .bt-f-check{
     display: inline;
 }
+.bt-f-check-additional{
+    margin-left: 10px;
+    margin-top: 27px;
+    line-height: 27px;
+}
 
 .bt-f-check input[type="radio"] + span{
     margin-top: -3px;
@@ -12,5 +17,6 @@
 }
 .unit_checkbox_box .input-group-addon{
     max-width: 150px;
+    min-width: 120px;
     overflow: auto;
 }

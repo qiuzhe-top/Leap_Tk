@@ -283,29 +283,22 @@ def Ks_add(request):
 def For_section(request):
     context = {}
     Measure_data = {}
+    Measures_list = []
     unit_data = {}
     data = []
     book_ID = request.POST.get('data')
-    print(book_ID)
     units = unit.objects.filter(bookID =book_ID) # 根据前端bookID，筛选本书单元
     for i in units: #循环单元获取相关小节
-        # unit_data[i.pk] = i.title # 对应 单元 名字
-        Measures = serializers.serialize("json", Measure.objects.filter(unitID=i.pk)) # 对应 单元的小节 名字
-
-        # Measures = Measure.objects.filter(unitID=i.pk).values('id','title')
-        # print()
-        
-        # Measure_data[i.pk] = Measures
-        unit_data[i.title] = Measures # 对应 单元 名字
-        data.append(json.dumps(unit_data) )
-        # print(unit_data)
-        
+        dda = Measure.objects.filter(unitID=i.pk).values('id','title')
+        for j in dda:
+            j['number'] = information.objects.filter(minutiaID = j['id']).count()
+            Measures_list.append(j)
+        unit_data[i.title] = Measures_list # 对应 单元 小节
+        # print('单元 小节==',unit_data)
+        data.append(json.dumps(unit_data))
+        Measures_list.clear()
         unit_data.clear()
-        
-        
-    # data['units'] =json.dumps(unit_data) 
-    # data['Measure'] =json.dumps(Measure_data)  
-    # [ {un:meas} ]
+    # print('最后发送>>：',data)
     context['msg']= data
     return JsonResponse(context) 
 
