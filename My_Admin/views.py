@@ -248,58 +248,139 @@ def Error_rate_ranking(request):
 #组卷部分
 def Ks_add(request):
     context = {}
-    Measure_data = {}
-    unit_data = {}
+    # Measure_data = {}
+    # unit_data = {}
     book_ID = request.GET.get('data')
     if  book_ID != None:
         print(book_ID)   
-        units = unit.objects.filter(bookID = book_ID)
-        print(units)
-        for i in units:
-            unit_data[i.pk] = i.title
-            Measures = Measure.objects.filter(unitID=i.pk)
-            # print(Measure_data)
-            Measure_data[i.pk] = Measures
-        context['units'] = unit_data
+        # units = unit.objects.filter(bookID = book_ID)
+        # print(units)
+        # for i in units:
+        #     unit_data[i.pk] = i.title
+        #     Measures = Measure.objects.filter(unitID=i.pk)
+        #     # print(Measure_data)
+        #     Measure_data[i.pk] = Measures
+        # context['units'] = unit_data
         context['Measure'] = Measure_data
     else:
         books_data = book.objects.all()#获取书
-        if books_data[0] !='':
-            units = unit.objects.filter(bookID = books_data[0].pk)
+        # if books_data[0] !='':
+        #     units = unit.objects.filter(bookID = books_data[0].pk)
             
-            # print(unit_data)
-        for i in units:
-            unit_data[i.pk] = i.title
-            Measures = Measure.objects.filter(unitID=i.pk)
-            # print(Measure_data)
-            Measure_data[i.pk] = Measures
+        #     # print(unit_data)
+        # for i in units:
+        #     unit_data[i.pk] = i.title
+        #     Measures = Measure.objects.filter(unitID=i.pk)
+        #     # print(Measure_data)
+        #     Measure_data[i.pk] = Measures
         context['books'] = books_data
-        context['units'] = unit_data
-        context['Measure'] = Measure_data
+        # context['units'] = unit_data
+        # context['Measure'] = Measure_data
         # print(Measure_data)
 
     return render(request,'My_Admin/Ks_add.html',context)
 # 获取点击的课程然后返回小节
 def For_section(request):
     context = {}
-    Measure_data = {}
     Measures_list = []
     unit_data = {}
     data = []
     book_ID = request.POST.get('data')
+
+    section = []
+    unit_section = {}
+
+    title_id_list = []
+    section_msg = {}
+    section_msg_data = {}
+    obj_pd = 0
+    obj_dx = 0
+    obj_dax = 0
+    obj_aj1 = 0
+    obj_aj2 = 0
+    obj_aj3 = 0
+    obj_aj4 = 0
+    obj_aj5 = 0
+    
+    title_all_list_data = []
+    title_all_list = []
+
     units = unit.objects.filter(bookID =book_ID) # 根据前端bookID，筛选本书单元
     for i in units: #循环单元获取相关小节
         dda = Measure.objects.filter(unitID=i.pk).values('id','title')
-        for j in dda:
-            j['number'] = information.objects.filter(minutiaID = j['id']).count()
+        for j in dda: #循环一个单元所有小节
+            # print(j['id'])
+            section.append(j['id'])
+            # print('A>>>',section)
+            title_obj_data = information.objects.filter(minutiaID = j['id'])
+            j['number'] = title_obj_data.count()
+            for k in title_obj_data: #循环一个小节所有题目
+                # print(k.types)
+                title_id_list.append(k.id)
+                if k.types == '判断':
+                    obj_pd = obj_pd + 1
+                elif k.types == '多选':
+                    obj_dx = obj_dx + 1
+                elif k.types == '单选':
+                    obj_dax = obj_dax + 1
+                if k.difficulty == 1:
+                    obj_aj1 = obj_aj1 + 1
+                elif k.difficulty == 2:
+                    obj_aj2 = obj_aj2 + 1
+                elif k.difficulty == 3:
+                    obj_aj3 = obj_aj3 + 1
+                elif k.difficulty == 4:
+                    obj_aj4 = obj_aj4 + 1
+                elif k.difficulty == 5:
+                    obj_aj5 = obj_aj5 + 1
+                title_all_list_data.append(k.id)
+                title_all_list_data.append(j['id'])
+                title_all_list_data.append(k.types)
+                title_all_list_data.append(k.difficulty)
+                title_all_list.append(title_all_list_data)
+                title_all_list_data=[]
+            section_msg_data['number'] = title_id_list
+            section_msg_data['obj_pd'] = obj_pd
+            section_msg_data['obj_dx'] = obj_dx
+            section_msg_data['obj_dax'] = obj_dax
+            section_msg_data['obj_aj1'] = obj_aj1
+            section_msg_data['obj_aj2'] = obj_aj2
+            section_msg_data['obj_aj3'] = obj_aj3
+            section_msg_data['obj_aj4'] = obj_aj4
+            section_msg_data['obj_aj5'] = obj_aj5
+            obj_pd = 0
+            obj_dx = 0
+            obj_dax = 0
+            obj_aj1 = 0
+            obj_aj2 = 0
+            obj_aj3 = 0
+            obj_aj4 = 0
+            obj_aj5 = 0
+            section_msg[j['id']] = section_msg_data
+            # print(obj_pd,obj_dx,obj_dax,obj_aj1,obj_aj2)
+            # print(section_msg)
+            title_id_list=[]
+            section_msg_data = {}
             Measures_list.append(j)
+        unit_section[i.id] = section
+        section=[]
         unit_data[i.title] = Measures_list # 对应 单元 小节
+        unit_data['unitID'] = i.id # 对应 单元ID
         # print('单元 小节==',unit_data)
+        # print(i.id)
         data.append(json.dumps(unit_data))
         Measures_list.clear()
         unit_data.clear()
-    # print('最后发送>>：',data)
     context['msg']= data
+    context['unit_section']= json.dumps(unit_section)
+    # {单元ID：[1,2,7,8]}
+    # print('B>>>',unit_section)
+    context['section_msg']= json.dumps(section_msg) 
+    # {小节ID： {number:[具体题目ID，2，5，48，5],单选 多选 判断 星级:数量。。。} }
+    # print('C>>>',section_msg)
+    context['title_all_list']= json.dumps(title_all_list) 
+    # [[id,小节，类型，难度],]
+    # print('D>>>',title_all_list)
     return JsonResponse(context) 
 
     
