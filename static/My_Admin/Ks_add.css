@@ -27,3 +27,6 @@
     min-width: 120px;
     overflow: auto;
 }
+.title_type_number span{
+    margin-right: 10px;
+}
