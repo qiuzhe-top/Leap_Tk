@@ -153,7 +153,7 @@ CKEDITOR_CONFIGS = {
 			['Maximize','ShowBlocks','-','About', 'pbckcode'],
 		),
         'width':'auto',
-        'startupMode':'source', #默认源代码方式打开
+        #'startupMode':'source', #默认源代码方式打开
         'startupFocus':True,
         
 	}

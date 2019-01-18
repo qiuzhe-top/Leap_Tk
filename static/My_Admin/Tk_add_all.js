@@ -26,20 +26,20 @@ $('#excel-file').change(function (e) {
             }
         }
         var last = JSON.stringify(persons);
-        // console.log(last)
+        console.log(last)
         $.ajax({
-            url: '/myadmin/add_all_subject',
+            url: '/ajax_Tk_add_all',
             type: 'POST',
             data: {
-                data: last
+                data:last
             },
             success: function (arg) {
-                data = JSON.parse(arg.msg);
+                // data = JSON.parse(arg.msg);
                 // console.log(data);
-                for (i in data) {
-                    text = "<tr>" + "<th>" + i + "</th>" + "<th>" + data[i] + "</th>" + "</tr>"
-                    $('.get_back').append(text)
-                }
+                // for (i in data) {
+                //     text = "<tr>" + "<th>" + i + "</th>" + "<th>" + data[i] + "</th>" + "</tr>"
+                //     $('.get_back').append(text)
+                // }
             }
         })
         // 清空表格

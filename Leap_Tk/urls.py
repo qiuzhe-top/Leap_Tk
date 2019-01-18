@@ -10,4 +10,4 @@ urlpatterns = [
     path('myadmin/', include('My_Admin.urls') ,name = "myadmin"), 
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
