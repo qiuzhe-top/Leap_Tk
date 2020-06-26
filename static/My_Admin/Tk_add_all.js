@@ -26,9 +26,9 @@ $('#excel-file').change(function (e) {
             }
         }
         var last = JSON.stringify(persons);
-        console.log(last)
+        console.log("文件数据",last)
         $.ajax({
-            url: '/ajax_Tk_add_all',
+            url: '/myadmin/add_all_subject', 
             type: 'POST',
             data: {
                 data:last

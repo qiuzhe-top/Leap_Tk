@@ -59,6 +59,7 @@ $(function () {
         }
 
         obj_id = $(".boder").val()
+        console.log("题目选择：",answer,obj_id)
         if (answer != '') {
             IF_subject_ajax(obj_id, answer)
             console.log(answer)
@@ -148,7 +149,7 @@ function boj_ajax(obj_id) {
                     $('.answerB span').html(i + arg.list[3])
                     $('.answerC span').html(i + arg.list[4])
                     $('.answerD span').html(i + arg.list[5])
-
+                    console.log("渲染的题目列表",arg)
                     $('.fancy-radio').removeClass("display-none")
                     $('.answerE').addClass('display-none')
                     $('.answerF').addClass('display-none')
@@ -163,6 +164,7 @@ function boj_ajax(obj_id) {
                     $('.fancy-checkbox').removeClass("display-none")
                     $('.answerno').addClass('display-none')
                     $('.answeryes').addClass('display-none')
+                    console.log("渲染的题目列表",arg)
                     $('.answerA span').html(i + arg.list[2])
                     $('.answerB span').html(i + arg.list[3])
                     $('.answerC span').html(i + arg.list[4])

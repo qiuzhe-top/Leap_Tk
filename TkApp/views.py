@@ -42,15 +42,15 @@ def boj_ajax(request):
     if obj_information.types == "单选":
         obj_radio= models.radio.objects.get(subjectID = id)
         obj_msg.append(obj_radio.AnswerA)
-        obj_msg.append(obj_radio.AnswerD)
-        obj_msg.append(obj_radio.AnswerC)
         obj_msg.append(obj_radio.AnswerB)
+        obj_msg.append(obj_radio.AnswerC)
+        obj_msg.append(obj_radio.AnswerD)
     elif obj_information.types == "多选":
         obj_radio= models.more.objects.get(subjectID = id)
         obj_msg.append(obj_radio.AnswerA)
-        obj_msg.append(obj_radio.AnswerD)
-        obj_msg.append(obj_radio.AnswerC)
         obj_msg.append(obj_radio.AnswerB)
+        obj_msg.append(obj_radio.AnswerC)
+        obj_msg.append(obj_radio.AnswerD)
         obj_msg.append(obj_radio.AnswerE)
         obj_msg.append(obj_radio.AnswerF)
     try:
